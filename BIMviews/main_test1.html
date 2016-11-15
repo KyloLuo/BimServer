@@ -1,0 +1,271 @@
+<div class="head1">
+<object style="border: 0px" type="text/html" data="header_test.html" width="100%" height="17%"></object>
+</div>
+<div class="main">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand btnBrand">返回</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="dropdown projectLink"><a href="#" class="dropdown-toggle Project" data-toggle="dropdown">工程 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a class="btnAddProject">新建工程</a></li>
+							<li><a class="btnShowProjects">显示所有工程</a></li>
+						</ul>
+					</li>
+					<li class="dropdown serversettingsLink"><a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a class="btnSystem">系统</a></li>
+						<li><a class="btnAddUser">添加用户</a></li>
+						<li><a class="btnListUsers">用户列表</a></li>
+					</ul></li>
+					<li class="dropdown userLink"><a href="#" class="dropdown-toggle" data-toggle="dropdown">用户 <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a class="changePasswordLink"><i></i>修改密码</a></li>
+						<li><a class="logoutLink"><i></i>退出登录</a></li>
+						<li><a class="test"><i></i>test</a></li>
+					</ul>
+				</li>	
+				<li class="tes"><a href="#" class="dropdown-toggle userLabel" data-toggle="dropdown"></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="maincontainer"></div>
+	<div class="mainStatus statusWrapper">
+		<div class="alert status">
+			<div class="message"></div>
+		</div>
+
+	</div>
+</div>
+<script>
+function Main(address, user) {
+	var othis = this;
+	othis.pageChanger = new PageChanger($(".main .nav"), $(".main .maincontainer"));
+	$(".main .userLabel").html("欢迎， "+user.username);
+	this.show = function() {
+		Global.notifier.setSelector(".main .mainStatus .status");
+		//获取
+		Global.bimServerApi.call("AuthInterface", "getLoggedInUser", {}, function(user){
+			othis.user = user;
+			//$(".nav.navbar-nav > li, .userDivider, .btnAddUser, .btnListUsers").hide();
+			Settings.getMenuItems().forEach(function(menuItem){
+				if (menuItem == "dashboardLink" || menuItem == "gettingStartedLink" || menuItem == "serversettingsLink") {
+					if (user.userType == "ADMIN") {
+						$("." + menuItem).show();
+					} else {
+						$("." + menuItem).hide();
+					}
+				} else {
+					$("." + menuItem).show();
+				}
+			});
+
+		});
+	};
+	
+
+   this.test=function(){
+	   Global.bimServerApi.call("TestLoginInterface","Test",{},function(re){
+		   alert(re);
+	   });
+   };
+   
+   this.test1=function(){
+	   Global.bimServerApi.call("TestLoginInterface","generatePieChart",{},function(re){
+		   var graphUrl="http://localhost:8080/img/"+re; 
+		   $(".mainStatus").append("<img class=\"img1\"/>");
+		   $(".img1").attr("src",graphUrl+ "?temp=" + Math.random());
+	   });
+   };
+   
+	this.logout = function() {
+		$(".sidespan").empty();
+		Global.bimServerApi.logout(function(){
+			$(".indexcontainer").load(Global.baseDir + "login_test.html", function(){
+				Global.notifier.setSelector(".indexStatus .status");
+				new Login(Global.bimServerApi.baseUrl);
+			});
+		});
+	};
+		
+	this.showResetPassword = function(callback) {
+		othis.pageChanger.changePage($(".projectsLink"), "resetpassword.html", function(){
+			return new ResetPassword($(this), othis);
+		}, callback);
+	};
+
+	this.showProjects = function(callback) {
+		othis.pageChanger.changePage($(".projectsLink"), "projects_test1.html", function(){
+			pushHistory({page: "Projects"}, "Projects");
+			return new Projects($(this), othis);
+		}, callback);
+	};
+
+	this.showAddProject = function(callback, parentProject) {
+		othis.pageChanger.changePage($(".projectsLink"), "addproject_test.html", function(){
+			pushHistory({page: "AddProject"}, "Add Project");
+			return new AddProject($(this), othis, parentProject);
+		}, callback);
+	};
+
+	this.showProject = function(project, callback) {
+		othis.pageChanger.changePage($(".projectsLink"), "project_test1.html", function(){
+			return new Project($(this), othis, project);
+		}, callback);
+	};
+
+	this.showRevision = function(revision, callback) {
+		othis.pageChanger.changePage($(".projectsLink"), "revision.html", function(){
+			return new Revision(othis, revision);
+		}, callback);
+	};
+
+	this.showAddUser = function(callback) {
+		othis.pageChanger.changePage($(".usersLink"), "adduser.html", function(){
+			pushHistory({page: "AddUser"}, "Add User");
+			return new AddUser(othis);
+		}, callback);
+	};
+
+	this.showUser = function(user, callback) {
+		othis.pageChanger.changePage($(".usersLink"), "user.html", function(){
+			return new User($(this), othis, user);
+		}, callback);
+	};
+	
+	this.showUsers = function(callback) {
+		othis.pageChanger.changePage($(".usersLink"), "users.html", function(){
+			pushHistory({page: "Users"}, "Users");
+			return new Users($(this), othis);
+		}, callback);
+	};
+	
+	this.showServerInfo = function(callback) {
+		othis.pageChanger.changePage($(".serverinfoLink"), "serverinfo_test.html", function(){
+			return new ServerInfo($(this), othis);
+		}, callback);
+	};
+	
+	this.makeSchemaLink = function(soid){
+		if (soid == -1) {
+			return "No schema";			
+		} else {
+			var link = $("<a>Loading...</a>");
+			link.attr("soid", soid);
+			link.click(othis.schemaLinkClick);
+			loadExtendedDataSchema(link);
+			return link;
+		}
+	};
+	
+	this.schemaLinkClick = function(event) {
+		othis.showExtendedDataSchema($(this).attr("soid"));
+	};
+	
+	
+
+	this.changePasswordClick = function(){
+		Global.bimServerApi.callWithFullIndication("AuthInterface", "requestPasswordChange", {username: othis.user.username, resetUrl: Global.baseDir + "?page=ResetPassword"}, function(){
+		});
+	};
+	
+	this.showCheckinPopup = function(project, callback) {
+		var div = $("<div class=\"modal fade\">");
+		$(document.body).append(div);
+		div.load(Global.baseDir + "checkin.html", function(){
+			new Checkin($(this), project, function(){
+				if (callback != null) {
+					callback();
+				}
+			});
+		}).modal({keyboard:true});
+	};
+	
+	this.showDownloadCheckoutPopup = function(poid, roid) {
+		var div = $("<div class=\"modal fade\">");
+		$(document.body).append(div);
+		var params = {
+			downloadType: "single",
+			allowCheckouts: true,
+			poid: poid,
+			roid: roid
+		};
+		div.load(Global.baseDir + "download.html", function(){
+			new Download($(this), params);
+		}).modal("show");
+	};
+
+	this.showDownloadRevisionsPopup = function(roids) {
+		var div = $("<div class=\"modal fade\">");
+		$(document.body).append(div);
+		var params = {
+			downloadType: "downloadRevisions",
+			roids: roids
+		};
+		div.load(Global.baseDir + "download.html", function(){
+			new Download($(this), params);
+		}).modal({keyboard:true, show: true});
+	};
+
+	this.addMenuDivider = function(mainTitle){
+		var navbar = $(".nav.navbar-nav");
+		var parentA = navbar.find("a." + mainTitle);
+		var li = $("<li class=\"divider\"></li>");
+		parentA.parent().find("ul").append(li);
+		return li;
+	};
+	
+	this.addMenuHeader = function(mainTitle, title){
+		var navbar = $(".nav.navbar-nav");
+		var parentA = navbar.find("a." + mainTitle);
+		var li = $("<li role=\"presentation\" class=\"dropdown-header\">" + title + "</li>");
+		parentA.parent().find("ul").append(li);
+		return li;
+	};
+	
+	this.addMenuItem = function(mainTitle, title, callback){
+		var navbar = $(".nav.navbar-nav");
+		var parentA = navbar.find("a." + mainTitle);
+		var li = $("<li></li>");
+		var a = $("<a>");
+		a.html(title);
+		a.click(callback);
+		li.append(a);
+		parentA.parent().find("ul").append(li);
+		return li;
+	};
+	othis.showProjects(null, true);
+	
+	$(".head").load(Global.baseDir + "header_test.html");
+	
+	$(".changePasswordLink").click(othis.changePasswordClick);
+	
+	$(".btnShowProjects").click(function(event){othis.showProjects(null, true)});
+	
+	$(".logoutLink").click(othis.logout);
+	$(".test").click(othis.test1);
+	$(".btnAddProject").click(function(){othis.showAddProject()});
+		
+	$(".btnAddSubProject").click(function(){
+		showAddProject(null, parentProject);
+	});
+	$(".btnListUsers").click(function(event){othis.showUsers(null, true)});
+	
+	$(".btnAddUser").click(function(){othis.showAddUser()});
+	
+	$(".btnSystem").click(function(event){othis.showServerInfo(function(){
+		this.showSystem();
+	}, true)});
+
+	$(".btnShow3D").click(othis.show3dView);
+	
+	$(".btnBrand").click(function(){
+		javascript:history.go(-1);
+	});
+	
+}
+</script>

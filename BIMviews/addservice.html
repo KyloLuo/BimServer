@@ -1,0 +1,130 @@
+<div class="addservice">
+	<h1>Add Service</h1>
+	<h3>Add remote service<small class="loadedFrom"></small></h3>
+	<div class="well well-sm noremoteservices">
+		No remote services
+	</div>
+	<table class="table servicesTable initialhide">
+		<tr>
+			<th>Provider</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Trigger</th>
+			<th>Actions</th>
+		</tr>
+	</table>
+	<h3>Add local service</h3>
+	<div class="well well-sm nolocalservices">
+		No local services
+	</div>
+	<table class="table localServicesTable initialhide">
+		<tr>
+			<th>Provider</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Trigger</th>
+			<th>Actions</th>
+		</tr>
+	</table>
+	<a class="addCustomUrlLink">Add a custom Service</a>
+	<form class="form-inline addCustomUrlForm initialhide">
+		<h3>Add custom service</h3>
+		<div class="row">
+			<div class="col-lg-7">
+				<input type="text" id="inputUrl" class="inputUrl form-control" placeholder="Server Address"/>
+			</div>
+			<div class="col-lg-3">
+				<input type="text" id="inputUrl" class="inputServiceIdentifier form-control" placeholder="Service Identifier"/>
+			</div>
+			<button type="button" class="btn btn-primary addUrlButton">Add</button>
+		</div>
+	</form>
+</div>
+<script>
+function AddService(main, project) {
+	var othis = this;
+
+	this.show = function(){
+		pushHistory({page: "AddService", poid: project.oid}, "Add Service");
+		$(".addservice h1").html("Add Service to " + project.name);
+	};
+	
+	this.proceedWithServiceDescriptor = function(serviceDescriptor, isLocal) {
+		main.showAddService2(project, serviceDescriptor, isLocal);
+	};
+	
+	this.addButtonClick = function(event) {
+		var tr = $(this).parents("tr.servicedescriptor");
+		var serviceDescriptor = tr.data("servicedescriptor");
+		othis.proceedWithServiceDescriptor(serviceDescriptor, tr.data("isLocal"));
+	};
+	
+	this.close = function() {
+	};
+	
+	this.addServiceDescriptor = function(table, serviceDescriptor, isLocal) {
+		if (isLocal) {
+			$(".nolocalservices").hide();
+			table.show();
+		} else {
+			$(".noremoteservices").hide();
+			table.show();
+		}
+		var tr = $("<tr class=\"servicedescriptor\"></tr>");
+		tr.data("servicedescriptor", serviceDescriptor);
+		tr.data("isLocal", isLocal);
+		tr.append("<td>" + serviceDescriptor.providerName + "</td>");
+		tr.append("<td>" + serviceDescriptor.name + "</td>");
+		tr.append("<td>" + serviceDescriptor.description + "</td>");
+		tr.append("<td>" + formatTrigger(serviceDescriptor.trigger) + "</td>");
+		var addButton = $("<button class=\"btn btn-primary\">Add</button>");
+		addButton.click(othis.addButtonClick);
+		tr.append($("<td></td>").append(addButton));
+		table.append(tr);
+	};
+	
+	this.loadServices = function() {
+		Global.bimServerApi.call("ServiceInterface", "getAllServiceDescriptors", {}, function(data){
+			$(".addservice .servicesTable tr.serviceDescriptor").remove();
+			data.forEach(function(serviceDescriptor){
+				othis.addServiceDescriptor($(".addservice .servicesTable"), serviceDescriptor, false);
+			});
+		});
+		Global.bimServerApi.call("ServiceInterface", "getAllLocalServiceDescriptors", {}, function(data){
+			$(".addservice .localServicesTable tr.serviceDescriptor").remove();
+			data.forEach(function(serviceDescriptor){
+				othis.addServiceDescriptor($(".addservice .localServicesTable"), serviceDescriptor, true);
+			});
+		});
+	};
+
+	this.addUrlButtonClick = function(event) {
+		Global.bimServerApi.call("ServiceInterface", "getServiceDescriptor", {
+			baseUrl: $(".addservice .inputUrl").val(),
+			serviceIdentifier: $(".addservice .inputServiceIdentifier").val()
+		}, function(data){
+			othis.proceedWithServiceDescriptor(data, null);
+		});
+	};
+
+	Global.bimServerApi.call("SettingsInterface", "getServiceRepositoryUrl", {}, function(data){
+		$(".addservice .loadedFrom").html(" (loaded from: <a href=\"" + data + "\">" + data + "</a>)");
+	});
+	
+	$(".addservice .addUrlButton").click(othis.addUrlButtonClick);
+	$(".addservice .inputUrl").keypress(function(event){
+		if (event.keyCode == 13) {
+			event.preventDefault();
+			othis.addUrlButtonClick();
+		}
+	});
+	$(".addCustomUrlLink").click(function(event){
+		event.preventDefault();
+		$(".addservice .addCustomUrlForm").show()
+		$(".addservice .addCustomUrlForm .inputUrl").focus();
+		$(".addservice .addCustomUrlLink").hide();
+	});
+	
+	othis.loadServices();
+}
+</script>

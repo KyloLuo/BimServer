@@ -1,0 +1,425 @@
+<div class="testing">
+	<button class="btn btn-default testAllSequentiallyButton">Test all sequentially</button>
+	<button class="btn btn-default testAllConcurrentlyButton">Test all concurrently</button>
+	<button class="btn btn-default lazyProjectStructure">Create lazy project structure</button>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Run</th>
+				<th>Results</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+<script>
+function Testing() {
+	var othis = this;
+	var tests = [];
+
+	this.show = function(){};
+	this.close = function(){};
+	
+	this.testAllConcurrently = function(){
+		for (var i=0; i<tests.length; i++) {
+			var test = tests[i];
+			var resultTd = $(".testing tr[testid=\"" + i + "\"] td.result");
+			resultTd.html("");
+			othis.runTest(i, test, resultTd);
+		}
+	};
+
+	this.testSingleSequentially = function(testid, callback){
+		var test = tests[testid];
+		var resultTd = $(".testing tr[testid=\"" + testid + "\"] td.result");
+		othis.runTest(testid, test, resultTd, function(){
+			if (testid < tests.length) {
+				othis.testSingleSequentially(testid + 1, callback);
+			}
+		});
+	};
+	
+	this.testAllSequentially = function(){
+		for (var i=0; i<tests.length; i++) {
+			var resultTd = $(".testing tr[testid=\"" + i + "\"] td.result");
+			resultTd.html("");
+		}
+		othis.testSingleSequentially(0);
+	};
+
+	this.runTest = function(testid, test, resultTd, callback) {
+		resultTd.html("RUNNING").addClass("running").removeClass("error").removeClass("success");
+		test(function(code, result){
+			if (code == "ERROR") {
+				resultTd.addClass("error").removeClass("success").removeClass("running");
+				resultTd.html("ERROR");
+			} else if (code == "SUCCESS") {
+				resultTd.addClass("success").removeClass("running").removeClass("error");
+				resultTd.html("SUCCESS");
+			}
+			if (result != null) {
+				resultTd.html(result);
+			}
+			if (callback != null) {
+				callback();
+			}
+		});
+	};
+	
+	this.addTest = function(name, description, test){
+		var testid = tests.push(test) - 1;
+		var tr = $("<tr class=\"testtr\" testid=\"" + testid + "\">");
+		tr.append("<td>" + name + "</td>");
+		tr.append("<td>" + description + "</td>");
+		tr.append("<td><button class=\"btn btn-default\">Run</button></td>");
+		tr.append("<td class=\"result\"></td>");
+		$(".testing table tbody").append(tr);
+		tr.find("button").click(function(){
+			othis.runTest(0, test, $(this).parents("tr").find(".result"));
+		});
+	};
+
+	$(".testing .testAllSequentiallyButton").click(othis.testAllSequentially);
+	$(".testing .testAllConcurrentlyButton").click(othis.testAllConcurrently);
+	
+	this.addTest("Test 1", "Create furnishing + GUID", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 1 - " + Math.random()}, function(project){
+			Global.bimServerApi.createModel(project.oid, function(model){
+				model.create("IfcFurnishingElement", {}, function(furnishingElement){
+					furnishingElement.setGlobalId("blablabla");
+				});
+			}).done(function(model){
+				model.commit("initial revision", function(roid){
+					// Now we will test and see if the objects are really there
+					Global.bimServerApi.getModel(project.oid, roid, false, project.schema, function(model){
+						var first = true;
+						model.getAllOfType("IfcFurnishingElement", true, function(furnishingElement){
+							if (first) {
+								first = false;
+								furnishingElement.getGlobalId(function(guid){
+									if (guid == null) {
+										doneCallback("ERROR", "No GUID");
+									} else if (guid == "blablabla") {
+										doneCallback("SUCCESS");
+									} else {
+										doneCallback("ERROR", "Not the right GUID value (" + guid + ")");
+									}
+								});
+							} else {
+								doneCallback("ERROR", "Multiple IfcFurnishingElement");
+							}
+						});
+					});
+				});
+			});
+		});
+	});
+
+	this.addTest("Test 2", "Create 10 walls, delete 1", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 2 - " + Math.random()}, function(project){
+			// Stage 1: create 10 walls
+			Global.bimServerApi.createModel(project.oid, function(model){
+				for (var i=1; i<=10; i++) {
+					(function(i){
+						model.create("IfcWall", {}, function(wall){
+							wall.setName("wall " + i);
+							wall.setGlobalId("wall" + i); // yes not using real GUID, this is just for testing
+						});
+					})(i);
+				}
+			}).done(function(model){
+				model.commit("initial revision with 10 walls", function(roid){
+					// Stage 2: count the walls and remove the 6th
+					Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+						model.count("IfcWall", true, function(count){
+							if (count == 10) {
+								model.getByGuid("wall6", function(wall6){
+									wall6.remove();
+								});
+							} else {
+								doneCallback("ERROR", count + " walls found, should be 10");
+							}
+						});
+					}).done(function(model){
+						model.commit("removing the 6th wall", function(roid){
+							// Stage 3: count again
+							Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+								model.count("IfcWall", true, function(count){
+									if (count == 9) {
+										doneCallback("SUCCESS");
+									} else {
+										doneCallback("ERROR", "Found " + count + " walls, should be 9");
+									}
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+
+	this.addTest("Test 3", "Create a few objects and find it back by name", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 3 - " + Math.random()}, function(project){
+			// Stage 1: create 10 windows
+			Global.bimServerApi.createModel(project.oid, function(model){
+				for (var i=1; i<=10; i++) {
+					(function(i){
+						model.create("IfcWindow", {}, function(window){
+							window.setName("window" + i);
+							window.setGlobalId("window" + i); // yes not using real GUID, this is just for testing
+						});
+					})(i);
+				}
+			}).done(function(model){
+				model.commit("10 windows", function(roid){
+					// Stage 2: count the walls and remove the 6th
+					Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+						model.getByName("window7", function(window7){
+							if (window7 == null) {
+								doneCallback("ERROR", "Window not found");
+							} else if (window7.getGlobalId() == "window7") {
+								doneCallback("SUCCESS");
+							} else {
+								doneCallback("ERROR", "Wrong GUID (" + window7.getGlobalId() + ")");
+							}
+						});
+					});
+				});
+			});
+		});
+	});
+
+	this.addTest("Test 4", "Unset attribute", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 4 - " + Math.random()}, function(project){
+			// Stage 1: create 1 window
+			Global.bimServerApi.createModel(project.oid, function(model){
+				model.create("IfcWindow", {}, function(window){
+					window.setName("window");
+					window.setGlobalId("window"); // yes not using real GUID, this is just for testing
+				});
+			}).done(function(model){
+				model.commit("1 window", function(roid){
+					Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+						model.getByName("window", function(window){
+							window.setName(null);
+						});
+					}).done(function(model){
+						model.commit("name unset", function(roid){
+							Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+								model.getByGuid("window", function(window){
+									if (window.getName() == null) {
+										doneCallback("SUCCESS");
+									} else if (window.getName() == "window") {
+										doneCallback("ERROR", "Window name unchanged");
+									} else {
+										doneCallback("ERROR", "Unknown error");
+									}
+								});
+							});							
+						});
+					});
+				});
+			});
+		});
+	});
+
+	this.addTest("Test 5", "Unset reference", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 5 - " + Math.random()}, function(project){
+			// Stage 1: create 1 window
+			Global.bimServerApi.createModel(project.oid, function(model){
+				model.create("IfcWindow", {}, function(window){
+					window.setName("window");
+					window.setGlobalId("window");
+					model.create("IfcOwnerHistory", {}, function(ownerHistory){
+						window.setOwnerHistory(ownerHistory);
+					});
+				});
+			}).done(function(model){
+				model.commit("1 window + ownerhistory", function(roid){
+					Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+						model.getByName("window", function(window){
+							console.log(window);
+							window.getOwnerHistory(function(ownerHistory){
+								if (ownerHistory == null) {
+									doneCallback("ERROR", "OwnerHistory already not set");
+								} else {
+									window.setOwnerHistory(null);
+								}
+							});
+						});
+					}).done(function(model){
+						model.commit("unsetting owner history of window", function(roid){
+							Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+								model.getByGuid("window", function(window){
+									if (window.getOwnerHistory() == null) {
+										doneCallback("SUCCESS");
+									} else {
+										doneCallback("ERROR", "OwnerHistory still present");
+									}
+								});
+							});							
+						});
+					});
+				});
+			});
+		});
+	});
+	
+	this.addTest("Test 6", "Setting and reading enum and integer values", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 6 - " + Math.random()}, function(project){
+			var ownerHistoryOid = -1;
+			var timestamp = -1;
+			Global.bimServerApi.createModel(project.oid, function(model){
+				model.create("IfcOwnerHistory", {}, function(ownerHistory){
+					ownerHistory.setState("READWRITELOCKED");
+					timestamp = Math.floor(new Date().getTime() / 1000);
+					ownerHistory.setCreationDate(timestamp);
+					ownerHistoryOid = ownerHistory.__oid;
+				});
+			}).done(function(model){
+				model.commit("ownerhistory with state and creation date", function(roid){
+					Global.bimServerApi.getModel(project.oid, roid, false, project.schema, function(model){
+						model.get(ownerHistoryOid, function(ownerHistory){
+							if (ownerHistory.getState() == "READWRITELOCKED" && ownerHistory.getCreationDate() == timestamp) {
+								doneCallback("SUCCESS");
+							} else {
+								doneCallback("ERROR", "Mismatch");
+							}
+						});
+					});
+				});
+			});
+		});
+	});
+
+	this.addTest("Test 7", "Settings and reading boolean values", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 7 - " + Math.random()}, function(project){
+			var ifcRectangularTrimmedSurfaceOid = -1;
+			Global.bimServerApi.createModel(project.oid, function(model){
+				model.create("IfcRectangularTrimmedSurface", {}, function(ifcRectangularTrimmedSurface){
+					ifcRectangularTrimmedSurface.setUsense(true);
+					ifcRectangularTrimmedSurface.setVsense(false);
+					ifcRectangularTrimmedSurfaceOid = ifcRectangularTrimmedSurface.__oid;
+				});
+			}).done(function(model){
+				model.commit("IfcRectangularTrimmedSurface with booleans", function(roid){
+					Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+						model.get(ifcRectangularTrimmedSurfaceOid, function(ifcRectangularTrimmedSurface){
+							if (ifcRectangularTrimmedSurface.getUsense() == true && ifcRectangularTrimmedSurface.getVsense() == false) {
+								doneCallback("SUCCESS");
+							} else {
+								doneCallback("ERROR", "Mismatch");
+							}
+						});
+					});
+				});
+			});
+		});
+	});
+
+	this.addTest("Test 8", "Primitive lists", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 8 - " + Math.random()}, function(project){
+			var oid; 
+			Global.bimServerApi.createModel(project.oid, function(model){
+				model.create("IfcCartesianPoint", {}, function(ifcCartesianPoint){
+					ifcCartesianPoint.setCoordinates([0.1, 0.2, 0.3]);
+					oid = ifcCartesianPoint.__oid;
+				});
+			}).done(function(model){
+				model.commit("IfcCartesianPoint with values", function(roid){
+					Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+						model.get(oid, function(ifcCartesianPoint){
+							console.log(ifcCartesianPoint.getCoordinates());
+							if (ifcCartesianPoint.getCoordinates()[0] == 0.1 && ifcCartesianPoint.getCoordinates()[1] == 0.2 && ifcCartesianPoint.getCoordinates()[2] == 0.3) {
+								doneCallback("SUCCESS");
+							} else {
+								doneCallback("ERROR", "Mismatch");
+							}
+						});
+					});
+				});
+			});
+		});
+	});
+	
+	this.addTest("Test 9", "Checkin from URL", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 9 - " + Math.random()}, function(project){
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "getSuggestedDeserializerForExtension", {extension: "ifc"}, function(deserializer){
+				Global.bimServerApi.call("ServiceInterface", "checkinFromUrl", {
+					poid: project.oid,
+					comment: "New revision from url",
+					deserializerOid: deserializer.oid,
+					fileName: "AC11-Institute-Var-2-IFC.ifc",
+					url: "http://archive.opensourcebim.org/BIMserver/IFC-example-files/AC11-Institute-Var-2-IFC.ifc",
+					merge: false,
+					sync: true
+				}, function(checkinId){
+					Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: project.oid}, function(project){
+						Global.bimServerApi.getModel(project.oid, project.lastRevisionId, project.schema, false, function(model){
+							model.size(function(size){
+								if (size == 49664) {
+									doneCallback("SUCCESS");
+								} else {
+									doneCallback("ERROR", "Size is not correct " + size + "/" + 49664);
+								}
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+	
+	this.addTest("Test 10", "Checkin from URL and load", function(doneCallback){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Test 10 - " + Math.random()}, function(project){
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "getSuggestedDeserializerForExtension", {extension: "ifc"}, function(deserializer){
+				Global.bimServerApi.call("ServiceInterface", "checkinFromUrl", {
+					poid: project.oid,
+					comment: "New revision from url",
+					deserializerOid: deserializer.oid,
+					fileName: "AC11-Institute-Var-2-IFC.ifc",
+					url: "http://archive.opensourcebim.org/BIMserver/IFC-example-files/AC11-Institute-Var-2-IFC.ifc",
+					merge: false,
+					sync: true
+				}, function(checkinId){
+					Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: project.oid}, function(project){
+						Global.bimServerApi.getModel(project.oid, project.lastRevisionId, project.schema, false, function(model){
+							model.load(false, function(){
+								doneCallback("SUCCESS");
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+
+	$(".lazyProjectStructure").click(function(){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "addProject", {projectName: "Gebouw"}, function(building){
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Architekt", parentPoid: building.oid}, function(architekt){
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Dakkap", parentPoid: architekt.oid}, function(dakkap){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Dakkappellen", parentPoid: architekt.oid}, function(dakkappellen){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Deurbellen", parentPoid: architekt.oid}, function(deurbellen){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Kalkzandsteen", parentPoid: architekt.oid}, function(kalkzandsteen){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Plafonds", parentPoid: architekt.oid}, function(plafonds){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Reclame", parentPoid: architekt.oid}, function(reclame){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Tegelwerk", parentPoid: architekt.oid}, function(tegelwerk){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Trapleuningen", parentPoid: architekt.oid}, function(trapleuningen){
+				});
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "addProjectAsSubProject", {projectName: "Trappen", parentPoid: architekt.oid}, function(trappen){
+				});
+			});
+		});
+	});
+}
+</script>

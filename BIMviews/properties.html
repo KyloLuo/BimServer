@@ -1,0 +1,276 @@
+<div class="properties">
+	<div class="spaced modelLoader">
+		No models loaded
+		<button class="btn btn-default btn-xs btnLoad">Load all</button>
+	</div>
+	<table class="table table-no-top">
+		<thead></thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+<script>
+function Properties(containerDiv, projectPage, models, main, oid, project) {//last parm is set by ch
+	var othis = this;
+
+	
+	//create by ch
+ 	othis.parent = projectPage;
+	othis.operationList = {length:0}; //记录操作序列
+	othis.temp = "";
+	othis.lastSelectedProperty = null;
+	othis.operationMap = {};
+	
+	//parm:操作的对象oid，操作符，时间戳，操作前值，操作后值，object id
+	function Operation (operateOid , operator, time, oldValue, newValue, oid) {
+		this.operateOid = operateOid;
+		this.operator = operator;
+		this.time = time;
+		this.oldValue = oldValue;
+		this.newValue = newValue;
+		this.oid = oid;
+	}
+	//通过version对象设置map
+	//该map主要用于构建当前版本所做的所有操作map
+	//无重复，依照时间次序遍历的
+	othis.setOperationMap = function(version) {
+		if(!version.lastVersion){
+			return;
+		}
+		var lastVersion = version.lastVersion;
+		$.each(version, function(k,v) {
+			if(v.operationList.length > 0){//表示operation num >0
+				$.each(v.operationList, function(z,x) {//循环遍历operation
+					othis.operationMap[x.operateOid] = x.newValue;
+				});
+			}
+			if(k == (lastVersion - 1)){
+				return false;
+			}//如果遍历到需要的版本处
+		});
+		
+	};
+	
+	othis.getOperationMap =function () {
+		return othis.operationMap;
+	}
+	
+	othis.getOperationList = function() {
+		return othis.operationList;
+	};
+	
+	//获取适配传入oid的jq对象
+	othis.getJbyOid = function(oid) {
+		return $("input[_oid='"+ oid+"']");
+	};
+	
+	//设置适配oid的jq对象的值，主要是input对象
+	othis.setValueByOid = function(oid, value) {
+		if(value){
+			return othis.getJbyOid(oid).val(value);	
+		}
+		else{
+			return othis.getJbyOid(oid);
+		}
+	}
+	
+	//set operation to operationList
+	this.setOperation2List = function(operation) {
+		if(operation && (operation instanceof Operation)){
+			var flag = false;//记录list中是否存在对同一对象的操作
+			$.each(othis.operationList, function(k,v) {
+				if(v.operateOid==operation.operateOid){//如果list中对同一个对象反复修改
+					othis.operationList[k].newValue = operation.newValue;
+					othis.operationList[k].time = operation.time;
+					othis.operationList[k].operator = operation.operator;
+					flag = true;
+				}
+			});
+			if(!flag) othis.operationList[othis.operationList.length++] = operation;
+		}else{
+			//
+		}
+		projectPage.$operation.html("Operation<span style='color:red'>("+othis.operationList.length+")</span>");
+	};
+	//清空所有操作记录，并恢复操作之前的状态
+	this.removeAllOperationList = function() {
+		if(othis.operationList.length>0){
+			$.each(othis.operationList, function(k,v) {
+				othis.setValueByOid(v.operateOid, v.oldValue).css("color","");
+			});
+			othis.operationList = {length:0};
+			projectPage.$operation.html("Operation");
+		}
+	};
+	
+	this.removeAllOperationNotBack=function () {
+		if(othis.operationList.length>0){
+			$.each(othis.operationList, function(k,v) {
+				othis.setValueByOid(v.operateOid).css("color",""); 
+			});
+			othis.operationList = {length:0};
+			projectPage.$operation.html("Operation");
+		}
+	};
+	
+	
+	
+	/////////////////////////////////////
+	
+	othis.selectedId = oid;
+	othis.lastProject = project;
+
+	this.close = function(){};
+	
+	this.selected = function(origin, groupId, id) {
+		if (othis.selectedId == id) {
+			return;
+		}
+		othis.selectedId = id;
+		containerDiv.find("table tbody tr").remove();
+		containerDiv.find("table tbody").append("<tr class=\"noprop\"><td>No properties</td></tr>");
+		var model = models[groupId];
+		model.get(id, function(product){
+			othis.product = product;
+			if (product.oid == id) {
+//				var tr = $("<tr class=\"active\"></tr>");
+//				tr.append("<td>Type</td><td><b>" + stripIfc(product.__type) + "</b></td>");
+//				if (product.name != null) {
+//					tr.append("<td colspan=\"2\"><b>" + product.name + "</b></td>");
+//				}
+//				containerDiv.find("table tbody").append(tr);
+				product.getIsDefinedBy(function(isDefinedBy){
+					if (isDefinedBy.getType() == "IfcRelDefinesByProperties") {
+						isDefinedBy.getRelatingPropertyDefinition(function(propertySet){
+							if (propertySet.getType() == "IfcPropertySet") {
+								containerDiv.find("table tbody tr.noprop").remove();
+								othis.showPropertySet(propertySet);
+							}
+						});
+					}
+				});
+			}
+		});
+	};
+	
+	this.hide = function(){
+		containerDiv.hide();
+	};
+	
+	this.show = function(){
+		containerDiv.show();
+	};
+	
+	this.getSelectedId = function(){
+		return othis.selectedId;
+	};
+	
+	this.unselected = function(groupId, id){
+		containerDiv.find("table tbody tr").remove();
+	};
+	
+	this.showProperty = function (propertySet, property, headerTr){
+		var tr = $("<tr></tr>");
+		tr.attr("oid", property.oid);
+		tr.attr("psetoid", propertySet.oid);
+		headerTr.after(tr);
+		//tr.append("<td>" + property.getName() +",(just for test)oid:"+property.oid+"</td>");
+		tr.append("<td>" + property.getName() +"</td>");
+		othis.getValue(tr, property);
+	};
+	
+	this.showProperties = function(propertySet, headerTr) {
+		propertySet.getHasProperties(function(property){
+			if (property.getType() == "IfcPropertySingleValue") {
+				othis.showProperty(propertySet, property, headerTr);
+			}
+		});
+	}
+	
+	this.showPropertySet = function(propertySet) {
+		var headerTr = $("<tr class=\"active\"></tr>");
+		headerTr.attr("oid", propertySet.oid);
+		headerTr.attr("uri", propertySet.getName());
+		containerDiv.find("table tbody").append(headerTr);
+		var headerTd = $("<td colspan=\"2\"></td>");
+		headerTr.append(headerTd);
+		headerTd.append("<b>" + propertySet.getName() + "</b>");
+		othis.showProperties(propertySet, headerTr);
+	}
+
+	this.getValue = function(tr, property) {
+		//org:
+//		(function (tr) {
+//			property.getNominalValue(function(value){
+//				var td = $("<td>");
+//				var v = value == null ? "" : value._v;
+//				var span = $("<span class=\"value nonEditable\">" + v + "</span>");
+//				td.append(span);
+//				tr.append(td);
+//			});
+//		} )(tr);
+		//by ch:
+		(function (tr) {
+			property.getNominalValue(function(value){
+				var td = $("<td>");
+				var v = value == null ? "" : value._v;
+				if(othis.operationMap[property.oid]){
+					v = othis.operationMap[property.oid];
+				}
+				var $input = $("<input type='text' value='" + v + "' _oid='"+property.oid+"' class=\"value nonEditable\"></input>")
+				.css({"border":"0px solid white","text-align":"center"});
+				
+				$input.focus(function() {
+					othis.temp = $(this).val(); // 记录focus时值的状态
+				});
+				$input.blur(function() {
+					if(othis.temp == $(this).val()){
+						return;
+					}else{					// blur时值！=focus时值的话
+						$(this).css("color","red");
+						debugger;
+						//创建operation对象
+						var oper = new Operation(property.oid , "Mod", (new Date()).getTime(), othis.temp, $(this).val(), 123);
+						othis.setOperation2List(oper);
+					}
+				});
+				
+				
+				td.append($input);
+				tr.append(td);
+			});
+		} )(tr);
+	}
+	
+	this.loadRevision = function(){
+		containerDiv.find(".modelLoader").hide();
+	};
+	
+	this.unloadRevision = function(){};
+	
+	debugger;
+	othis.setOperationMap($.parseJSON(project.description));//这里不能直接转
+	
+	//@ch
+	//load register
+	projectPage.selectListeners.register(othis.selected);
+	projectPage.unselectListeners.register(othis.unselected);
+	projectPage.modelLoadedListeners.register(othis.loadRevision);
+	projectPage.modelUnloadedListeners.register(othis.unloadRevision);
+	
+	//@ch
+	//find load button
+	containerDiv.find(".btnLoad").click(projectPage.loadModel);
+
+	if (othis.selectedId != null && othis.selectedId != -1) {
+		othis.selected(othis.selectedId);
+	}
+	
+	containerDiv.find(".properties").dblclick(function(){
+		var tr = $("<tr class=\"guid\"></tr>");
+		tr.append("<td colspan=\"2\">" + othis.product.getGlobalId() + "</td>");
+		containerDiv.find(".table tbody").find(".guid").remove();
+		containerDiv.find(".table tbody").append(tr);
+	});
+}
+</script>

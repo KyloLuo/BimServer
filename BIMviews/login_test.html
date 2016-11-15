@@ -1,0 +1,139 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>登录</title>
+    <style type="text/css">
+    body
+    {
+        background-image:url(img/solar1.png);
+        background-position:top;
+    }
+    .yellow
+    {
+      color:White ;
+      font-family:幼圆;
+    }
+    .enter
+    {
+       background:url(img/loginOn.png); 
+       cursor:pointer; 
+       overflow:hidden;
+       text-align:center;
+       height:32px;
+       width:96px
+    }
+    .Box
+    {
+    	box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+    }
+    </style>
+	
+    <script>
+    function Login(address, username) {
+    	var othis = this;
+    	
+    	if (address != null && address.startsWith("http://")) {
+    		address = address.substring(7);
+    	}
+    	
+    	this.show = function(){};
+
+    	Global.bimServerApi.call("AdminInterface", "getVersion", {}, function(version){
+    		if (!Settings.usableBimServerVersion(version)) {
+    			var versionString = version.major + "." + version.minor + "." + version.revision;
+    			Global.notifier.setInfo("This version of BIMserver (" + versionString + ") has not been tested with this version of " + Settings.getTitle());
+    		}
+    	});
+    	
+    	this.login = function(address) {
+    		Global.bimServerApi.login($(".username").val(), $("#inputPassword").val(), $("#rememberMe").is(":checked"), function(data){
+    			Global.bimServerApi.resolveUser(function(user){
+    				$(".indexcontainer").load(Global.baseDir + "main_test1.html", function(){
+    					new Main(address, user).show(false);
+    				});
+    			});
+    		});
+    	}
+
+    	
+    	if (!Settings.allowBimServerAddress()) {
+    		$(".serverDiv").hide();
+    	}
+    	
+    	if (username != null) {
+    		$("#inputEmail").val(username);
+    	}
+    	
+    	$("#loginButton").click(function(){
+    		othis.login($("#inputServer").val());
+    	});
+    	
+    	$(".login .username, .login .address, .login .password, .login .rememberme").enterpress(function(){
+    		othis.login($("#inputServer").val());
+    	});
+    	
+    	this.resetPassword = function(){
+    		Global.bimServerApi.callWithFullIndication("AuthInterface", "requestPasswordChange", {username: $(".username").val(), resetUrl: Global.baseDir + "?page=ResetPassword"}, function(){
+    			
+    		});
+    	};
+    	
+    	this.openIdClick = function(){
+    		$(".openidDiv").show();
+    		$(".loginForm").hide();
+    	};
+    	
+    	this.registerClick = function(){
+    		$(".indexcontainer").load(Global.baseDir + "register.html", function(){
+    			new Register($(this));
+    		});
+    	};
+    	
+    	$(".registerButton").click(othis.registerClick);;
+    	
+    	$(".resetPasswordButton").click(function(){
+    		othis.resetPassword();
+    	});
+    	
+    	Global.bimServerApi.call("SettingsInterface", "isAllowSelfRegistration", {}, function(enabled){
+    		if (enabled) {
+    			$(".registerButton").show();
+    		}
+    	});
+    	
+    	if (username == null) {
+    		$("#inputEmail").focus();
+    	} else {
+    		$("#inputPassword").focus();
+    	}
+    	
+    	pushHistory({page: "Login"}, "Login");
+    	
+    }
+    </script>
+</head>
+<body>
+    <form class="loginForm form-horizontal">
+    <div id="title">
+    <p style="margin-left:350px; font-size:45px; color:white; font-family:幼圆">
+    <br />
+    光伏建筑一体化管理平台
+    </p>
+    <div id="login" align="center" style="margin-right:150px; margin-top:150px;">
+    <label id="Label1"  class="yellow">账号</label> &nbsp; <input class="username" type="text"/>
+        <br />
+        <br />
+    <br />
+    <label id="Label2" class="yellow">密码</label> &nbsp; <input class="password" id="inputPassword" type="password"/>
+        <br />
+
+  <label> <input type="checkbox"  id="rememberMe"> 记住我 </label>
+&nbsp;
+<br>
+    <input type="button" id="loginButton" class="enter" value="登录"/>
+       
+    </div>
+    </div>
+    <div id="res"></div>
+    </form>
+</body>
+</html>

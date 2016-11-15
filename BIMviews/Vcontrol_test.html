@@ -1,0 +1,101 @@
+<div class="versionControl">
+	<div class="spaced div_Vcontrol">
+
+	</div>
+	<button class="btn btn-default btn-xs btn_backTo btn-primary btn-ch btn_first">Back To version</button>
+	<button class="btn btn-default btn-xs btn_clearV btn-primary btn-ch">Clear all version</button>
+</div>
+<script>
+	function Vcontrol(containerDiv, projectPage, projects, models, main) {
+		var othis = this;
+		othis.redTr = null;
+		othis.flag;
+		
+		
+		this.close = function(){};
+		
+		this.getPropertyOperationList = function() {
+			return projectPage.properties.getOperationList();
+		};
+		
+		this.getSelectedId = function(){
+			return -1;
+		};
+		
+		this.hide = function(){
+			containerDiv.hide();
+		};
+		
+		this.show = function(){
+			containerDiv.show();
+		};
+		
+		othis.getLastVersion =function() {
+			return projectPage.Vsubmit.getLastVersion();
+		}
+		//show version
+		othis.showVersion = function() {
+			
+			var version =othis.getLastVersion();
+			var lastVersion = version.lastVersion;
+			debugger;
+				var $vcontrol = $(".div_Vcontrol").html("");
+				if(version.length>0){
+						var $tb = $("<table></table>").appendTo($vcontrol);
+						$tb.html("<tr><th>Description</th><th>Version</th><th>user</th><th>time</th><th>O_Num</th></tr>");
+						for (var i = 0; i < version.length; i++) {
+							if(lastVersion == (i+1)){
+								var $tr = $("<tr _i='" +(i+1)+ "'></tr>").appendTo($tb).addClass("redTr");
+								othis.redTr = $tr;
+							}else{
+								var $tr = $("<tr _i='" +(i+1)+ "'></tr>").appendTo($tb);
+							}
+							$tr.click(function() {
+								othis.redTr.removeClass("redTr");
+								$(this).addClass("redTr");
+								othis.redTr = $(this);
+								othis.flag = $(this).attr("_i");
+							});
+						$("<td></td>").text(version[i].description).appendTo($tr);
+						$("<td></td>").text(i+1+".0").appendTo($tr);
+						$("<td></td>").text(version[i].userby).appendTo($tr);
+						$("<td></td>").text(version[i].time).appendTo($tr);
+						$("<td></td>").text(version[i].operationList.length).appendTo($tr);
+					}
+			}
+		
+				
+		};
+		
+		
+		containerDiv.find(".btn_backTo").click(function() {
+			var JversionList = $.parseJSON(projectPage.project.description);
+			JversionList.lastVersion = othis.flag;
+			projectPage.project.description = JSON.stringify(JversionList);
+			Global.bimServerApi.call("ServiceInterface", "updateProject", {sProject: projectPage.project}, function(){
+					alert("back to version");
+				});
+			
+			window.location.reload();
+			
+		});
+		//清除服务器版本数据
+		containerDiv.find(".btn_clearV").click(function () {
+			if(window.confirm("是否确定清除所有版本？")){
+				projectPage.project.description = JSON.stringify({length:0,lastVersion:0});
+				Global.bimServerApi.call("ServiceInterface", "updateProject", {sProject: projectPage.project}, function(){
+						alert("clear success!");
+						window.location.reload();
+					});
+			}else{
+				return;
+			}
+		});
+		
+	//	containerDiv.find(".btnLoad").click(projectPage.loadModel);
+	//	
+	//	projectPage.objectVisibilityListeners.register(othis.objectVisibilityChanged);
+	//	projectPage.modelLoadedListeners.register(othis.loadRevision);
+	//	projectPage.modelUnloadedListeners.register(othis.unloadRevision);
+	};
+</script>

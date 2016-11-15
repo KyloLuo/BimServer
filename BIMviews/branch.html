@@ -1,0 +1,95 @@
+<div class="branch">
+	<div class="modal-header">
+    	<a class="close" data-dismiss="modal">&times;</a>
+    	<h3>Branch</h3>
+  	</div>
+	<div class="modal-body">
+		<label class="radio">To existing project<input class="existingRadio" type="radio" name="to" value="existing"/></label>
+		<label class="radio">To new project<input class="newRadio" type="radio" name="to" value="new"/></label>
+		<form class="form-horizontal">
+			<div class="form-group projectGroup">
+				<label class="projectLabel control-label">Project</label>
+				<div class="controls">
+					<select class="projectsSelect"></select>
+				</div>
+			</div>
+			<div class="form-group projectnameGroup">
+				<label class="projectNameLabel control-label">Project name</label>
+				<div class="controls">
+					<input type="text" class="projectName"/>
+				</div>
+			</div>
+			<div class="form-group commentGroup">
+				<label class="commentLabel control-label">Comment</label>
+				<div class="controls">
+					<input type="text" class="comment"/>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<a class="btn btn-default closeButton" style="margin-right: 8px" data-dismiss="modal">Close</a>
+		<a class="branchButton btn btn-primary" style="margin-right: 8px" data-dismiss="modal">Branch</a>
+	</div>
+</div>
+<script>
+function Branch(containerDiv, main, roid) {
+	var othis = this;
+
+	this.radioChange = function(){
+		var val = containerDiv.find("input[type=radio]:checked").val();
+		if (val == "existing") {
+			containerDiv.find(".projectGroup").show();
+			containerDiv.find(".projectnameGroup").hide();
+			containerDiv.find(".commentGroup").show();
+		} else if (val == "new") {
+			containerDiv.find(".projectGroup").hide();
+			containerDiv.find(".projectnameGroup").show();
+			containerDiv.find(".commentGroup").show();
+		} else {
+			containerDiv.find(".projectGroup").hide();
+			containerDiv.find(".projectnameGroup").hide();
+			containerDiv.find(".commentGroup").hide();
+		}
+	};
+
+	this.branch = function(){
+		var val = containerDiv.find("input[type=radio]:checked").val();
+		if (val == "existing") {
+			Global.bimServerApi.call("ServiceInterface", "branchToExistingProject", {
+				roid: roid,
+				destPoid: containerDiv.find(".projectsSelect").val(),
+				comment: containerDiv.find(".comment").val(),
+				sync: true
+			}, function(longId){
+				Global.bimServerApi.call("ServiceInterface", "getLongActionState", {actionId: longId}, function(data){
+					console.log(data.state);
+				});
+			});
+		} else if (val == "new") {
+			Global.bimServerApi.call("ServiceInterface", "branchToNewProject", {
+				roid: roid,
+				projectName: containerDiv.find(".projectName").val(),
+				comment: containerDiv.find(".comment").val(),
+				sync: true
+			}, function(longId){
+				Global.bimServerApi.call("ServiceInterface", "getLongActionState", {actionId: longId}, function(data){
+					console.log(data.state);
+				});
+			});
+		}
+	};
+	
+	Global.bimServerApi.call("Bimsie1ServiceInterface", "getAllProjects", {onlyTopLevel: false, onlyActive: true}, function(projects){
+		projects.forEach(function(project){
+			var option = $("<option value=\"" + project.oid + "\">" + project.name + "</option>");
+			containerDiv.find(".projectsSelect").append(option);
+		});
+	});
+
+	containerDiv.find(".existingRadio, .branch .newRadio").change(othis.radioChange);
+	containerDiv.find(".branchButton").click(othis.branch);
+	
+	othis.radioChange();
+}
+</script>

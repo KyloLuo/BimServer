@@ -1,0 +1,49 @@
+ body
+{
+     padding:0; margin:0; outline:none;
+}
+
+ #menu
+{
+     text-align:center;
+     width:100%; height:40px; z-index:2;
+     font-family:"微软雅黑";
+}
+        #menu .menu1
+        {
+            width: 190px; height:40px;
+            line-height:34px; 
+            float:left; 
+            padding-right:2px; 
+            text-align:center; 
+            background:url(img/menu1.png); 
+            cursor:pointer;
+            border-bottom:1px solid red;
+            border-right:2px solid gray;
+        }
+        #menu .menu1 a{text-decoration:none;}
+        #silverlightControlHost 
+        {
+	    height: 380px;
+	    text-align:center;
+        width: 600px;
+        float:left;
+        }
+    .header
+    {
+       width:100%; height:105px; overflow:hidden;
+       background-image:url(img/headerBkg3.png); 
+    }
+    .userinfo
+    {
+        float:right;
+        padding-top:10px; 
+        padding-right:10px; 
+        font-family:"微软雅黑";
+    }
+    #time
+    {
+        float:right;
+        padding-top:10px; 
+        padding-right:10px; 
+    }

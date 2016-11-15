@@ -1,0 +1,297 @@
+<div class="rightpanel">
+	<div class="panel panel-default">
+		<div class="panel-heading btn-group threedviewTabs" style="padding: 0px; width: 100%" data-toggle="buttons">
+			<label class="btn btn-default button3d active"> <input type="radio" name="options" id="option2" autocomplete="off" checked="checked"/>3D展示</label>
+		    <label class="btn btn-default button2d "> <input type="radio" name="options" id="option2" autocomplete="off">test</label>
+			<label class="btn btn-default queryLink"><input type="radio" name="options" id="option2" autocomplete="off">查询</label>
+			<label class="btn btn-default queryLink2"><input type="radio" name="options" id="option2" autocomplete="off">查询2</label>
+			<label class="btn btn-default browserLink"><input type="radio" name="options" id="option2" autocomplete="off">浏览模型数据</label>
+		</div>
+		<div class="panel-body">
+			<div class="content ih">
+				<div class="tab-pane 3dview">
+				</div>
+				
+                <div class="tab-pane 2dview" id="2dview">
+                </div>
+                
+				<div class="tab-pane query initialhide" id="query">
+					Not implemented
+				</div>
+					
+				<div class="tab-pane query2 initialhide" id="query2">
+				   not
+				</div>
+				
+				<div class="tab-pane browser initialhide" id="browser">
+					<div class="well well-sm message"></div>
+					<div class="browsercontainer"></div>
+				</div>
+			</div>	
+			<div class="initialhide dropdowntemplaterevision">
+				<div class="btn-group">
+					<button class="btn downloadCheckoutRevisionButton">Download</button>
+					<a class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+					</ul>
+				</div>
+			</div>
+			<div class="initialhide dropdowntemplateproject">
+				<div class="btn-group">
+					<button class="btn">Delete</button>
+					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<ul class="dropdown-menu">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+function RightPanel(containerDiv, main, project, projectPage) {
+	var o = this;
+	var othis = this;
+
+	o.project = project;
+	
+	o.selectListeners = [];
+	o.unselectListeners = [];
+	
+	othis.tabChanger = new TabChanger2(containerDiv.find(".nav"), containerDiv.find(".content"));
+	othis.lastRevision = null;
+	othis.models = {};
+	othis.selectedObjectId = -1;
+
+	this.select = function(groupId, id){
+		o.selectListeners.forEach(function(listener){
+			listener(groupId, id);
+		});
+	};
+
+	this.unselect = function(groupId, id){
+		o.unselectListeners.forEach(function(listener){
+			listener(groupId, id);
+		});
+	};
+	
+	this.showThreeD = function(callback){
+		var threeDView = null;
+		othis.tabChanger.changeTab($(".button3d"), "3dview.html", $(".3dview"), function(){
+			pushHistory({page: "Project", poid: othis.project.oid, tab: "3dview"}, "Project");
+			threeDView = new ThreeDView($(this), projectPage);
+			return threeDView;
+		}, function(){
+			threeDView.show();
+		});
+	};
+
+	containerDiv.find(".button3d").click(function(){
+		o.showThreeD();
+	});
+	
+	this.showTwoD = function(callback){		
+		othis.tabChanger.changeTab($(".button2d"),"test1111.html",$(".2dview"),function(){
+			pushHistory({page: "Project", poid: othis.project.oid, tab: "2dview"}, "Project");
+			return new Query2($(this), main, othis.project.oid, othis.lastRevision.oid);
+		},callback);
+	};
+		
+	this.close = function () {
+		if (othis.project != null) {
+			Global.bimServerApi.unregisterNewRevisionOnSpecificProjectHandler(othis.project.oid, othis.newRevisionOnSpecificProjectHandler);
+			if (othis.project.lastRevisionId != -1) {
+				Global.bimServerApi.unregisterNewExtendedDataOnRevisionHandler(othis.project.lastRevisionId, othis.newExtendedDataOnRevisionHandler);
+			}
+		}
+		$(".sidespan").empty();
+	};
+
+	this.show = function() {
+		if (typeof project == "number" || typeof project == "string") {
+			othis.reloadProject(project);
+		} else {
+			othis.project = project;
+			othis.updateProject();
+		}
+	};
+
+
+	this.projectClick = function(event) {
+		if (!$(event.target).is("a, button, span.caret")) {
+			main.showProject($(this).parents("tr").andSelf().data("project"), null, null);
+			othis.close();
+		}
+	};
+
+	this.deleteProject = function(project){
+		Global.bimServerApi.callWithFullIndication("Bimsie1ServiceInterface", "deleteProject", {poid: project.oid}, function(){
+			othis.loadSubProjects();
+			othis.loadProjectTree();
+		});
+	};
+	
+	this.undeleteProject = function(project){
+		Global.bimServerApi.callWithFullIndication("Bimsie1ServiceInterface", "undeleteProject", {poid: project.oid}, function(){
+			othis.loadSubProjects();
+			othis.loadProjectTree();
+		});
+	};
+	
+	this.addSubProject = function(subProject) {
+		var subProjectRow = $("<tr class=\"project\">");
+		subProjectRow.click(othis.projectClick);
+		subProjectRow.data("project", subProject);
+		
+		subProjectRow.append("<td>" + subProject.name + "</td>");
+		
+		var actions = newDropdownTd("Actions");
+
+		actions.find(".dropdown-toggle").click(function(){
+			actions.find("ul li").remove();
+			var project = $(this).parents("tr").data("project");
+			if (project.state == "ACTIVE") {
+				var li = $("<li><a>Delete</a></li>");
+				li.find("a").click(function(){othis.deleteProject(project)});
+				actions.find("ul").append(li);
+			} else {
+				var li = $("<li><a>Undelete</a></li>");
+				li.find("a").click(function(){othis.undeleteProject(project)});
+				actions.find("ul").append(li);
+			}
+		});
+		subProjectRow.append(actions);
+
+		if ($.cookie(main.user.oid + "showdeleteditems") != "true" && subProject.state == "DELETED") {
+			subProjectRow.hide();
+		} else {
+			containerDiv.find(".nosubprojects").hide();
+			containerDiv.find(".subprojectsTable").show();
+		}
+
+		containerDiv.find(".subprojectsTable").append(subProjectRow);
+	};
+	
+	
+	this.reloadProject = function(poid) {
+		if (poid == null) {
+			poid = othis.project.oid;
+		}
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: poid}, function(project){
+			othis.project = project;
+			othis.updateProject();
+		});
+	};
+	
+	this.updateProject = function() {
+		Global.bimServerApi.registerNewRevisionOnSpecificProjectHandler(othis.project.oid, othis.newRevisionOnSpecificProjectHandler);
+		if (othis.project.lastRevisionId != -1) {
+			Global.bimServerApi.registerNewExtendedDataOnRevisionHandler(othis.project.lastRevisionId, othis.newExtendedDataOnRevisionHandler);
+		}
+
+		othis.projects = [];
+		Global.bimServerApi.call("ServiceInterface", "getAllRelatedProjects", {poid: othis.project.oid}, function(list){
+			list.forEach(function(smallProject){
+				if (smallProject.nrSubProjects == 0) {
+					othis.projects.push(smallProject);
+				}
+				if (smallProject.lastRevisionId != -1) {
+					Global.bimServerApi.getModel(smallProject.oid, smallProject.lastRevisionId, smallProject.schema, false, function(model){
+						othis.models[smallProject.lastRevisionId] = model;
+					});
+				}
+			});
+		});
+		
+	
+		if (othis.project.lastRevisionId != -1) {
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "getRevision", {roid: othis.project.lastRevisionId}, function(data){
+				othis.lastRevision = data;
+				containerDiv.find(".browserLink").show();
+				containerDiv.find(".queryLink").show();
+				containerDiv.find(".queryLink2").show();
+				othis.loadHistory();
+			});
+		} else {
+			containerDiv.find(".browserLink").hide();
+			containerDiv.find(".queryLink").hide();
+			containerDiv.find(".queryLink2").hide();
+			othis.loadHistory();
+		}
+	};
+	
+	this.loadHistory = function(){
+		var history = History.getState().data;
+        if (history.tab == "query") {
+			othis.loadQuery();
+		}else if(history.tab== "query2"){
+			othis.loadQuery2();
+		}
+         else if (history.tab == "browser") {
+			othis.loadBrowser(function(){
+				this.loadFromHistory();
+			});
+		} else if (history.tab == "3D") {
+			othis.showThreeD();
+		} else if(history.tab=="2D"){
+			othis.showTwoD();
+		}else {
+			othis.showThreeD();
+		}
+		containerDiv.find(".content").show();
+	};
+	
+	this.loadBrowser = function(callback, pushhistory) {
+		$(".browser .message").html("Showing data for revision " + othis.lastRevision.id);
+		othis.tabChanger.changeTab($(".browserLink"), "browser.html", $(".browsercontainer"), function(){
+			if (pushhistory) {
+				pushHistory({page: "Project", poid: othis.project.oid, tab: "browser"}, "Project");
+			}
+			$(".browser").show();
+			return new Browser($(this), othis.project, othis.lastRevision);
+		}, callback);
+	};
+
+	this.loadQuery = function(callback) {
+		othis.tabChanger.changeTab($(".queryLink"), "query.html", $(".query"), function(){
+			pushHistory({page: "Project", poid: othis.project.oid, tab: "query"}, "Project");
+			return new Query($(this), main, othis.project.oid, othis.lastRevision.oid);
+		}, callback);
+	};
+
+	this.loadQuery2=function(callback){
+		othis.tabChanger.changeTab($(".queryLink2"),"query_test.html",$(".query2"),function(){
+			pushHistory({page: "Project", poid: othis.project.oid, tab: "query2"}, "Project");
+			return new Query2($(this), main, othis.project.oid, othis.lastRevision.oid, othis.models);
+		},callback);
+	};
+	this.addSubProjectClick = function(event) {
+		main.showAddProject(null, othis.project, true);
+	};
+	containerDiv.find(".queryLink").click(function(){othis.loadQuery(null, true);});
+	containerDiv.find(".queryLink2").click(function(){othis.loadQuery2(null,true);});
+	containerDiv.find(".browserLink").click(function(){othis.loadBrowser(function(){
+		this.loadFromHistory();
+	}, true);});
+	containerDiv.find(".3dLink a").click(function(){
+		projectPage.load3DView();
+	});
+	containerDiv.find(".2dLink a").click(function(){
+		othis.showTwoD(null,true);
+	});
+	containerDiv.find(".checkinButton").click(othis.showCheckinPopup);
+	containerDiv.find(".addSubProjectButton").click(othis.addSubProjectClick);
+
+	
+	this.newRevisionOnSpecificProjectHandler = function(poid, roid){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getRevision", {roid: roid}, function(data){
+//			othis.reloadProject(data.projectId);
+			othis.addRevision(data);
+		});
+	};
+	this.newExtendedDataOnRevisionHandler = function(roid, edid){
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getExtendedData", {oid: edid}, function(data){
+			othis.reloadProject(data.projectId);
+		});
+	};
+}
+</script>

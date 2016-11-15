@@ -1,0 +1,80 @@
+<div class="query">
+	<form class="form-inline">
+		<label>Query engine <select class="form-control queryEngineSelect"></select></label>
+		<div class="btn-group">
+			<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"> Load example <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu examplesDropdown">
+			</ul>
+		</div>
+	</form>
+	<textarea id="editor" rows="16" class="queryText form-control" style="width: 100%"></textarea>
+	<button class="btn queryButton pull-right btn-primary">Query</button>
+</div>
+<script>
+function Query(containerDiv, main, poid, roid) {
+	var othis = this;
+	
+	this.loadEngines = function(){
+		Global.bimServerApi.call("PluginInterface", "getDefaultQueryEngine", {}, function(defaultQueryEngine){
+			Global.bimServerApi.call("PluginInterface", "getAllQueryEngines", {onlyEnabled: true}, function(data){
+				containerDiv.find(".queryEngineSelect option").remove();
+				data.forEach(function(queryEngine){
+					var option = $("<option value=\"" + queryEngine.oid + "\">" + queryEngine.name + "</option>");
+					if (defaultQueryEngine != null && queryEngine.oid == defaultQueryEngine.oid) {
+						option.attr("selected", "selected");
+					}
+					containerDiv.find(".queryEngineSelect").append(option);
+				});
+				othis.queryEngineChange();
+			});
+		});
+	};
+	
+	this.exampleClick = function(){
+		var qeid = containerDiv.find(".queryEngineSelect option:selected").val();
+		Global.bimServerApi.call("ServiceInterface", "getQueryEngineExample", {qeid: qeid, key: $(this).html()}, function(data){
+			containerDiv.find(".queryText").val(data);
+		});
+	};
+	
+	this.loadExampleKeys = function(qeid){
+		Global.bimServerApi.call("ServiceInterface", "getQueryEngineExampleKeys", {qeid: qeid}, function(data){
+			containerDiv.find(".examplesDropdown li").remove();
+			data.forEach(function(key){
+				var li = $("<li></li>");
+				var a = $("<a>" + key + "</a>");
+				a.click(othis.exampleClick);
+				li.append(a);
+				containerDiv.find(".examplesDropdown").append(li);
+			});
+		});
+	};
+	
+	this.queryEngineChange = function(){
+		othis.loadExampleKeys($(".query .queryEngineSelect").find(":selected").val());
+	};
+	
+	this.queryButtonClick = function(){
+		var div = $("<div class=\"modal fade\">");
+		$(document.body).append(div);
+		var qeid = containerDiv.find(".queryEngineSelect option:selected").val();
+		var query = containerDiv.find(".queryText").val();
+		var params = {
+			downloadType: "query",
+			allowCheckouts: false,
+			poid: poid,
+			roid: roid,
+			qeid: qeid,
+			code: query
+		};
+		div.load(Global.baseDir + "download.html", function(){
+			new Download($(this), params);
+		}).modal({keyboard:true});
+	};
+
+	othis.loadEngines();
+	containerDiv.find(".queryEngineSelect").change(othis.queryEngineChange);
+	containerDiv.find(".queryButton").click(othis.queryButtonClick);
+}
+</script>

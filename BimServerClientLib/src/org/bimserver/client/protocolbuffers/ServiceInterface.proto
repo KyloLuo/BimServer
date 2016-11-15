@@ -1,0 +1,1556 @@
+package org.bimserver.pb;
+
+/******************************************************************************
+ * Copyright (C) 2009-2014  BIMserver.org
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+option java_generic_services = true;
+
+option java_outer_classname = "ServiceInterfaceImpl";
+
+option optimize_for = SPEED;
+
+service ServiceInterface {
+	rpc addExtendedDataSchema (AddExtendedDataSchemaRequest) returns (AddExtendedDataSchemaResponse);
+
+	rpc addExtendedDataToProject (AddExtendedDataToProjectRequest) returns (VoidResponse);
+
+	rpc addLocalServiceToProject (AddLocalServiceToProjectRequest) returns (VoidResponse);
+
+	rpc addModelChecker (AddModelCheckerRequest) returns (AddModelCheckerResponse);
+
+	rpc addModelCheckerToProject (AddModelCheckerToProjectRequest) returns (VoidResponse);
+
+	rpc addServiceToProject (AddServiceToProjectRequest) returns (AddServiceToProjectResponse);
+
+	rpc addUser (AddUserRequest) returns (AddUserResponse);
+
+	rpc addUserToExtendedDataSchema (AddUserToExtendedDataSchemaRequest) returns (VoidResponse);
+
+	rpc addUserToProject (AddUserToProjectRequest) returns (AddUserToProjectResponse);
+
+	rpc addUserWithPassword (AddUserWithPasswordRequest) returns (AddUserWithPasswordResponse);
+
+	rpc changeUserType (ChangeUserTypeRequest) returns (VoidResponse);
+
+	rpc checkin (CheckinRequest) returns (CheckinResponse);
+
+	rpc checkinFromUrl (CheckinFromUrlRequest) returns (CheckinFromUrlResponse);
+
+	rpc cleanupLongAction (CleanupLongActionRequest) returns (VoidResponse);
+
+	rpc compare (CompareRequest) returns (CompareResponse);
+
+	rpc deleteService (DeleteServiceRequest) returns (VoidResponse);
+
+	rpc deleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+
+	rpc downloadCompareResults (DownloadCompareResultsRequest) returns (DownloadCompareResultsResponse);
+
+	rpc getAllAuthorizedUsersOfProject (GetAllAuthorizedUsersOfProjectRequest) returns (GetAllAuthorizedUsersOfProjectResponse);
+
+	rpc getAllCheckoutsByUser (GetAllCheckoutsByUserRequest) returns (GetAllCheckoutsByUserResponse);
+
+	rpc getAllCheckoutsOfProject (GetAllCheckoutsOfProjectRequest) returns (GetAllCheckoutsOfProjectResponse);
+
+	rpc getAllCheckoutsOfProjectAndSubProjects (GetAllCheckoutsOfProjectAndSubProjectsRequest) returns (GetAllCheckoutsOfProjectAndSubProjectsResponse);
+
+	rpc getAllCheckoutsOfRevision (GetAllCheckoutsOfRevisionRequest) returns (GetAllCheckoutsOfRevisionResponse);
+
+	rpc getAllExtendedDataSchemas (GetAllExtendedDataSchemasRequest) returns (GetAllExtendedDataSchemasResponse);
+
+	rpc getAllLocalProfiles (GetAllLocalProfilesRequest) returns (GetAllLocalProfilesResponse);
+
+	rpc getAllLocalServiceDescriptors (GetAllLocalServiceDescriptorsRequest) returns (GetAllLocalServiceDescriptorsResponse);
+
+	rpc getAllModelCheckers (GetAllModelCheckersRequest) returns (GetAllModelCheckersResponse);
+
+	rpc getAllModelCheckersOfProject (GetAllModelCheckersOfProjectRequest) returns (GetAllModelCheckersOfProjectResponse);
+
+	rpc getAllNonAuthorizedProjectsOfUser (GetAllNonAuthorizedProjectsOfUserRequest) returns (GetAllNonAuthorizedProjectsOfUserResponse);
+
+	rpc getAllNonAuthorizedUsersOfProject (GetAllNonAuthorizedUsersOfProjectRequest) returns (GetAllNonAuthorizedUsersOfProjectResponse);
+
+	rpc getAllPrivateProfiles (GetAllPrivateProfilesRequest) returns (GetAllPrivateProfilesResponse);
+
+	rpc getAllPublicProfiles (GetAllPublicProfilesRequest) returns (GetAllPublicProfilesResponse);
+
+	rpc getAllReadableProjects (GetAllReadableProjectsRequest) returns (GetAllReadableProjectsResponse);
+
+	rpc getAllRelatedProjects (GetAllRelatedProjectsRequest) returns (GetAllRelatedProjectsResponse);
+
+	rpc getAllRepositoryExtendedDataSchemas (GetAllRepositoryExtendedDataSchemasRequest) returns (GetAllRepositoryExtendedDataSchemasResponse);
+
+	rpc getAllRepositoryModelCheckers (GetAllRepositoryModelCheckersRequest) returns (GetAllRepositoryModelCheckersResponse);
+
+	rpc getAllRevisionsByUser (GetAllRevisionsByUserRequest) returns (GetAllRevisionsByUserResponse);
+
+	rpc getAllServiceDescriptors (GetAllServiceDescriptorsRequest) returns (GetAllServiceDescriptorsResponse);
+
+	rpc getAllServicesOfProject (GetAllServicesOfProjectRequest) returns (GetAllServicesOfProjectResponse);
+
+	rpc getAllUsers (GetAllUsersRequest) returns (GetAllUsersResponse);
+
+	rpc getAllWritableProjects (GetAllWritableProjectsRequest) returns (GetAllWritableProjectsResponse);
+
+	rpc getAvailableClasses (GetAvailableClassesRequest) returns (GetAvailableClassesResponse);
+
+	rpc getAvailableClassesInRevision (GetAvailableClassesInRevisionRequest) returns (GetAvailableClassesInRevisionResponse);
+
+	rpc getCheckinWarnings (GetCheckinWarningsRequest) returns (GetCheckinWarningsResponse);
+
+	rpc getCheckoutWarnings (GetCheckoutWarningsRequest) returns (GetCheckoutWarningsResponse);
+
+	rpc getExtendedDataSchemaFromRepository (GetExtendedDataSchemaFromRepositoryRequest) returns (GetExtendedDataSchemaFromRepositoryResponse);
+
+	rpc getFile (GetFileRequest) returns (GetFileResponse);
+
+	rpc getGeoTag (GetGeoTagRequest) returns (GetGeoTagResponse);
+
+	rpc getModelCheckerInstance (GetModelCheckerInstanceRequest) returns (GetModelCheckerInstanceResponse);
+
+	rpc getOidByGuid (GetOidByGuidRequest) returns (GetOidByGuidResponse);
+
+	rpc getQueryEngineExample (GetQueryEngineExampleRequest) returns (GetQueryEngineExampleResponse);
+
+	rpc getQueryEngineExampleKeys (GetQueryEngineExampleKeysRequest) returns (GetQueryEngineExampleKeysResponse);
+
+	rpc getRevisionSummary (GetRevisionSummaryRequest) returns (GetRevisionSummaryResponse);
+
+	rpc getService (GetServiceRequest) returns (GetServiceResponse);
+
+	rpc getServiceDescriptor (GetServiceDescriptorRequest) returns (GetServiceDescriptorResponse);
+
+	rpc getUserByUoid (GetUserByUoidRequest) returns (GetUserByUoidResponse);
+
+	rpc getUserByUserName (GetUserByUserNameRequest) returns (GetUserByUserNameResponse);
+
+	rpc getUserRelatedLogs (GetUserRelatedLogsRequest) returns (GetUserRelatedLogsResponse);
+
+	rpc getUserSettings (GetUserSettingsRequest) returns (GetUserSettingsResponse);
+
+	rpc getUsersProjects (GetUsersProjectsRequest) returns (GetUsersProjectsResponse);
+
+	rpc importData (ImportDataRequest) returns (VoidResponse);
+
+	rpc removeModelCheckerFromProject (RemoveModelCheckerFromProjectRequest) returns (VoidResponse);
+
+	rpc removeUserFromExtendedDataSchema (RemoveUserFromExtendedDataSchemaRequest) returns (VoidResponse);
+
+	rpc removeUserFromProject (RemoveUserFromProjectRequest) returns (RemoveUserFromProjectResponse);
+
+	rpc sendCompareEmail (SendCompareEmailRequest) returns (VoidResponse);
+
+	rpc setRevisionTag (SetRevisionTagRequest) returns (VoidResponse);
+
+	rpc shareRevision (ShareRevisionRequest) returns (ShareRevisionResponse);
+
+	rpc triggerNewExtendedData (TriggerNewExtendedDataRequest) returns (VoidResponse);
+
+	rpc triggerNewRevision (TriggerNewRevisionRequest) returns (VoidResponse);
+
+	rpc undeleteUser (UndeleteUserRequest) returns (UndeleteUserResponse);
+
+	rpc updateGeoTag (UpdateGeoTagRequest) returns (VoidResponse);
+
+	rpc updateModelChecker (UpdateModelCheckerRequest) returns (VoidResponse);
+
+	rpc updateProject (UpdateProjectRequest) returns (VoidResponse);
+
+	rpc updateRevision (UpdateRevisionRequest) returns (VoidResponse);
+
+	rpc uploadFile (UploadFileRequest) returns (UploadFileResponse);
+
+	rpc userHasCheckinRights (UserHasCheckinRightsRequest) returns (UserHasCheckinRightsResponse);
+
+	rpc userHasRights (UserHasRightsRequest) returns (UserHasRightsResponse);
+
+	rpc validateModelChecker (ValidateModelCheckerRequest) returns (VoidResponse);
+
+}
+
+message VoidResponse {
+	optional string errorMessage = 1;
+}
+
+message Void {
+}enum SExtendedDataSchemaType{
+	SExtendedDataSchemaType_XSD = 0;
+	SExtendedDataSchemaType_PDF = 1;
+	SExtendedDataSchemaType_TXT = 2;
+}
+
+message SExtendedDataSchema {
+	optional string description = 1;
+	repeated int64 extendedData = 2;
+	optional int64 fileId = 3;
+	optional string name = 4;
+	optional string namespace = 5;
+	optional int64 oid = 6;
+	optional int32 rid = 7;
+	optional int64 size = 8;
+	optional SExtendedDataSchemaType type = 9;
+	optional string url = 10;
+	repeated int64 users = 11;
+	optional bool validate = 12;
+}
+
+message AddExtendedDataSchemaRequest {
+	optional SExtendedDataSchema extendedDataSchema = 1;
+}
+
+message AddExtendedDataSchemaResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message SExtendedData {
+	optional int64 added = 1;
+	optional int64 fileId = 2;
+	optional int64 oid = 3;
+	optional int64 projectId = 4;
+	optional int64 revisionId = 5;
+	optional int32 rid = 6;
+	optional int64 schemaId = 7;
+	optional int64 size = 8;
+	optional string title = 9;
+	optional string url = 10;
+	optional int64 userId = 11;
+}
+
+message AddExtendedDataToProjectRequest {
+	optional int64 poid = 1;
+	optional SExtendedData extendedData = 2;
+}
+
+enum SAccessMethod{
+	SAccessMethod_SOAP = 0;
+	SAccessMethod_WEB_INTERFACE = 1;
+	SAccessMethod_INTERNAL = 2;
+	SAccessMethod_REST = 3;
+	SAccessMethod_SYNDICATION = 4;
+	SAccessMethod_JSON = 5;
+	SAccessMethod_PROTOCOL_BUFFERS = 6;
+}
+
+enum STrigger{
+	STrigger_NEW_REVISION = 0;
+	STrigger_NEW_PROJECT = 1;
+	STrigger_NEW_EXTENDED_DATA = 2;
+}
+
+message SService {
+	optional string description = 1;
+	optional int64 internalServiceId = 2;
+	repeated int64 modelCheckers = 3;
+	optional string name = 4;
+	optional SAccessMethod notificationProtocol = 5;
+	optional int64 oid = 6;
+	optional string profileDescription = 7;
+	optional string profileIdentifier = 8;
+	optional string profileName = 9;
+	optional bool profilePublic = 10;
+	optional int64 projectId = 11;
+	optional string providerName = 12;
+	optional int64 readExtendedDataId = 13;
+	optional bool readRevision = 14;
+	optional int32 rid = 15;
+	optional string serviceIdentifier = 16;
+	optional string serviceName = 17;
+	optional string token = 18;
+	optional STrigger trigger = 19;
+	optional string url = 20;
+	optional int64 userId = 21;
+	optional int64 writeExtendedDataId = 22;
+	optional int64 writeRevisionId = 23;
+}
+
+message AddLocalServiceToProjectRequest {
+	optional int64 poid = 1;
+	optional SService sService = 2;
+	optional int64 internalServiceOid = 3;
+}
+
+message SModelCheckerInstance {
+	optional string code = 1;
+	optional bytes compiled = 2;
+	optional string description = 3;
+	optional string modelCheckerPluginClassName = 4;
+	optional string name = 5;
+	optional int64 oid = 6;
+	optional int32 rid = 7;
+	optional bool valid = 8;
+}
+
+message AddModelCheckerRequest {
+	optional SModelCheckerInstance modelCheckerInstance = 1;
+}
+
+message AddModelCheckerResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message AddModelCheckerToProjectRequest {
+	optional int64 poid = 1;
+	optional int64 modelCheckerOid = 2;
+}
+
+message AddServiceToProjectRequest {
+	optional int64 poid = 1;
+	optional SService sService = 2;
+}
+
+message AddServiceToProjectResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+enum SUserType{
+	SUserType_SYSTEM = 0;
+	SUserType_ADMIN = 1;
+	SUserType_USER = 2;
+	SUserType_READ_ONLY = 3;
+}
+
+message AddUserRequest {
+	optional string username = 1;
+	optional string name = 2;
+	optional SUserType type = 3;
+	optional bool selfRegistration = 4;
+	optional string resetUrl = 5;
+}
+
+enum SObjectState{
+	SObjectState_ACTIVE = 0;
+	SObjectState_DELETED = 1;
+}
+
+message SUser {
+	optional int64 createdById = 1;
+	optional int64 createdOn = 2;
+	repeated int64 extendedData = 3;
+	repeated int64 hasRightsOn = 4;
+	optional int64 lastSeen = 5;
+	repeated int64 logs = 6;
+	optional string name = 7;
+	optional int64 oid = 8;
+	optional bytes passwordHash = 9;
+	optional bytes passwordSalt = 10;
+	repeated int64 revisions = 11;
+	optional int32 rid = 12;
+	repeated int64 schemas = 13;
+	repeated int64 services = 14;
+	optional SObjectState state = 15;
+	optional string token = 16;
+	optional int64 userSettingsId = 17;
+	optional SUserType userType = 18;
+	optional string username = 19;
+	optional bytes validationToken = 20;
+	optional int64 validationTokenCreated = 21;
+}
+
+message AddUserResponse {
+	optional string errorMessage = 1;
+	optional SUser value = 2;
+}
+
+message AddUserToExtendedDataSchemaRequest {
+	optional int64 uoid = 1;
+	optional int64 edsid = 2;
+}
+
+message AddUserToProjectRequest {
+	optional int64 uoid = 1;
+	optional int64 poid = 2;
+}
+
+message AddUserToProjectResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+
+message AddUserWithPasswordRequest {
+	optional string username = 1;
+	optional string password = 2;
+	optional string name = 3;
+	optional SUserType type = 4;
+	optional bool selfRegistration = 5;
+	optional string resetUrl = 6;
+}
+
+message AddUserWithPasswordResponse {
+	optional string errorMessage = 1;
+	optional SUser value = 2;
+}
+
+message ChangeUserTypeRequest {
+	optional int64 uoid = 1;
+	optional SUserType userType = 2;
+}
+
+message CheckinRequest {
+	optional int64 poid = 1;
+	optional string comment = 2;
+	optional int64 deserializerOid = 3;
+	optional int64 fileSize = 4;
+	optional string fileName = 5;
+	optional bytes data = 6;
+	optional bool merge = 7;
+	optional bool sync = 8;
+}
+
+message CheckinResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message CheckinFromUrlRequest {
+	optional int64 poid = 1;
+	optional string comment = 2;
+	optional int64 deserializerOid = 3;
+	optional string fileName = 4;
+	optional string url = 5;
+	optional bool merge = 6;
+	optional bool sync = 7;
+}
+
+message CheckinFromUrlResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message CleanupLongActionRequest {
+	optional int64 actionId = 1;
+}
+
+enum SCompareType{
+	SCompareType_ALL = 0;
+	SCompareType_ADD = 1;
+	SCompareType_MODIFY = 2;
+	SCompareType_DELETE = 3;
+}
+
+message CompareRequest {
+	optional int64 roid1 = 1;
+	optional int64 roid2 = 2;
+	optional SCompareType sCompareType = 3;
+	optional int64 mcid = 4;
+}
+
+message SListDataValue {
+	optional string fieldName = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	repeated SDataValue values = 4;
+}
+
+message SReferenceDataValue {
+	optional string fieldName = 1;
+	optional string guid = 2;
+	optional int64 oid = 3;
+	optional int32 rid = 4;
+	optional string typeName = 5;
+}
+
+message SSimpleDataValue {
+	optional string fieldName = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	optional string stringValue = 4;
+}
+
+message SDataValue {
+	required string __actual_type = 1;
+	optional SListDataValue __SListDataValue = 2;
+	optional SReferenceDataValue __SReferenceDataValue = 3;
+	optional SSimpleDataValue __SSimpleDataValue = 4;
+	optional string fieldName = 5;
+	optional int64 oid = 6;
+	optional int32 rid = 7;
+}
+
+message SDataObject {
+	optional string guid = 1;
+	optional string name = 2;
+	optional int64 oid = 3;
+	optional int32 rid = 4;
+	optional string type = 5;
+	repeated SDataValue values = 6;
+}
+
+message SObjectAdded {
+	optional SDataObject dataObject = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+}
+
+message SObjectModified {
+	optional SDataObject dataObject = 1;
+	optional string fieldName = 2;
+	optional string newValue = 3;
+	optional int64 oid = 4;
+	optional string oldValue = 5;
+	optional int32 rid = 6;
+}
+
+message SObjectRemoved {
+	optional SDataObject dataObject = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+}
+
+message SCompareItem {
+	required string __actual_type = 1;
+	optional SObjectAdded __SObjectAdded = 2;
+	optional SObjectModified __SObjectModified = 3;
+	optional SObjectRemoved __SObjectRemoved = 4;
+	optional SDataObject dataObject = 5;
+	optional int64 oid = 6;
+	optional int32 rid = 7;
+}
+
+message SCompareContainer {
+	repeated SCompareItem items = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	optional string type = 4;
+}
+
+message SCompareResult {
+	repeated SCompareContainer items = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+}
+
+message CompareResponse {
+	optional string errorMessage = 1;
+	optional SCompareResult value = 2;
+}
+
+message DeleteServiceRequest {
+	optional int64 oid = 1;
+}
+
+message DeleteUserRequest {
+	optional int64 uoid = 1;
+}
+
+message DeleteUserResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+
+message DownloadCompareResultsRequest {
+	optional int64 serializerOid = 1;
+	optional int64 roid1 = 2;
+	optional int64 roid2 = 3;
+	optional int64 mcid = 4;
+	optional SCompareType type = 5;
+	optional bool sync = 6;
+}
+
+message DownloadCompareResultsResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message GetAllAuthorizedUsersOfProjectRequest {
+	optional int64 poid = 1;
+}
+
+message GetAllAuthorizedUsersOfProjectResponse {
+	optional string errorMessage = 1;
+	repeated SUser value = 2;
+}
+
+message GetAllCheckoutsByUserRequest {
+	optional int64 uoid = 1;
+}
+
+message SRevision {
+	optional int32 bmi = 1;
+	repeated int64 checkouts = 2;
+	optional string comment = 3;
+	repeated int64 concreteRevisions = 4;
+	optional int64 date = 5;
+	repeated int64 extendedData = 6;
+	optional bool hasGeometry = 7;
+	optional int32 id = 8;
+	optional int64 lastConcreteRevisionId = 9;
+	optional string lastError = 10;
+	repeated int64 logs = 11;
+	optional int64 oid = 12;
+	optional int64 projectId = 13;
+	optional int32 rid = 14;
+	optional int64 serviceId = 15;
+	optional int64 size = 16;
+	optional string tag = 17;
+	optional int64 userId = 18;
+}
+
+message SCheckout {
+	optional bool active = 1;
+	optional SRevision checkin = 2;
+	optional int64 date = 3;
+	repeated int64 logs = 4;
+	optional int64 oid = 5;
+	optional int64 projectId = 6;
+	optional SRevision revision = 7;
+	optional int32 rid = 8;
+	optional int64 userId = 9;
+}
+
+message GetAllCheckoutsByUserResponse {
+	optional string errorMessage = 1;
+	repeated SCheckout value = 2;
+}
+
+message GetAllCheckoutsOfProjectRequest {
+	optional int64 poid = 1;
+}
+
+message GetAllCheckoutsOfProjectResponse {
+	optional string errorMessage = 1;
+	repeated SCheckout value = 2;
+}
+
+message GetAllCheckoutsOfProjectAndSubProjectsRequest {
+	optional int64 poid = 1;
+}
+
+message GetAllCheckoutsOfProjectAndSubProjectsResponse {
+	optional string errorMessage = 1;
+	repeated SCheckout value = 2;
+}
+
+message GetAllCheckoutsOfRevisionRequest {
+	optional int64 roid = 1;
+}
+
+message GetAllCheckoutsOfRevisionResponse {
+	optional string errorMessage = 1;
+	repeated SCheckout value = 2;
+}
+
+message GetAllExtendedDataSchemasRequest {
+}
+
+message GetAllExtendedDataSchemasResponse {
+	optional string errorMessage = 1;
+	repeated SExtendedDataSchema value = 2;
+}
+
+message GetAllLocalProfilesRequest {
+	optional string serviceIdentifier = 1;
+}
+
+message SProfileDescriptor {
+	optional string description = 1;
+	optional string identifier = 2;
+	optional string name = 3;
+	optional bool publicProfile = 4;
+}
+
+message GetAllLocalProfilesResponse {
+	optional string errorMessage = 1;
+	repeated SProfileDescriptor value = 2;
+}
+
+message GetAllLocalServiceDescriptorsRequest {
+}
+
+message SServiceDescriptor {
+	optional string companyUrl = 1;
+	optional string description = 2;
+	optional string identifier = 3;
+	optional string name = 4;
+	optional string newProfileUrl = 5;
+	optional SAccessMethod notificationProtocol = 6;
+	optional string providerName = 7;
+	optional string readExtendedData = 8;
+	optional bool readRevision = 9;
+	optional string token = 10;
+	optional string tokenUrl = 11;
+	optional STrigger trigger = 12;
+	optional string url = 13;
+	optional string writeExtendedData = 14;
+	optional bool writeRevision = 15;
+}
+
+message GetAllLocalServiceDescriptorsResponse {
+	optional string errorMessage = 1;
+	repeated SServiceDescriptor value = 2;
+}
+
+message GetAllModelCheckersRequest {
+}
+
+message GetAllModelCheckersResponse {
+	optional string errorMessage = 1;
+	repeated SModelCheckerInstance value = 2;
+}
+
+message GetAllModelCheckersOfProjectRequest {
+	optional int64 poid = 1;
+}
+
+message GetAllModelCheckersOfProjectResponse {
+	optional string errorMessage = 1;
+	repeated SModelCheckerInstance value = 2;
+}
+
+message GetAllNonAuthorizedProjectsOfUserRequest {
+	optional int64 uoid = 1;
+}
+
+enum SSIPrefix{
+	SSIPrefix_meter = 0;
+	SSIPrefix_attometer = 1;
+	SSIPrefix_femtometer = 2;
+	SSIPrefix_picometer = 3;
+	SSIPrefix_nanometer = 4;
+	SSIPrefix_micrometer = 5;
+	SSIPrefix_millimeter = 6;
+	SSIPrefix_centimeter = 7;
+	SSIPrefix_decimeter = 8;
+	SSIPrefix_decameter = 9;
+	SSIPrefix_hectometer = 10;
+	SSIPrefix_kilometer = 11;
+	SSIPrefix_megameter = 12;
+	SSIPrefix_gigameter = 13;
+	SSIPrefix_terameter = 14;
+	SSIPrefix_petameter = 15;
+	SSIPrefix_exameter = 16;
+}
+
+message SProject {
+	repeated int64 checkouts = 1;
+	repeated int64 concreteRevisions = 2;
+	optional int64 createdById = 3;
+	optional int64 createdDate = 4;
+	optional string description = 5;
+	optional SSIPrefix exportLengthMeasurePrefix = 6;
+	repeated int64 extendedData = 7;
+	optional int64 geoTagId = 8;
+	repeated int64 hasAuthorizedUsers = 9;
+	optional int32 id = 10;
+	optional int64 lastConcreteRevisionId = 11;
+	optional int64 lastRevisionId = 12;
+	repeated int64 logs = 13;
+	repeated int64 modelCheckers = 14;
+	optional string name = 15;
+	optional int64 oid = 16;
+	optional int64 parentId = 17;
+	repeated int64 revisions = 18;
+	optional int32 rid = 19;
+	optional string schema = 20;
+	repeated int64 services = 21;
+	optional SObjectState state = 22;
+	repeated int64 subProjects = 23;
+}
+
+message GetAllNonAuthorizedProjectsOfUserResponse {
+	optional string errorMessage = 1;
+	repeated SProject value = 2;
+}
+
+message GetAllNonAuthorizedUsersOfProjectRequest {
+	optional int64 poid = 1;
+}
+
+message GetAllNonAuthorizedUsersOfProjectResponse {
+	optional string errorMessage = 1;
+	repeated SUser value = 2;
+}
+
+message GetAllPrivateProfilesRequest {
+	optional string notificationsUrl = 1;
+	optional string serviceIdentifier = 2;
+	optional string token = 3;
+}
+
+message GetAllPrivateProfilesResponse {
+	optional string errorMessage = 1;
+	repeated SProfileDescriptor value = 2;
+}
+
+message GetAllPublicProfilesRequest {
+	optional string notificationsUrl = 1;
+	optional string serviceIdentifier = 2;
+}
+
+message GetAllPublicProfilesResponse {
+	optional string errorMessage = 1;
+	repeated SProfileDescriptor value = 2;
+}
+
+message GetAllReadableProjectsRequest {
+}
+
+message GetAllReadableProjectsResponse {
+	optional string errorMessage = 1;
+	repeated SProject value = 2;
+}
+
+message GetAllRelatedProjectsRequest {
+	optional int64 poid = 1;
+}
+
+message SProjectSmall {
+	optional bool hasCheckinRights = 1;
+	optional int64 lastRevisionId = 2;
+	optional string name = 3;
+	optional int32 nrRevisions = 4;
+	optional int32 nrSubProjects = 5;
+	optional int64 oid = 6;
+	optional int64 parentId = 7;
+	optional int32 rid = 8;
+	optional string schema = 9;
+	optional SObjectState state = 10;
+}
+
+message GetAllRelatedProjectsResponse {
+	optional string errorMessage = 1;
+	repeated SProjectSmall value = 2;
+}
+
+message GetAllRepositoryExtendedDataSchemasRequest {
+}
+
+message GetAllRepositoryExtendedDataSchemasResponse {
+	optional string errorMessage = 1;
+	repeated SExtendedDataSchema value = 2;
+}
+
+message GetAllRepositoryModelCheckersRequest {
+}
+
+message GetAllRepositoryModelCheckersResponse {
+	optional string errorMessage = 1;
+	repeated SModelCheckerInstance value = 2;
+}
+
+message GetAllRevisionsByUserRequest {
+	optional int64 uoid = 1;
+}
+
+message GetAllRevisionsByUserResponse {
+	optional string errorMessage = 1;
+	repeated SRevision value = 2;
+}
+
+message GetAllServiceDescriptorsRequest {
+}
+
+message GetAllServiceDescriptorsResponse {
+	optional string errorMessage = 1;
+	repeated SServiceDescriptor value = 2;
+}
+
+message GetAllServicesOfProjectRequest {
+	optional int64 poid = 1;
+}
+
+message GetAllServicesOfProjectResponse {
+	optional string errorMessage = 1;
+	repeated SService value = 2;
+}
+
+message GetAllUsersRequest {
+}
+
+message GetAllUsersResponse {
+	optional string errorMessage = 1;
+	repeated SUser value = 2;
+}
+
+message GetAllWritableProjectsRequest {
+}
+
+message GetAllWritableProjectsResponse {
+	optional string errorMessage = 1;
+	repeated SProject value = 2;
+}
+
+message GetAvailableClassesRequest {
+}
+
+message GetAvailableClassesResponse {
+	optional string errorMessage = 1;
+	repeated string value = 2;
+}
+
+message GetAvailableClassesInRevisionRequest {
+	optional int64 roid = 1;
+}
+
+message GetAvailableClassesInRevisionResponse {
+	optional string errorMessage = 1;
+	repeated string value = 2;
+}
+
+message GetCheckinWarningsRequest {
+	optional int64 poid = 1;
+}
+
+message GetCheckinWarningsResponse {
+	optional string errorMessage = 1;
+	repeated string value = 2;
+}
+
+message GetCheckoutWarningsRequest {
+	optional int64 poid = 1;
+}
+
+message GetCheckoutWarningsResponse {
+	optional string errorMessage = 1;
+	repeated string value = 2;
+}
+
+message GetExtendedDataSchemaFromRepositoryRequest {
+	optional string namespace = 1;
+}
+
+message GetExtendedDataSchemaFromRepositoryResponse {
+	optional string errorMessage = 1;
+	optional SExtendedDataSchema value = 2;
+}
+
+message GetFileRequest {
+	optional int64 fileId = 1;
+}
+
+message SFile {
+	optional bytes data = 1;
+	optional string filename = 2;
+	optional string mime = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+}
+
+message GetFileResponse {
+	optional string errorMessage = 1;
+	optional SFile value = 2;
+}
+
+message GetGeoTagRequest {
+	optional int64 goid = 1;
+}
+
+message SGeoTag {
+	optional double directionAngle = 1;
+	optional bool enabled = 2;
+	optional int32 epsg = 3;
+	optional int64 oid = 4;
+	repeated int64 projects = 5;
+	optional int32 rid = 6;
+	optional double x = 7;
+	optional double y = 8;
+	optional double z = 9;
+}
+
+message GetGeoTagResponse {
+	optional string errorMessage = 1;
+	optional SGeoTag value = 2;
+}
+
+message GetModelCheckerInstanceRequest {
+	optional int64 mcioid = 1;
+}
+
+message GetModelCheckerInstanceResponse {
+	optional string errorMessage = 1;
+	optional SModelCheckerInstance value = 2;
+}
+
+message GetOidByGuidRequest {
+	optional int64 roid = 1;
+	optional string guid = 2;
+}
+
+message GetOidByGuidResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message GetQueryEngineExampleRequest {
+	optional int64 qeid = 1;
+	optional string key = 2;
+}
+
+message GetQueryEngineExampleResponse {
+	optional string errorMessage = 1;
+	optional string value = 2;
+}
+
+message GetQueryEngineExampleKeysRequest {
+	optional int64 qeid = 1;
+}
+
+message GetQueryEngineExampleKeysResponse {
+	optional string errorMessage = 1;
+	repeated string value = 2;
+}
+
+message GetRevisionSummaryRequest {
+	optional int64 roid = 1;
+}
+
+message SRevisionSummaryType {
+	optional int32 count = 1;
+	optional string name = 2;
+	optional int64 oid = 3;
+	optional int32 rid = 4;
+	optional string schema = 5;
+}
+
+message SRevisionSummaryContainer {
+	optional string name = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	repeated SRevisionSummaryType types = 4;
+}
+
+message SRevisionSummary {
+	repeated SRevisionSummaryContainer list = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+}
+
+message GetRevisionSummaryResponse {
+	optional string errorMessage = 1;
+	optional SRevisionSummary value = 2;
+}
+
+message GetServiceRequest {
+	optional int64 soid = 1;
+}
+
+message GetServiceResponse {
+	optional string errorMessage = 1;
+	optional SService value = 2;
+}
+
+message GetServiceDescriptorRequest {
+	optional string baseUrl = 1;
+	optional string serviceIdentifier = 2;
+}
+
+message GetServiceDescriptorResponse {
+	optional string errorMessage = 1;
+	optional SServiceDescriptor value = 2;
+}
+
+message GetUserByUoidRequest {
+	optional int64 uoid = 1;
+}
+
+message GetUserByUoidResponse {
+	optional string errorMessage = 1;
+	optional SUser value = 2;
+}
+
+message GetUserByUserNameRequest {
+	optional string username = 1;
+}
+
+message GetUserByUserNameResponse {
+	optional string errorMessage = 1;
+	optional SUser value = 2;
+}
+
+message GetUserRelatedLogsRequest {
+	optional int64 uoid = 1;
+}
+
+message SNewCheckoutAdded {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 checkoutId = 2;
+	optional int64 date = 3;
+	optional int64 executorId = 4;
+	optional int64 oid = 5;
+	optional int32 rid = 6;
+}
+
+message SCheckoutRelated {
+	required string __actual_type = 1;
+	optional SNewCheckoutAdded __SNewCheckoutAdded = 2;
+	optional SAccessMethod accessMethod = 3;
+	optional int64 checkoutId = 4;
+	optional int64 date = 5;
+	optional int64 executorId = 6;
+	optional int64 oid = 7;
+	optional int32 rid = 8;
+}
+
+message SDatabaseCreated {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional string path = 5;
+	optional int32 rid = 6;
+	optional int32 version = 7;
+}
+
+message SDownload {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+}
+
+message SExtendedDataAddedToProject {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 extendedDataId = 4;
+	optional int64 oid = 5;
+	optional int64 projectId = 6;
+	optional int32 rid = 7;
+}
+
+message SExtendedDataAddedToRevision {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 extendedDataId = 4;
+	optional int64 oid = 5;
+	optional int64 revisionId = 6;
+	optional int32 rid = 7;
+}
+
+message SGeoTagUpdated {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 geoTagId = 4;
+	optional int64 oid = 5;
+	optional int32 rid = 6;
+}
+
+message SNewObjectIDMUploaded {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+}
+
+message SNewProjectAdded {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 parentProjectId = 5;
+	optional int64 projectId = 6;
+	optional int32 rid = 7;
+}
+
+message SProjectDeleted {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 projectId = 5;
+	optional int32 rid = 6;
+}
+
+message SProjectUndeleted {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 projectId = 5;
+	optional int32 rid = 6;
+}
+
+message SProjectUpdated {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 projectId = 5;
+	optional int32 rid = 6;
+}
+
+message SProjectRelated {
+	required string __actual_type = 1;
+	optional SNewProjectAdded __SNewProjectAdded = 2;
+	optional SProjectDeleted __SProjectDeleted = 3;
+	optional SProjectUndeleted __SProjectUndeleted = 4;
+	optional SProjectUpdated __SProjectUpdated = 5;
+	optional SAccessMethod accessMethod = 6;
+	optional int64 date = 7;
+	optional int64 executorId = 8;
+	optional int64 oid = 9;
+	optional int64 projectId = 10;
+	optional int32 rid = 11;
+}
+
+enum SNotifictionResultEnum{
+	SNotifictionResultEnum_NR_ERROR = 0;
+	SNotifictionResultEnum_SUCCESS = 1;
+	SNotifictionResultEnum_PROGRESS_UNKNOWN = 2;
+	SNotifictionResultEnum_PROGRESS_PERCENTAGE = 3;
+}
+
+message SRemoteServiceCalled {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	repeated string errors = 3;
+	optional int64 executorId = 4;
+	repeated string infos = 5;
+	optional int64 oid = 6;
+	optional int32 percentage = 7;
+	optional int32 rid = 8;
+	optional int64 serviceId = 9;
+	optional SNotifictionResultEnum state = 10;
+	repeated string warnings = 11;
+}
+
+message SRevisionBranched {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 newrevisionId = 4;
+	optional int64 oid = 5;
+	optional int64 oldrevisionId = 6;
+	optional int32 rid = 7;
+}
+
+message SNewRevisionAdded {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 projectId = 5;
+	optional int64 revisionId = 6;
+	optional int32 rid = 7;
+}
+
+message SRevisionUpdated {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 revisionId = 5;
+	optional int32 rid = 6;
+}
+
+message SRevisionRelated {
+	required string __actual_type = 1;
+	optional SNewRevisionAdded __SNewRevisionAdded = 2;
+	optional SRevisionUpdated __SRevisionUpdated = 3;
+	optional SAccessMethod accessMethod = 4;
+	optional int64 date = 5;
+	optional int64 executorId = 6;
+	optional int64 oid = 7;
+	optional int64 revisionId = 8;
+	optional int32 rid = 9;
+}
+
+message SServerStarted {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+}
+
+message SSettingsSaved {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+}
+
+message SNewUserAdded {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+	optional int64 userId = 6;
+}
+
+message SPasswordChanged {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+	optional int64 userId = 6;
+}
+
+message SPasswordReset {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+	optional int64 userId = 6;
+}
+
+message SUserAddedToProject {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 projectId = 5;
+	optional int32 rid = 6;
+	optional int64 userId = 7;
+}
+
+message SUserChanged {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+	optional int64 userId = 6;
+}
+
+message SUserDeleted {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+	optional int64 userId = 6;
+}
+
+message SUserRemovedFromProject {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int64 projectId = 5;
+	optional int32 rid = 6;
+	optional int64 userId = 7;
+}
+
+message SUserUndeleted {
+	optional SAccessMethod accessMethod = 1;
+	optional int64 date = 2;
+	optional int64 executorId = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+	optional int64 userId = 6;
+}
+
+message SUserRelated {
+	required string __actual_type = 1;
+	optional SNewUserAdded __SNewUserAdded = 2;
+	optional SPasswordChanged __SPasswordChanged = 3;
+	optional SPasswordReset __SPasswordReset = 4;
+	optional SUserAddedToProject __SUserAddedToProject = 5;
+	optional SUserChanged __SUserChanged = 6;
+	optional SUserDeleted __SUserDeleted = 7;
+	optional SUserRemovedFromProject __SUserRemovedFromProject = 8;
+	optional SUserUndeleted __SUserUndeleted = 9;
+	optional SAccessMethod accessMethod = 10;
+	optional int64 date = 11;
+	optional int64 executorId = 12;
+	optional int64 oid = 13;
+	optional int32 rid = 14;
+	optional int64 userId = 15;
+}
+
+message SLogAction {
+	required string __actual_type = 1;
+	optional SCheckoutRelated __SCheckoutRelated = 2;
+	optional SDatabaseCreated __SDatabaseCreated = 3;
+	optional SDownload __SDownload = 4;
+	optional SExtendedDataAddedToProject __SExtendedDataAddedToProject = 5;
+	optional SExtendedDataAddedToRevision __SExtendedDataAddedToRevision = 6;
+	optional SGeoTagUpdated __SGeoTagUpdated = 7;
+	optional SNewObjectIDMUploaded __SNewObjectIDMUploaded = 8;
+	optional SProjectRelated __SProjectRelated = 9;
+	optional SRemoteServiceCalled __SRemoteServiceCalled = 10;
+	optional SRevisionBranched __SRevisionBranched = 11;
+	optional SRevisionRelated __SRevisionRelated = 12;
+	optional SServerStarted __SServerStarted = 13;
+	optional SSettingsSaved __SSettingsSaved = 14;
+	optional SUserRelated __SUserRelated = 15;
+	optional SAccessMethod accessMethod = 16;
+	optional int64 date = 17;
+	optional int64 executorId = 18;
+	optional int64 oid = 19;
+	optional int32 rid = 20;
+}
+
+message GetUserRelatedLogsResponse {
+	optional string errorMessage = 1;
+	repeated SLogAction value = 2;
+}
+
+message GetUserSettingsRequest {
+}
+
+message SUserSettings {
+	optional int64 defaultModelCompareId = 1;
+	optional int64 defaultModelMergerId = 2;
+	optional int64 defaultObjectIDMId = 3;
+	optional int64 defaultQueryEngineId = 4;
+	optional int64 defaultRenderEngineId = 5;
+	optional int64 defaultSerializerId = 6;
+	repeated int64 deserializers = 7;
+	repeated int64 messagingSerializerPlugins = 8;
+	repeated int64 modelcompares = 9;
+	repeated int64 modelmergers = 10;
+	repeated int64 objectIDMs = 11;
+	optional int64 oid = 12;
+	repeated int64 queryengines = 13;
+	repeated int64 renderEngines = 14;
+	optional int32 rid = 15;
+	repeated int64 serializers = 16;
+	repeated int64 services = 17;
+}
+
+message GetUserSettingsResponse {
+	optional string errorMessage = 1;
+	optional SUserSettings value = 2;
+}
+
+message GetUsersProjectsRequest {
+	optional int64 uoid = 1;
+}
+
+message GetUsersProjectsResponse {
+	optional string errorMessage = 1;
+	repeated SProject value = 2;
+}
+
+message ImportDataRequest {
+	optional string address = 1;
+	optional string username = 2;
+	optional string password = 3;
+	optional string path = 4;
+}
+
+message RemoveModelCheckerFromProjectRequest {
+	optional int64 poid = 1;
+	optional int64 modelCheckerOid = 2;
+}
+
+message RemoveUserFromExtendedDataSchemaRequest {
+	optional int64 uoid = 1;
+	optional int64 edsid = 2;
+}
+
+message RemoveUserFromProjectRequest {
+	optional int64 uoid = 1;
+	optional int64 poid = 2;
+}
+
+message RemoveUserFromProjectResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+
+message SendCompareEmailRequest {
+	optional SCompareType sCompareType = 1;
+	optional int64 mcid = 2;
+	optional int64 poid = 3;
+	optional int64 roid1 = 4;
+	optional int64 roid2 = 5;
+	optional string address = 6;
+}
+
+message SetRevisionTagRequest {
+	optional int64 roid = 1;
+	optional string tag = 2;
+}
+
+message ShareRevisionRequest {
+	optional int64 roid = 1;
+}
+
+message ShareRevisionResponse {
+	optional string errorMessage = 1;
+	optional string value = 2;
+}
+
+message TriggerNewExtendedDataRequest {
+	optional int64 edid = 1;
+	optional int64 soid = 2;
+}
+
+message TriggerNewRevisionRequest {
+	optional int64 roid = 1;
+	optional int64 soid = 2;
+}
+
+message UndeleteUserRequest {
+	optional int64 uoid = 1;
+}
+
+message UndeleteUserResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+
+message UpdateGeoTagRequest {
+	optional SGeoTag sGeoTag = 1;
+}
+
+message UpdateModelCheckerRequest {
+	optional SModelCheckerInstance modelCheckerInstance = 1;
+}
+
+message UpdateProjectRequest {
+	optional SProject sProject = 1;
+}
+
+message UpdateRevisionRequest {
+	optional SRevision sRevision = 1;
+}
+
+message UploadFileRequest {
+	optional SFile file = 1;
+}
+
+message UploadFileResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message UserHasCheckinRightsRequest {
+	optional int64 uoid = 1;
+	optional int64 poid = 2;
+}
+
+message UserHasCheckinRightsResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+
+message UserHasRightsRequest {
+	optional int64 poid = 1;
+}
+
+message UserHasRightsResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+
+message ValidateModelCheckerRequest {
+	optional int64 oid = 1;
+}
+

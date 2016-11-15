@@ -1,0 +1,143 @@
+<div class="versionSubmit">
+	<br />
+	<span style="margin-left: 20px;">
+		<label class="col-lg-3 control-label" for="inputName">操作：</label>
+	</span><br />
+	<div class="spaced dv_submit">
+
+	</div><br />
+	<span style="margin-left: 20px;">
+		<label class="col-lg-3 control-label" for="inputName">版本提交描述：</label>
+		
+	</span><br />
+	<!--<textarea id="submit_description" rows="" cols=""></textarea>--><br />
+	
+	<textarea class="form-control span6" id="submit_description" placeholder="Description" cols="60" rows="7"></textarea>
+	<button class="btn btn-default btn-xs btn_submit btn-primary btn-ch btn_first">Submit</button>
+	<button class="btn btn-default btn-xs btn_clear btn-primary btn-ch">Clear Operation List</button>
+</div>
+<script>
+	function Vsubmit(containerDiv, projectPage, projects, poid) {
+		var othis = this;
+		othis.lastVersion = $.parseJSON(projectPage.project.description);//获取服务器端的版本信息
+		//参数：操作序列，时间，描述，修改人员，email
+		function OVersion (operationList, time, description, userby, email) {
+			this.operationList = operationList;
+			this.time = time;
+			this.description = description;
+			this.userby = userby;
+			this.email = email;
+		};
+		
+		this.getFullTime = function() {
+			var d = new Date()
+			var vYear = d.getFullYear()
+			var vMon = d.getMonth() + 1
+			var vDay = d.getDate()
+			var h = d.getHours(); 
+			var m = d.getMinutes(); 
+			var se = d.getSeconds(); 
+			s=vYear+(vMon<10 ? "0" + vMon : vMon)+(vDay<10 ? "0"+ vDay : vDay)+(h<10 ? "0"+ h : h)+(m<10 ? "0" + m : m)+(se<10 ? "0" +se : se);
+			return s;
+		}
+		
+		
+		this.close = function(){};
+		
+		this.getPropertyOperationList = function() {
+			return projectPage.properties.getOperationList();
+		};
+		
+		othis.getLastVersion = function() {
+			return othis.lastVersion;
+		}
+		
+		this.getSelectedId = function(){
+			return -1;
+		};
+		
+		this.hide = function(){
+			containerDiv.hide();
+		};
+		
+		this.show = function(){
+			containerDiv.show();
+		};
+		
+		othis.unloadRevision = function(poid, roid) {
+			
+		};
+		
+		othis.showOperation = function(operationList) {
+			var $sumbmit = $(".dv_submit").html("");
+			if(operationList.length>0){
+					var $tb = $("<table></table>").appendTo($sumbmit);
+					$tb.html("<tr><th>Oid</th><th>Ovalue</th><th></th><th>Nvalue</th><th>Operator</th></tr>")
+					for (var i = 0; i < operationList.length; i++) {
+						var $tr = $("<tr></tr>").appendTo($tb);
+					$("<td></td>").text(operationList[i].operateOid).appendTo($tr);
+					$("<td></td>").text(operationList[i].oldValue).appendTo($tr);
+					$("<td></td>").text("→").appendTo($tr).css("color","red");
+					$("<td></td>").text(operationList[i].newValue).appendTo($tr);
+					$("<td></td>").text(operationList[i].operator).appendTo($tr);
+				}
+			}
+	
+			
+		};
+		
+		othis.submitOperation = function() {
+			var operationList = othis.getPropertyOperationList();
+			var JoperationList;
+			
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: poid}, function(project){
+				try{
+					JoperationList = $.parseJSON(project.description);//判断对象存在
+					if(!(JoperationList.length&&JoperationList.lastVersion)){
+						JoperationList = {length:0,lastVersion:0};
+					}//判断length和lastVersion存在
+				}catch(e){
+					JoperationList = {length:0,lastVersion:0};
+				}
+				var version = new OVersion(operationList, othis.getFullTime(), $("#submit_description").val(), "ch", "chwangchuhan@163.com");
+				JoperationList[JoperationList.length++] = version;
+				JoperationList.lastVersion++;
+				debugger;
+				project.description = JSON.stringify(JoperationList);//转化成Json对象
+				Global.bimServerApi.call("ServiceInterface", "updateProject", {sProject: project}, function(){
+					othis.lastVersion = JoperationList;
+					alert("上传成功");
+					$(".redTr").removeClass("redTr").next().addClass("redTr");
+					projectPage.project = project;
+					projectPage.showVcontrol();
+					//清空操作的显示而不是重置操作
+					projectPage.$operation.html("Operation");
+					$(".dv_submit").html("");
+					$("#submit_description").val("");
+					projectPage.properties.removeAllOperationNotBack();
+				});
+			});
+			
+			
+			
+//			operationList = $.parseJSON(othis.project.description);
+//			var a = 0;
+			//alert((othis.properties.getOperationList()).length);
+		};
+		//清空所有待提交的操作
+		othis.clearOperation = function() {
+			projectPage.properties.removeAllOperationList();
+			$(".dv_submit").html("");
+			 $("#submit_description").val("");
+		};
+		
+		
+		containerDiv.find(".btn_submit").click(othis.submitOperation);
+		containerDiv.find(".btn_clear").click(othis.clearOperation);
+	//	containerDiv.find(".btnLoad").click(projectPage.loadModel);
+	//	
+	//	projectPage.objectVisibilityListeners.register(othis.objectVisibilityChanged);
+	//	projectPage.modelLoadedListeners.register(othis.loadRevision);
+	//	projectPage.modelUnloadedListeners.register(othis.unloadRevision);
+	};
+</script>

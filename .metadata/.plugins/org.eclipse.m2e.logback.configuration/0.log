@@ -1,0 +1,15 @@
+2016-01-19 12:13:41,343 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is not out-of-date. No remote download required.
+2016-01-25 10:09:51,761 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
+2016-01-25 11:35:38,239 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is not out-of-date. No remote download required.
+2016-01-28 12:21:12,176 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
+2016-02-01 09:12:14,723 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
+2016-03-09 12:53:10,541 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
+2016-03-28 13:37:37,798 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
+2016-04-08 10:44:40,834 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
+2016-06-26 14:26:24,898 [Start Help Server] INFO  org.eclipse.jetty.util.log - Logging initialized @2623598ms
+2016-06-26 14:26:24,986 [Start Help Server] INFO  org.eclipse.jetty.server.Server - jetty-9.3.9.v20160517
+2016-06-26 14:26:25,020 [Start Help Server] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@615c2799{/help,null,AVAILABLE}
+2016-06-26 14:26:25,031 [Start Help Server] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@4a0e1668{HTTP/1.1,[http/1.1]}{127.0.0.1:57611}
+2016-06-26 14:26:25,032 [Start Help Server] INFO  org.eclipse.jetty.server.Server - Started @2623734ms
+2016-06-26 14:27:26,023 [Stop Help Server] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@4a0e1668{HTTP/1.1,[http/1.1]}{127.0.0.1:0}
+2016-06-26 14:27:26,041 [Stop Help Server] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@615c2799{/help,null,UNAVAILABLE}

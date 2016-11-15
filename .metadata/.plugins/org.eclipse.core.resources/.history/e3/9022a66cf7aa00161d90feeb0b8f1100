@@ -1,0 +1,109 @@
+package org.bimserver.servlets;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.bimserver.BimServer;
+import org.bimserver.database.BimserverDatabaseException;
+import org.bimserver.interfaces.objects.SProject;
+import org.bimserver.models.log.AccessMethod;
+import org.bimserver.shared.exceptions.ServerException;
+import org.bimserver.shared.exceptions.UserException;
+import org.bimserver.shared.interfaces.ServiceInterface;
+import org.bimserver.webservices.ServiceMap;
+import org.bimserver.webservices.authorization.Authorization;
+import org.bimserver.webservices.impl.Bimsie1ServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class TestServlet extends HttpServlet {
+	
+//	public TestServlet(BimServer bimServer, ServletContext servletContext) {
+//		super(bimServer, servletContext);
+//		// TODO Auto-generated constructor stub
+//	}
+
+
+	/**
+	 * 该servlet作为测试servlet
+	 * 实现功能获得BinServer这个对象
+	 * 获得bimserver中的数据库地址、启动时间信息
+	 * 使用方法直接请求localhost:8080/Test
+	 * 配置方式在BimServer项目下/www/WEB-INF/web.xml文件中
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(DownloadServlet.class);
+
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setContentType("text/html;charset=utf-8");
+		BimServer bimServer = (BimServer)getServletContext().getAttribute("bimserver");
+		try {
+			response.getWriter().print(bimServer.getDatabase().createSession().getDatabaseInformation().getLocation()+"<br/>");
+		} catch (BimserverDatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		response.getWriter().print(bimServer.getServerStartTime().toZonedDateTime().toString()+"<br/>");
+		response.getWriter().print(bimServer.getHomeDir().toString()+"<br/>");
+		
+		
+			
+	}
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		BimServer bimServer = (BimServer)getServletContext().getAttribute("bimserver");
+		response.getWriter().print(bimServer.getHomeDir().toString());
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		System.out.println("doGet()...");
+//		doit(request, response);
+//	}
+//	
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		System.out.println("doPost()...");
+//		doit(request, response);
+//	}
+//	private void doit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		request.setCharacterEncoding("utf-8");
+//		response.setContentType("text/html;charset=utf-8");
+//		SProject sProject = (SProject) request.getAttribute("project");
+//		String string = sProject.getDescription().toString();
+//		response.getWriter().println(string);
+		
+//		ServiceMap serviceMap = new ServiceMap(bimServer, authorization, accessMethod);
+//		Bimsie1ServiceImpl bimsie1ServiceImpl = new Bimsie1ServiceImpl(serviceMap);
+//		List<SProject> project = bimsie1ServiceImpl.getProjectsByName("");
+//		response.getWriter().print(project.toString());
+		
+/*		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().print((BimServer)getServletContext().getAttribute("bimserver"));*/
+		
+/*		String name = request.getParameter("name");
+		String pwd  = request.getParameter("pwd");
+		//向浏览器输出		
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().print("<h1>用户名："+name+"</h1>");
+		response.getWriter().print("<h1>密 码："+pwd+"</h1>");
+	}*/
+
+}

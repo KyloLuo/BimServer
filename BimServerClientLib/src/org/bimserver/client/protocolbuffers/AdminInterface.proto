@@ -1,0 +1,485 @@
+package org.bimserver.pb;
+
+/******************************************************************************
+ * Copyright (C) 2009-2014  BIMserver.org
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import "ServiceInterface.proto";
+option java_generic_services = true;
+
+option java_outer_classname = "AdminInterfaceImpl";
+
+option optimize_for = SPEED;
+
+service AdminInterface {
+	rpc clearOutputFileCache (ClearOutputFileCacheRequest) returns (ClearOutputFileCacheResponse);
+
+	rpc disablePlugin (DisablePluginRequest) returns (VoidResponse);
+
+	rpc enablePlugin (EnablePluginRequest) returns (VoidResponse);
+
+	rpc getAllPlugins (GetAllPluginsRequest) returns (GetAllPluginsResponse);
+
+	rpc getBimServerInfo (GetBimServerInfoRequest) returns (GetBimServerInfoResponse);
+
+	rpc getDatabaseInformation (GetDatabaseInformationRequest) returns (GetDatabaseInformationResponse);
+
+	rpc getJavaInfo (GetJavaInfoRequest) returns (GetJavaInfoResponse);
+
+	rpc getLastDatabaseReset (GetLastDatabaseResetRequest) returns (GetLastDatabaseResetResponse);
+
+	rpc getLatestVersion (GetLatestVersionRequest) returns (GetLatestVersionResponse);
+
+	rpc getLogs (GetLogsRequest) returns (GetLogsResponse);
+
+	rpc getMigrations (GetMigrationsRequest) returns (GetMigrationsResponse);
+
+	rpc getProtocolBuffersFile (GetProtocolBuffersFileRequest) returns (GetProtocolBuffersFileResponse);
+
+	rpc getServerInfo (GetServerInfoRequest) returns (GetServerInfoResponse);
+
+	rpc getServerLog (GetServerLogRequest) returns (GetServerLogResponse);
+
+	rpc getServerStartTime (GetServerStartTimeRequest) returns (GetServerStartTimeResponse);
+
+	rpc getSystemInfo (GetSystemInfoRequest) returns (GetSystemInfoResponse);
+
+	rpc getVersion (GetVersionRequest) returns (GetVersionResponse);
+
+	rpc migrateDatabase (MigrateDatabaseRequest) returns (VoidResponse);
+
+	rpc regenerateGeometry (RegenerateGeometryRequest) returns (VoidResponse);
+
+	rpc setup (SetupRequest) returns (VoidResponse);
+
+	rpc upgradePossible (UpgradePossibleRequest) returns (UpgradePossibleResponse);
+
+}
+
+message ClearOutputFileCacheRequest {
+}
+
+message ClearOutputFileCacheResponse {
+	optional string errorMessage = 1;
+	optional int32 value = 2;
+}
+
+message DisablePluginRequest {
+	optional string name = 1;
+}
+
+message EnablePluginRequest {
+	optional string name = 1;
+}
+
+message GetAllPluginsRequest {
+}
+
+message SDeserializerPluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SModelCheckerPluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SModelComparePluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SModelMergerPluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SQueryEnginePluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SRenderEnginePluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SSerializerPluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SServicePluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SWebModulePluginDescriptor {
+	repeated int64 configurations = 1;
+	optional string defaultName = 2;
+	optional string description = 3;
+	optional bool enabled = 4;
+	optional string location = 5;
+	optional int64 oid = 6;
+	optional string pluginClassName = 7;
+	optional string pluginInterfaceClassName = 8;
+	optional int32 rid = 9;
+	optional string simpleName = 10;
+}
+
+message SPluginDescriptor {
+	required string __actual_type = 1;
+	optional SDeserializerPluginDescriptor __SDeserializerPluginDescriptor = 2;
+	optional SModelCheckerPluginDescriptor __SModelCheckerPluginDescriptor = 3;
+	optional SModelComparePluginDescriptor __SModelComparePluginDescriptor = 4;
+	optional SModelMergerPluginDescriptor __SModelMergerPluginDescriptor = 5;
+	optional SQueryEnginePluginDescriptor __SQueryEnginePluginDescriptor = 6;
+	optional SRenderEnginePluginDescriptor __SRenderEnginePluginDescriptor = 7;
+	optional SSerializerPluginDescriptor __SSerializerPluginDescriptor = 8;
+	optional SServicePluginDescriptor __SServicePluginDescriptor = 9;
+	optional SWebModulePluginDescriptor __SWebModulePluginDescriptor = 10;
+	repeated int64 configurations = 11;
+	optional string defaultName = 12;
+	optional string description = 13;
+	optional bool enabled = 14;
+	optional string location = 15;
+	optional int64 oid = 16;
+	optional string pluginClassName = 17;
+	optional string pluginInterfaceClassName = 18;
+	optional int32 rid = 19;
+	optional string simpleName = 20;
+}
+
+message GetAllPluginsResponse {
+	optional string errorMessage = 1;
+	repeated SPluginDescriptor value = 2;
+}
+
+message GetBimServerInfoRequest {
+}
+
+message SBimServerInfo {
+	optional int32 checkouts = 1;
+	optional int64 currentDate = 2;
+	optional string currentVersion = 3;
+	optional int64 latestDate = 4;
+	optional string latestVersion = 5;
+	optional int64 oid = 6;
+	optional int32 projects = 7;
+	optional int32 revisions = 8;
+	optional int32 rid = 9;
+	optional int32 schemaVersion = 10;
+	optional string serverLogUrl = 11;
+	optional int64 started = 12;
+	optional int32 users = 13;
+}
+
+message GetBimServerInfoResponse {
+	optional string errorMessage = 1;
+	optional SBimServerInfo value = 2;
+}
+
+message GetDatabaseInformationRequest {
+}
+
+message SDatabaseInformationItem {
+	optional string key = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	optional string value = 4;
+}
+
+message SDatabaseInformationCategory {
+	repeated SDatabaseInformationItem items = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	optional string title = 4;
+}
+
+message SDatabaseInformation {
+	repeated SDatabaseInformationCategory categories = 1;
+	optional int64 created = 2;
+	optional int64 databaseSizeInBytes = 3;
+	optional string location = 4;
+	optional int32 numberOfCheckouts = 5;
+	optional int32 numberOfProjects = 6;
+	optional int32 numberOfRevisions = 7;
+	optional int32 numberOfUsers = 8;
+	optional int64 oid = 9;
+	optional int32 rid = 10;
+	optional int32 schemaVersion = 11;
+	optional string type = 12;
+}
+
+message GetDatabaseInformationResponse {
+	optional string errorMessage = 1;
+	optional SDatabaseInformation value = 2;
+}
+
+message GetJavaInfoRequest {
+}
+
+message SJavaInfo {
+	optional int64 heapFree = 1;
+	optional int64 heapMax = 2;
+	optional int64 heapTotal = 3;
+	optional int64 heapUsed = 4;
+	optional string javaClassVersion = 5;
+	repeated string javaClasspath = 6;
+	optional string javaExtdir = 7;
+	optional string javaFileSeparator = 8;
+	optional string javaHome = 9;
+	optional string javaIoTmp = 10;
+	repeated string javaLibrarypath = 11;
+	optional string javaLineSeparator = 12;
+	optional string javaPathSeparator = 13;
+	optional string javaVendor = 14;
+	optional string javaVendorurl = 15;
+	optional string javaVersion = 16;
+	optional string javaspecName = 17;
+	optional string javaspecVendor = 18;
+	optional string javaspecVersion = 19;
+	optional string javavmName = 20;
+	optional string javavmVendor = 21;
+	optional string javavmVersion = 22;
+	optional int64 oid = 23;
+	optional int32 rid = 24;
+	optional int32 threads = 25;
+}
+
+message GetJavaInfoResponse {
+	optional string errorMessage = 1;
+	optional SJavaInfo value = 2;
+}
+
+message GetLastDatabaseResetRequest {
+}
+
+message GetLastDatabaseResetResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message GetLatestVersionRequest {
+}
+
+message SVersion {
+	optional int64 date = 1;
+	optional string downloadUrl = 2;
+	optional int32 major = 3;
+	optional int32 minor = 4;
+	optional int64 oid = 5;
+	optional int32 revision = 6;
+	optional int32 rid = 7;
+	optional string supportEmail = 8;
+	optional string supportUrl = 9;
+}
+
+message GetLatestVersionResponse {
+	optional string errorMessage = 1;
+	optional SVersion value = 2;
+}
+
+message GetLogsRequest {
+}
+
+message GetLogsResponse {
+	optional string errorMessage = 1;
+	repeated SLogAction value = 2;
+}
+
+message GetMigrationsRequest {
+}
+
+message SMigration {
+	optional string description = 1;
+	optional bool executed = 2;
+	optional int32 number = 3;
+	optional int64 oid = 4;
+	optional int32 rid = 5;
+}
+
+message GetMigrationsResponse {
+	optional string errorMessage = 1;
+	repeated SMigration value = 2;
+}
+
+message GetProtocolBuffersFileRequest {
+	optional string interfaceName = 1;
+}
+
+message GetProtocolBuffersFileResponse {
+	optional string errorMessage = 1;
+	optional string value = 2;
+}
+
+message GetServerInfoRequest {
+}
+
+enum SServerState{
+	SServerState_UNDEFINED = 0;
+	SServerState_NOT_SETUP = 1;
+	SServerState_MIGRATION_REQUIRED = 2;
+	SServerState_MIGRATION_IMPOSSIBLE = 3;
+	SServerState_FATAL_ERROR = 4;
+	SServerState_RUNNING = 5;
+}
+
+message SServerInfo {
+	optional string errorMessage = 1;
+	optional int64 oid = 2;
+	optional int32 rid = 3;
+	optional SServerState serverState = 4;
+	optional SVersion version = 5;
+}
+
+message GetServerInfoResponse {
+	optional string errorMessage = 1;
+	optional SServerInfo value = 2;
+}
+
+message GetServerLogRequest {
+}
+
+message GetServerLogResponse {
+	optional string errorMessage = 1;
+	optional string value = 2;
+}
+
+message GetServerStartTimeRequest {
+}
+
+message GetServerStartTimeResponse {
+	optional string errorMessage = 1;
+	optional int64 value = 2;
+}
+
+message GetSystemInfoRequest {
+}
+
+message SSystemInfo {
+	optional int32 cpucores = 1;
+	optional int64 datetime = 2;
+	optional int64 oid = 3;
+	optional string osname = 4;
+	optional string osversion = 5;
+	optional int32 rid = 6;
+	optional string userDir = 7;
+	optional string userHome = 8;
+	optional string userName = 9;
+}
+
+message GetSystemInfoResponse {
+	optional string errorMessage = 1;
+	optional SSystemInfo value = 2;
+}
+
+message GetVersionRequest {
+}
+
+message GetVersionResponse {
+	optional string errorMessage = 1;
+	optional SVersion value = 2;
+}
+
+message MigrateDatabaseRequest {
+}
+
+message RegenerateGeometryRequest {
+	optional int64 croid = 1;
+}
+
+message SetupRequest {
+	optional string siteAddress = 1;
+	optional string smtpServer = 2;
+	optional string smtpSender = 3;
+	optional string adminName = 4;
+	optional string adminUsername = 5;
+	optional string adminPassword = 6;
+}
+
+message UpgradePossibleRequest {
+}
+
+message UpgradePossibleResponse {
+	optional string errorMessage = 1;
+	optional bool value = 2;
+}
+

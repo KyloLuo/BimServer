@@ -1,0 +1,488 @@
+<div class="project">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading btn-group projectTabs" data-toggle="buttons" style="padding: 0; width: 100%">
+					<label class="btnProjectTree btn btn-default active">
+						<input checked="checked" type="radio" name="options"/> Tree
+					</label>
+					<label class="btnTypes btn btn-default">
+						<input type="radio" name="options"/> Types
+					</label>
+					<label class="btnLayers btn btn-default">
+						<input type="radio" name="options"/> Layers
+					</label>
+					<label class="btnClassifications btn btn-default">
+						<input type="radio" name="options"/> Classifications
+					</label>
+					<label class="btnProperties btn btn-default">
+						<input type="radio" name="options"/> Properties
+					</label>
+					<label class="btnVcontrol btn btn-default">
+						<input type="radio" name="options"/> Version
+					</label>
+					<label class="btnVsubmit btn btn-default">
+						<input type="radio" name="options"/> <span id="operation">Operation</span>
+					</label>
+				</div>
+				<div class="panel-body sidespanWrapper">
+					<div class="sidespan">
+						<div class="projectTreeWrapper"></div>
+						<div class="propertiesWrapper ih"></div>
+						<div class="classificationWrapper ih"></div>
+						<div class="typesWrapper ih"></div>
+						<div class="layersWrapper ih"></div>
+						<div class="VcontrolWrapper ih"></div>
+						<div class="VsubmitWrapper ih"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 rightCol">
+			<div class="rightpanel ih">
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+function Project(containerDiv, main, project) {
+	var othis = this;
+	
+	othis.$operation = $("#operation");
+	
+	othis.loaded = {}; // poid -> roid
+	othis.models = {};
+	othis.selectListeners = new EventRegistry();
+	othis.unselectListeners = new EventRegistry();
+	othis.objectVisibilityListeners = new EventRegistry();
+	othis.modelLoadedListeners = new EventRegistry();
+	othis.modelAddedListeners = new EventRegistry();
+	othis.modelUnloadedListeners = new EventRegistry();
+	othis.menuItems = [];
+	
+	debugger;
+	
+	this.show = function(){
+		debugger;
+		if (typeof project == "number" || typeof project == "string") {
+			othis.reloadProject(project);
+		} else {
+			try{//测试是否是JSON 不是则清空
+				$.parseJSON(project.description);
+			}catch(e){
+				project.description = JSON.stringify({length:0,lastVersion:0});
+			}
+			othis.project = project;
+			othis.updateProject();
+		}
+	};
+
+	this.reloadProject = function(poid) {
+		if (poid == null) {
+			poid = othis.project.oid;
+		}
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: poid}, function(project){
+			try{//测试是否是JSON 不是则清空
+				$.parseJSON(project.description);
+			}catch(e){
+				project.description = JSON.stringify({length:0,lastVersion:0});
+			}
+			othis.project = project;
+			othis.updateProject();
+		});
+	};
+
+	this.close = function(){
+		othis.menuItems.forEach(function(menuItem){
+			menuItem.remove();
+		});
+	};
+
+	this.selected = function(origin, groupId, id){
+		othis.selectListeners.trigger(function(selectListener){
+			selectListener(origin, groupId, id);
+		});
+	};
+	
+	this.unselected = function(groupId, id){
+		othis.unselectListeners.trigger(function(unselectListener){
+			unselectListener(groupId, id);
+		});
+	};
+	
+	this.setObjectVisibility = function(groupId, ids, mode) {
+		if (!Array.isArray(ids)) {
+			ids = [ids];
+		}
+		var objectArray = [];
+		var oldModeArray = [];
+		
+		ids.forEach(function(id){
+			othis.models[groupId].get(id, function(object){
+				if (object != null) {
+					var oldMode = object.trans.mode;
+					object.trans.mode = mode;
+					objectArray.push(object);
+					oldModeArray.push(oldMode);
+				}
+			});
+		});
+
+		containerDiv.find(".rightCol > .details").show();
+		
+		othis.objectVisibilityListeners.trigger(function(objectVisibilityListener){
+			objectVisibilityListener(objectArray, oldModeArray);
+		});
+	};
+	
+	this.resize = function(){
+		containerDiv.find(".sidespanWrapper").height(($(window).height() - $(".navbar").outerHeight() - containerDiv.find(".col-md-4 .panel-heading").outerHeight() - 57) + "px");
+	};
+	
+	this.changeRevision = function(project, roid){
+		if (othis.loaded[project.oid] != null) {
+			othis.modelUnloadedListeners.trigger(function(modelUnloadedListener){
+				modelUnloadedListener(project.oid, othis.loaded[project.oid]);
+			});
+		}
+		othis.loaded[project.oid] = roid;
+
+		if (project.nrSubProjects == 0 && roid != -1) {
+			// TODO possibly cache
+			Global.bimServerApi.getModel(project.oid, roid, project.schema, false, function(model){
+				othis.models[roid] = model;
+				othis.modelAddedListeners.trigger(function(listener){
+					listener(project, roid, [], {});
+				});
+			});
+		} else {
+			othis.modelAddedListeners.trigger(function(modelAddedListener){
+				modelAddedListener(project, -1, [], {});
+			});
+		}
+	};
+	
+	this.loadModel = function(){
+		othis.projects.forEach(function(project){
+			var ids = [];
+			var roid = project.lastRevisionId;
+			var model = othis.models[roid];
+			othis.preloadModel(project, roid).done(function(){
+			});
+		});
+	};
+	
+	this.preloadModel = function(project, roid){
+		var countingPromise = new CountingPromise();
+		var promise = new Promise();
+		var model = othis.models[roid];
+		if (model.isPreloaded) {
+			promise.fire();
+			return promise;
+		} else {
+			var preLoadQuery = {
+				defines: {
+					Representation: {
+						field: "Representation"
+					},
+					ContainsElementsDefine: {
+						field: "ContainsElements",
+						include: {
+							field: "RelatedElements",
+							include: [
+								"IsDecomposedByDefine",
+								"ContainsElementsDefine",
+								"Representation"
+							]
+						}
+					},
+					IsDecomposedByDefine: {
+						field: "IsDecomposedBy",
+						include: {
+							field: "RelatedObjects",
+							include: [
+								"IsDecomposedByDefine",
+								"ContainsElementsDefine",
+								"Representation"
+							]
+						}
+					}
+				},
+				queries: [
+				    {
+						type: "IfcProject",
+						include: [
+							"IsDecomposedByDefine",
+							"ContainsElementsDefine"
+						]
+				    },
+				    {
+				    	type: "IfcRepresentation",
+				    	includeAllSubtypes: true
+				    },
+				    {
+				    	type: "IfcProductRepresentation"
+				    },
+				    {
+				    	type: "IfcProduct",
+				    	includeAllSubTypes: true
+				    },
+				    {
+				    	type: "IfcProductDefinitionShape"
+				    },
+				    {
+				    	type: "IfcPresentationLayerAssignment"
+				    },
+				    {
+				    	type: "IfcRelAssociatesClassification",
+				    	include: [
+				    		{
+				    			field: "RelatedObjects"
+				    		},
+				    		{
+				    			field: "RelatingClassification"
+				    		}
+				    	]
+				    },
+				    {
+				    	type: "IfcSIUnit"
+				    },
+				    {
+				    	type: "IfcPresentationLayerAssignment"
+				    }
+				]
+			};
+			
+			model.query(preLoadQuery, function(loaded){
+			}).done(function(){
+				Global.notifier.setInfo("Loading model data...", -1);
+				setTimeout(function(){
+					model.isPreloaded = true;
+					othis.modelLoadedListeners.trigger(function(modelLoadedListener){
+						modelLoadedListener(project, roid);
+					});
+					Global.notifier.setSuccess("Model data successfully loaded");
+					promise.fire();
+				}, 0);
+			});
+		}
+
+		return promise;
+	};
+
+	this.updateProject = function() {
+		pushHistory({page: "Project", poid: othis.project.oid}, "Project");
+
+		$(window).resize(othis.resize);
+		othis.resize();
+		
+		othis.projects = [];
+		Global.bimServerApi.call("ServiceInterface", "getAllRelatedProjects", {poid: othis.project.oid}, function(list){
+			list.forEach(function(smallProject){
+				if (smallProject.state == "ACTIVE") {
+					othis.loaded[smallProject.oid] = smallProject.lastRevisionId;
+					othis.projects.push(smallProject);
+				}
+				if (smallProject.lastRevisionId != -1 && smallProject.nrSubProjects == 0) {
+					Global.bimServerApi.getModel(smallProject.oid, smallProject.lastRevisionId, smallProject.schema, false, function(model){
+						othis.models[smallProject.lastRevisionId] = model;
+					});
+				}
+			});
+
+			othis.selectListeners.clear();
+			othis.unselectListeners.clear();
+			othis.objectVisibilityListeners.clear();
+			othis.modelLoadedListeners.clear();
+			othis.modelUnloadedListeners.clear();
+
+			Global.pluginManager.allOfType("TabPlugin", function(pluginConstructor){
+				var plugin = Object.create(pluginConstructor.prototype);
+
+				var label = $("<label class=\"btn btn-default\">");
+				var input = $("<input type=\"radio\" name=\"options\">");
+				label.append(input);
+				label.append(plugin.getTabTitle());
+				containerDiv.find(".projectTabs").append(label);
+
+				var div = $("<div>");
+				div.hide();
+				containerDiv.find(".sidespanWrapper .sidespan").append(div);
+				plugin.init(div, othis);
+				
+				label.click(function(){
+					if (othis.sidespan != null) {
+						othis.sidespan.hide();
+					}
+					othis.sidespan = plugin;
+					othis.sidespan.show();
+					div.show();
+				});
+			});
+			
+			$(".propertiesWrapper").load("properties.html", function(){
+				othis.properties = new Properties($(this), othis, othis.models, main, othis.selectedObjectId, othis.project);
+				$(".projectTreeWrapper").load("projecttree.html", function(){
+					othis.projecttree = new ProjectTree($(this), othis, othis.project, othis.models, main, othis.rightpanel, othis.selectedObjectId);
+					othis.sidespan = othis.projecttree;
+					$(".typesWrapper").load("types.html", function(){
+						othis.types = new Types($(this), othis, othis.projects, othis.models, main, othis.rightpanel);
+						$(".layersWrapper").load("layers.html", function(){
+							othis.layers = new Layers($(this), othis, othis.projects, othis.models, main, othis.rightpanel);
+							$(".classificationWrapper").load("classifications.html", function(){
+								othis.classifications = new Classifications($(this), othis, othis.projects, othis.models, main);
+								$(".VcontrolWrapper").load("Vcontrol_test.html",function () {
+									othis.Vcontrol =new Vcontrol($(this), othis, othis.projects, othis.models, main);
+										$(".VsubmitWrapper").load("Vsubmit_test.html",function () {
+										othis.Vsubmit =new Vsubmit($(this), othis, othis.projects, othis.project.oid);
+										
+											othis.loadDetails(othis.project);
+											othis.projects.forEach(function(project){
+											othis.changeRevision(project, project.lastRevisionId);
+										});
+									
+									});
+								});
+								
+							});
+						});
+					});
+				});
+			});
+		});
+	};
+	
+	this.load3DView = function(){
+		containerDiv.find(".rightCol > .details").hide();
+		containerDiv.find(".rightCol > .rightpanel").show();
+		containerDiv.find(".rightCol > .rightpanel").load("rightpanel.html", function(){
+			othis.rightPanel = new RightPanel($(this), main, othis.project, othis);
+			othis.rightPanel.selectListeners.push(othis.selected);
+			othis.rightPanel.unselectListeners.push(othis.unselected);
+
+			othis.projects.forEach(function(project){
+				othis.changeRevision(project, project.lastRevisionId);
+			});
+		});
+	};
+	
+	this.loadProjectTree = function(){
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.projecttree;
+		othis.sidespan.show();
+	};
+
+	this.showProperties = function(){
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.properties;
+		othis.sidespan.show();
+	};
+
+	this.showTypes = function(){
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.types;
+		othis.sidespan.show();
+	};
+	
+	this.showLayers = function(){
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.layers;
+		othis.sidespan.show();
+	};
+	
+	this.showClassifications = function(){
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.classifications;
+		othis.sidespan.show();
+	};
+	
+	this.showVcontrol = function() {
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.Vcontrol;
+		othis.sidespan.show();
+		othis.Vcontrol.showVersion();
+	};
+	
+	this.showVsubmit = function() {
+		if (othis.sidespan != null) {
+			othis.sidespan.hide();
+		}
+		othis.sidespan = othis.Vsubmit;
+		othis.sidespan.show();
+	};
+	
+	
+	this.loadDetails = function(project){
+		if (othis.rightPanel != null) {
+			othis.rightPanel.reloadProject(project.oid);
+		} else {
+			containerDiv.find(".rightCol").load("rightpanel.html", function(){
+				othis.rightPanel = new RightPanel($(this), main, project, othis);
+				othis.rightPanel.show();
+				containerDiv.find(".rightCol > .details").show();
+			});
+		}
+	};
+	
+	this.share = function(poid, roid) {
+		var div = $("<div class=\"modal fade\">");
+		$(document.body).append(div);
+		div.load(Global.baseDir + "share.html", function(){
+			new Share(poid, roid);
+		}).modal({keyboard:true});
+	};
+
+	//by ch for test
+	this.updateProjectData = function(project){
+		Global.bimServerApi.call("ServiceInterface", "updateProject", {sProject: project}, function(){
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: project.oid}, function(project){
+			othis.project = project;
+			return project;
+		});
+		});
+	};
+//	$(".btnVcontrol").click(function(){
+////		var operationList = othis.properties.getOperationList();
+////		var str = JSON.stringify(operationList);
+////		othis.project.description = str;
+////		othis.updateProjectData(othis.project);
+////		
+////		operationList = $.parseJSON(othis.project.description);
+////		var a = 0;
+//		//alert((othis.properties.getOperationList()).length);
+//		othis.Vcontrol.showVersion();
+//	});
+	
+	$(".btnVsubmit").click(function() {
+		othis.Vsubmit.showOperation(othis.properties.getOperationList());
+	});
+
+	
+//	othis.menuItems.push(main.addMenuDivider("Project"));
+//	othis.menuItems.push(main.addMenuHeader("Project", "This project"));
+
+//	othis.menuItems.push(main.addMenuItem("Project", "Share", function(){
+//		othis.share(othis.project.oid, othis.project.lastRevisionId);
+//	}));
+	
+	containerDiv.find(".btnProjectTree").click(othis.loadProjectTree);
+	containerDiv.find(".btnProperties").click(othis.showProperties);
+	containerDiv.find(".btnTypes").click(othis.showTypes);
+	containerDiv.find(".btnLayers").click(othis.showLayers);
+	containerDiv.find(".btnClassifications").click(othis.showClassifications);
+	containerDiv.find(".btnVcontrol").click(othis.showVcontrol);
+	containerDiv.find(".btnVsubmit").click(othis.showVsubmit);
+}
+</script>

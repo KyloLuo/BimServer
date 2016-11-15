@@ -1,0 +1,489 @@
+<div class="projecttree">
+	<div class="dropdown">
+		<ul id="dropdown" class="dropdown-menu treeDropDown" role="menu">
+			<li><a class="addSubProject">Add sub project</a></li>
+			<li><a class="btnAddService">Add service</a></li>
+			<li class="divider"></li>
+			<li class="dropdown-submenu revisionsLi">
+				<a>Revisions</a>
+				<ul class="revisions dropdown-menu"></ul>
+			</li>
+			<li><a class="btnDownload"><i class="glyphicon glyphicon-cloud-download"></i> Download...</a></li>
+			<li><a class="btnCheckin"><i class="glyphicon glyphicon-cloud-upload"></i> Checkin...</a></li>
+		</ul>
+	</div>
+	<div class="tree">
+	</div>
+</div>
+<script>
+function ProjectTree(containerDiv, projectPage, project, models, main, selectedId) {
+	var othis = this;
+	othis.project = project;
+	othis.selectedId = selectedId;
+	othis.selectedNode = null;
+	//@ch
+	//��ʼ��
+	this.init = function(){
+		othis.tree = new Tree(containerDiv.find(".tree"));
+		othis.tree.selectionListeners.push(function(node){
+			projectPage.selectedObjectId = node.id;
+		});
+		var lastParent = -1;
+		var nrSubprojects = 0;
+	};
+	
+	//@ch
+	//add revision
+	this.addRevision = function(project, roid, types){
+		var parentNode = othis.tree.find(project.parentId);
+		var node = Object.create(Node.prototype);
+		node.init(project.oid, project.name);
+		parentNode.add(node);
+		var dropdown = othis.createDropDown(node);
+		var eye = othis.createEye(node, 2);
+		if (roid == -1 || project.lastRevisionId == -1) {
+			eye.css('visibility', 'hidden');
+		}
+		node.click(function(){
+			node.select();
+			Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: node.project.oid}, function(project){
+				projectPage.loadDetails(project);
+			});
+		});
+		node.setIcon("folder");
+		node.type = "Project";
+		node.project = project;
+		node.groupId = roid;
+		node.roid = roid;
+		node.sort = true;
+		node.poid = project.oid;
+		node.hint("Project");
+		if ($.cookie(main.user.oid + "showdeleteditems") != "true" && project.state == "DELETED") {
+			node.hide();
+		}		
+		if (project.nrSubProjects == 0) {
+			if (roid != -1) {
+				node.onLoad(function(){
+					return othis.loadProjectTree(project, roid, node, types);
+				});
+			}
+		} else {
+			node.doneLoading();
+			node.open();
+		}
+	};
+	
+	this.loadRevision = function(project, roid, types) {
+		var promise = new Promise();
+		var node = othis.tree.find(project.oid);
+//		node.click(function(node){
+//			main.showProject(node.id, null, null);
+//		});
+		
+		
+		if (roid == -1) {
+//			dropdown.on("shown.bs.popover", function () {
+//				containerDiv.find(".popover").offset({top: dropdown.offset().top - 5, left: dropdown.offset().left + 34});
+//				containerDiv.find(".popover").width("200px");
+//			})
+//			dropdown.popover("show");
+		}
+		
+//		if (project.oid == othis.project.oid) {
+//			node.select();
+//		}
+
+		if (project.nrSubProjects == 0) {
+//			othis.loadProjectTree(project, roid, node, types);
+			promise.chain(node.open());
+		} else {
+			node.doneLoading();
+			promise.chain(node.open());
+		}
+		if ($.cookie(main.user.oid + "showdeleteditems") != "true" && project.state == "DELETED") {
+			node.hide();
+		} else {
+//			if (project.parentId == othis.project.oid) {
+//				nrSubprojects++;
+//				containerDiv.find(".subprojectsLink a").html("Sub Projects" + (othis.project.subProjects.length == 0 ? "" : (" (" + nrSubprojects + ")")));
+//			}
+		}
+		return promise;
+	};
+	
+	this.unloadRevision = function(poid, roid) {
+		var node = othis.tree.find(poid);
+		if (node != null) {
+			node.remove();
+		}
+	};
+	
+	
+	
+	this.close = function(){};
+
+	this.toggleDropDown = function(node){
+		othis.selectedNode = node;
+		
+		var thisElement = $(this);
+		
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getAllRevisionsOfProject", {poid: othis.selectedNode.poid}, function(revisions){
+			dropdown.find(".revisions li").remove();
+			if (revisions.length == 0) {
+				dropdown.find(".btnDownload").hide();
+				$(".revisionsLi").hide();
+			} else {
+				dropdown.find(".btnDownload").show();
+				$(".revisionsLi").show();
+				revisions.forEach(function(revision){
+					var li = $("<li><a>" + revision.id + " (" + revision.comment + ")</a></li>");
+					li.find("a").attr("poid", othis.selectedNode.poid);
+					li.find("a").attr("roid", revision.oid);
+					li.find("a").data("project", othis.selectedNode.project);
+					if (othis.selectedNode.roid == revision.oid) {
+						li.find("a").css("font-weight", "bold");
+					}
+					li.find("a").click(function(){
+						dropdown.hide();
+						var a = $(this);
+						projectPage.changeRevision(a.data("project"), a.attr("roid"));
+					});
+					dropdown.find(".revisions").append(li);
+				});
+			}
+			containerDiv.find(".treeDropDown").dropdown("toggle");
+			dropdown.show();
+			containerDiv.find(".dropdown").offset({top: thisElement.offset().top + 20, left: thisElement.offset().left - 120});
+		});
+	};
+	
+	this.createDropDown = function(node){
+		var dropdown = $("<a>");
+		dropdown.addClass("tree-dropdown");
+		dropdown.attr("data-toggle", "dropdown");
+		dropdown.attr("title", "New project");
+		dropdown.attr("data-html", "<p>To <span class=\"underline\">checkin a revision</span> or <span class=\"underline\">add subprojects</span> click on the triangle <img src=\"../img/dropdown.png\"/> or use the project menu in the top-left corner</p>");
+		dropdown.attr("data-target", "#dropdown");
+		dropdown.click(function(){
+			othis.toggleDropDown.call(this, node);
+		});
+		node.addButton(dropdown);
+		return dropdown;
+	};
+	
+	this.hide = function(){
+		containerDiv.hide();
+	};
+	
+	this.show = function(){
+		containerDiv.show();
+		if (othis.selectedId != -1) {
+			var node = othis.tree.find(othis.selectedId);
+			if (node != null) {
+				$(".sidespanWrapper").scrollTo(node.li);
+			}
+		}
+	};
+
+	this.selected = function(origin, groupId, id){
+		if (othis.selectedId == id) {
+			return;
+		}
+		othis.selectedId = id;
+		var treeNode = othis.tree.find(id);
+		if (treeNode != null) {
+			treeNode.openRecursive();
+			treeNode.select();
+
+			if (origin != othis) {
+				// Somehow scrollTo messes up the selection of the selected object in WebGL, probably some browser drawing issue
+				setTimeout(function(){
+					$(".sidespanWrapper").scrollTo(treeNode.li);
+				}, 0);
+			}
+		} else {
+			console.log("Cannot find " + id);
+		}
+	};
+
+	this.unselected = function(groupId, id){
+		var treeNode = othis.tree.find(id);
+		if (treeNode != null) {
+			treeNode.unselect();
+		}				
+	};
+	
+	//@ch
+	//�ı��۾���ʽ
+	this.objectVisibilityChanged = function(objects, oldMode){
+		//todo use groupid
+		objects.forEach(function(object){
+			var node = othis.tree.find(object.oid);
+			if (node != null) {
+				var mode = object.trans.mode;
+				node.eye.attr("mode", mode);
+				if (mode == 0) {
+					node.eye.removeClass("eyeclosed").removeClass("eyehalfopen").addClass("eyeopen");
+				} else if (mode == 1) {
+					node.eye.removeClass("eyeopen").removeClass("eyeclosed").addClass("eyehalfopen");
+				} else if (mode == 2) {
+					node.eye.removeClass("eyehalfopen").removeClass("eyeopen").addClass("eyeclosed");
+				}
+			}
+		});
+	};
+	
+	this.treeItemClick = function(treeNode) {
+		if (typeof treeNode.id === "number" && treeNode.type.startsWith("Ifc")) {
+			var groupNode = treeNode.findFirstParentWithAttr("groupId");
+			projectPage.selected(othis, groupNode.groupId, treeNode.id);
+		}
+	};
+	
+	this.toggleEye = function(node, mode){
+		//@ch
+		//get projectnODES
+		var projectNodes = node.listFilterByType("Project");
+		if (projectNodes.length == 0) {
+			othis.internalToggleEye(node, mode);
+		} else {
+			projectNodes.forEach(function(projectNode){
+				if (projectNode.roid != -1) {
+					if (!projectPage.models[projectNode.roid].isPreloaded) {
+						othis.loadRevision(projectNode.project, projectNode.roid, []).done(function(){
+							othis.internalToggleEye(projectNode, mode);
+						});
+					} else {
+						othis.internalToggleEye(projectNode, mode);
+					}
+				}
+			});
+		}
+	};
+	//@ch
+	//�ڲ�����eye
+	this.internalToggleEye = function(node, mode) {
+		var nodeList = node.list();
+		var groupNode = node.findFirstParentWithAttr("groupId");
+		if (groupNode.groupId != -1) {
+			var hiddenTypes = Settings.getDefaultHiddenTypes();
+			var ifcOids = [];
+			nodeList.forEach(function(subNode){
+				if (subNode.type.startsWith("Ifc") && typeof subNode.id === "number") {
+					var explicit = node.id == subNode.id || (node.type != null && node.type == subNode.type);
+					if (hiddenTypes[subNode.type] == null || explicit || mode != 0) {  //@ch �ȶ�ignore�б�
+						ifcOids.push(subNode.id);
+					}
+				}
+			});
+			projectPage.setObjectVisibility(groupNode.groupId, ifcOids, mode);
+			nodeList.forEach(function(n){
+				var explicit = node.id == n.id || (node.type != null && node.type == n.type);
+				if (hiddenTypes[n.type] == null || explicit || mode != 0) {
+					n.eye.attr("mode", mode);
+					if (mode == 0) {
+						n.eye.removeClass("eyeclosed").removeClass("eyehalfopen").addClass("eyeopen");
+					} else if (mode == 1) {
+						n.eye.removeClass("eyeopen").removeClass("eyeclosed").addClass("eyehalfopen");
+					} else if (mode == 2) {
+						n.eye.removeClass("eyehalfopen").removeClass("eyeopen").addClass("eyeclosed");
+					}
+				}
+			});
+		}
+	};
+	
+	this.createEye = function(node, mode){
+		var eye = $("<div>");
+		eye.addClass("eye");
+		if (mode == 0) {
+			eye.addClass("eyeopen");
+		} else if (mode == 1) {
+			eye.addClass("eyehalfopen");
+		} else if (mode == 2) {
+			eye.addClass("eyeclosed");
+		}
+		eye.attr("mode", mode);
+		eye.click(function(){
+			var mode = parseInt(eye.attr("mode"));
+			othis.toggleEye(node, (mode + 1) % 3);
+		});
+		node.eye = eye;
+		node.addButton(eye);
+		return eye;
+	};
+	
+	this.processRelatedElement = function(parentNode, relatedElement, createdTypes, types){
+		typeNode = createdTypes[relatedElement.getType()];
+		if (typeNode == null) {
+			var typeNode = Object.create(Node.prototype);
+			typeNode.init(relatedElement.getType(), stripIfc(relatedElement.getType()));
+
+			typeNode.setIcon("types");
+			typeNode.type = relatedElement.getType();
+			
+			if (types[relatedElement.getType()] == null) {
+				othis.createEye(typeNode, 2);
+			} else {
+				othis.createEye(typeNode, types[relatedElement.getType()].mode);
+			}
+			
+			createdTypes[relatedElement.getType()] = typeNode;
+			parentNode.add(typeNode);
+		}
+		othis.buildDecomposedTree(relatedElement, typeNode, types);
+	};
+	
+	//@ch
+	//create decopmposed tree
+	//�ݹ�ֽ���
+	
+	this.buildDecomposedTree = function(object, tree, types) {
+		var name = null;
+		if (object.getLongName != null) {
+			if (object.getLongName() != null && object.getLongName() != "") {
+				name = object.getLongName();
+			}
+		}
+		if (name == null) {
+			if (object.getName() != null && object.getName() != "") {
+				name = object.getName();
+			}
+		}
+		if (name == null) {
+			name = "Unknown";
+		}
+		var newNode = Object.create(Node.prototype);
+		newNode.init(object.oid, name);
+		
+		newNode.type = object.getType();
+		
+		//@ch
+		//set Icon for hierarchy
+		
+		if (object.getType() == "IfcProject" || object.getType() == "IfcSite" || object.getType() == "IfcBuilding" || object.getType() == "IfcBuildingStorey" || object.getType() == "IfcSpace") {
+			newNode.setIcon("hierarchy");
+		} else {
+			newNode.setIcon("ball");
+		}
+		newNode.click(othis.treeItemClick);
+		newNode.setLoading();
+		newNode.hint(object.getType());
+		var state = types[object.getType()];
+		othis.createEye(newNode, state == null ? 2 : state.mode);
+		tree.add(newNode);
+		if (object.getType() == "IfcBuildingStorey") {
+			var createdTypes = {};
+			object.getContainsElements(function(relReferencedInSpatialStructure){
+				relReferencedInSpatialStructure.getRelatedElements(function(relatedElement){
+					othis.processRelatedElement(newNode, relatedElement, createdTypes, types);
+				}).done(function(){
+					object.getIsDecomposedBy(function(isDecomposedBy){
+						if (isDecomposedBy != null) {
+							isDecomposedBy.getRelatedObjects(function(relatedObject){
+								othis.processRelatedElement(newNode, relatedObject, createdTypes, types);
+							});
+						}
+					}).done(function(){
+						newNode.doneLoading();
+					});
+				});
+			}).done(function(){
+				newNode.doneLoading();
+			});
+		} else {
+			object.getIsDecomposedBy(function(isDecomposedBy){
+				isDecomposedBy.getRelatedObjects(function(relatedObject){
+					othis.buildDecomposedTree(relatedObject, newNode, types);
+				}).done(function(){
+					newNode.doneLoading();
+				});
+			}).done(function(){
+				// klopt niet...
+				newNode.doneLoading();
+			});
+			if (object.getContainsElements != null) {
+				object.getContainsElements(function(containedElement){
+					containedElement.getRelatedElements(function(relatedElement){
+						othis.buildDecomposedTree(relatedElement, newNode, types);
+					});
+				});
+			}
+		}
+	}
+	
+	this.loadProjectTree = function(project, roid, node, types){
+		var promise = new Promise();
+		node.setLoading();
+		node.ul.remove();
+		var model = models[roid];
+		if (model != null) {
+			projectPage.preloadModel(project, roid).done(function(){
+				model.getAllOfType("IfcProject", true, function(project){
+					othis.buildDecomposedTree(project, node, types);
+				}).done(function(){
+					promise.fire();
+					node.li.append(node.ul);
+					node.doneLoading();
+				});
+			});
+		} else {
+			node.doneLoading();
+			promise.fire();
+		}
+		return promise;
+	};
+	
+	this.gatherRoidList = function(node, list){
+		if (node.type == "Project") {
+			if (node.roid != -1) {
+				list.push(node.roid);
+			}
+			node.children.forEach(function(child){
+				othis.gatherRoidList(child, list);
+			});
+		}
+	};
+	
+	projectPage.selectListeners.register(othis.selected);
+	projectPage.unselectListeners.register(othis.unselected);
+	projectPage.objectVisibilityListeners.register(othis.objectVisibilityChanged);
+	projectPage.modelAddedListeners.register(othis.addRevision);
+	projectPage.modelLoadedListeners.register(othis.loadRevision);
+	projectPage.modelUnloadedListeners.register(othis.unloadRevision);
+
+	var dropdown = containerDiv.find(".dropdown");
+	dropdown.find(".btnDownload").click(function(){
+		dropdown.hide();
+		var list = [];
+		othis.gatherRoidList(othis.selectedNode, list);
+		main.showDownloadRevisionsPopup(list);
+	});
+	dropdown.find(".btnAddService").click(function(){
+		dropdown.hide();
+		main.showAddService(othis.selectedNode.project);
+	});
+	dropdown.find(".btnCheckin").click(function(){
+		dropdown.hide();
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: othis.selectedNode.poid}, function(project){
+			main.showCheckinPopup(project, function(){
+				Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectSmallByPoid", {poid: othis.selectedNode.poid}, function(projectSmall){
+					projectPage.changeRevision(projectSmall, projectSmall.lastRevisionId);
+				});
+			});
+		});
+	});
+	dropdown.find(".addSubProject").click(function(){
+		dropdown.hide();
+		Global.bimServerApi.call("Bimsie1ServiceInterface", "getProjectByPoid", {poid: othis.selectedNode.poid}, function(project){
+			main.showAddProject(null, project);
+		});
+	});
+	
+	$(window).click(function(){
+		dropdown.hide();
+	});
+	
+	othis.init();
+}
+</script>

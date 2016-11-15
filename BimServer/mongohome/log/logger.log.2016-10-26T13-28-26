@@ -1,0 +1,362 @@
+2016-10-26T21:26:01.225+0800 I CONTROL  [main] Hotfix KB2731284 or later update is not installed, will zero-out data files
+2016-10-26T21:26:01.225+0800 I CONTROL  [initandlisten] MongoDB starting : pid=15216 port=27017 dbpath=I:\acmood\BIMServer\BimServer\mongohome\data 64-bit host=acmood-PC
+2016-10-26T21:26:01.225+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2016-10-26T21:26:01.225+0800 I CONTROL  [initandlisten] db version v3.2.9
+2016-10-26T21:26:01.225+0800 I CONTROL  [initandlisten] git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
+2016-10-26T21:26:01.225+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1p-fips 9 Jul 2015
+2016-10-26T21:26:01.225+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2016-10-26T21:26:01.226+0800 I CONTROL  [initandlisten] modules: none
+2016-10-26T21:26:01.226+0800 I CONTROL  [initandlisten] build environment:
+2016-10-26T21:26:01.226+0800 I CONTROL  [initandlisten]     distmod: 2008plus-ssl
+2016-10-26T21:26:01.226+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2016-10-26T21:26:01.226+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2016-10-26T21:26:01.226+0800 I CONTROL  [initandlisten] options: { storage: { dbPath: "I:\acmood\BIMServer\BimServer\mongohome\data" }, systemLog: { destination: "file", path: "I:\acmood\BIMServer\BimServer\mongohome\log\logger.log" } }
+2016-10-26T21:26:01.232+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=4G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
+2016-10-26T21:26:01.271+0800 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
+2016-10-26T21:26:01.271+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'I:/acmood/BIMServer/BimServer/mongohome/data/diagnostic.data'
+2016-10-26T21:26:01.279+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2016-10-26T21:26:01.296+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:41097 #1 (1 connection now open)
+2016-10-26T21:26:01.333+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:41098 #2 (2 connections now open)
+2016-10-26T21:26:07.710+0800 I INDEX    [conn2] build index on: database.INT-Operation properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.INT-Operation" }
+2016-10-26T21:26:07.710+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.712+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.725+0800 I INDEX    [conn2] build index on: database.INT-Store properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.INT-Store" }
+2016-10-26T21:26:07.725+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.727+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.803+0800 I INDEX    [conn2] build index on: database.store_Project properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Project" }
+2016-10-26T21:26:07.803+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.805+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.831+0800 I INDEX    [conn2] build index on: database.store_User properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_User" }
+2016-10-26T21:26:07.831+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.833+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.846+0800 I INDEX    [conn2] build index on: database.store_Revision properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Revision" }
+2016-10-26T21:26:07.846+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.847+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.861+0800 I INDEX    [conn2] build index on: database.store_ConcreteRevision properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ConcreteRevision" }
+2016-10-26T21:26:07.861+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.862+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.875+0800 I INDEX    [conn2] build index on: database.store_GeoTag properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_GeoTag" }
+2016-10-26T21:26:07.875+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.877+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.895+0800 I INDEX    [conn2] build index on: database.store_Checkout properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Checkout" }
+2016-10-26T21:26:07.895+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.897+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.913+0800 I INDEX    [conn2] build index on: database.store_ServerSettings properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ServerSettings" }
+2016-10-26T21:26:07.913+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.915+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.933+0800 I INDEX    [conn2] build index on: database.store_UserSettings properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_UserSettings" }
+2016-10-26T21:26:07.933+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.934+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.949+0800 I INDEX    [conn2] build index on: database.log_LogAction properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_LogAction" }
+2016-10-26T21:26:07.949+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.951+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.964+0800 I INDEX    [conn2] build index on: database.log_ServerLog properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ServerLog" }
+2016-10-26T21:26:07.965+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.966+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.982+0800 I INDEX    [conn2] build index on: database.log_ProjectRelated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ProjectRelated" }
+2016-10-26T21:26:07.982+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.984+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:07.997+0800 I INDEX    [conn2] build index on: database.log_CheckoutRelated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_CheckoutRelated" }
+2016-10-26T21:26:07.997+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:07.999+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.014+0800 I INDEX    [conn2] build index on: database.log_RevisionRelated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_RevisionRelated" }
+2016-10-26T21:26:08.014+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.016+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.029+0800 I INDEX    [conn2] build index on: database.log_UserRelated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_UserRelated" }
+2016-10-26T21:26:08.029+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.031+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.045+0800 I INDEX    [conn2] build index on: database.log_NewUserAdded properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_NewUserAdded" }
+2016-10-26T21:26:08.045+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.047+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.062+0800 I INDEX    [conn2] build index on: database.log_NewProjectAdded properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_NewProjectAdded" }
+2016-10-26T21:26:08.062+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.064+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.076+0800 I INDEX    [conn2] build index on: database.log_RevisionBranched properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_RevisionBranched" }
+2016-10-26T21:26:08.076+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.078+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.091+0800 I INDEX    [conn2] build index on: database.log_NewRevisionAdded properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_NewRevisionAdded" }
+2016-10-26T21:26:08.091+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.093+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.106+0800 I INDEX    [conn2] build index on: database.log_NewCheckoutAdded properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_NewCheckoutAdded" }
+2016-10-26T21:26:08.106+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.108+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.122+0800 I INDEX    [conn2] build index on: database.log_SettingsSaved properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_SettingsSaved" }
+2016-10-26T21:26:08.122+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.124+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.138+0800 I INDEX    [conn2] build index on: database.log_UserAddedToProject properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_UserAddedToProject" }
+2016-10-26T21:26:08.138+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.139+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.153+0800 I INDEX    [conn2] build index on: database.log_NewObjectIDMUploaded properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_NewObjectIDMUploaded" }
+2016-10-26T21:26:08.153+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.155+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.168+0800 I INDEX    [conn2] build index on: database.log_Download properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_Download" }
+2016-10-26T21:26:08.168+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.170+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.184+0800 I INDEX    [conn2] build index on: database.log_UserRemovedFromProject properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_UserRemovedFromProject" }
+2016-10-26T21:26:08.184+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.186+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.200+0800 I INDEX    [conn2] build index on: database.log_ProjectDeleted properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ProjectDeleted" }
+2016-10-26T21:26:08.200+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.202+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.215+0800 I INDEX    [conn2] build index on: database.log_UserDeleted properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_UserDeleted" }
+2016-10-26T21:26:08.215+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.217+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.230+0800 I INDEX    [conn2] build index on: database.log_PasswordReset properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_PasswordReset" }
+2016-10-26T21:26:08.230+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.232+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.245+0800 I INDEX    [conn2] build index on: database.log_DatabaseCreated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_DatabaseCreated" }
+2016-10-26T21:26:08.245+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.247+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.260+0800 I INDEX    [conn2] build index on: database.log_ServerStarted properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ServerStarted" }
+2016-10-26T21:26:08.260+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.262+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.275+0800 I INDEX    [conn2] build index on: database.log_ProjectUpdated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ProjectUpdated" }
+2016-10-26T21:26:08.275+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.277+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.290+0800 I INDEX    [conn2] build index on: database.log_UserUndeleted properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_UserUndeleted" }
+2016-10-26T21:26:08.290+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.292+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.309+0800 I INDEX    [conn2] build index on: database.log_ProjectUndeleted properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ProjectUndeleted" }
+2016-10-26T21:26:08.309+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.311+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.324+0800 I INDEX    [conn2] build index on: database.log_RevisionUpdated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_RevisionUpdated" }
+2016-10-26T21:26:08.324+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.325+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.339+0800 I INDEX    [conn2] build index on: database.log_GeoTagUpdated properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_GeoTagUpdated" }
+2016-10-26T21:26:08.339+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.341+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.355+0800 I INDEX    [conn2] build index on: database.log_PasswordChanged properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_PasswordChanged" }
+2016-10-26T21:26:08.355+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.356+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.370+0800 I INDEX    [conn2] build index on: database.log_UserChanged properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_UserChanged" }
+2016-10-26T21:26:08.370+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.372+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.386+0800 I INDEX    [conn2] build index on: database.store_PluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_PluginConfiguration" }
+2016-10-26T21:26:08.386+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.387+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.404+0800 I INDEX    [conn2] build index on: database.store_SerializerPluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_SerializerPluginConfiguration" }
+2016-10-26T21:26:08.404+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.406+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.442+0800 I INDEX    [conn2] build index on: database.store_ObjectIDMPluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ObjectIDMPluginConfiguration" }
+2016-10-26T21:26:08.442+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.444+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.461+0800 I INDEX    [conn2] build index on: database.store_RenderEnginePluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_RenderEnginePluginConfiguration" }
+2016-10-26T21:26:08.461+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.463+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.478+0800 I INDEX    [conn2] build index on: database.store_DeserializerPluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DeserializerPluginConfiguration" }
+2016-10-26T21:26:08.478+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.480+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.493+0800 I INDEX    [conn2] build index on: database.store_DownloadResult properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DownloadResult" }
+2016-10-26T21:26:08.494+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.495+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.508+0800 I INDEX    [conn2] build index on: database.store_CheckoutResult properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_CheckoutResult" }
+2016-10-26T21:26:08.508+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.510+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.523+0800 I INDEX    [conn2] build index on: database.store_DataValue properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DataValue" }
+2016-10-26T21:26:08.523+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.525+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.537+0800 I INDEX    [conn2] build index on: database.store_DataObject properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DataObject" }
+2016-10-26T21:26:08.537+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.539+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.551+0800 I INDEX    [conn2] build index on: database.store_UserSession properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_UserSession" }
+2016-10-26T21:26:08.551+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.553+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.564+0800 I INDEX    [conn2] build index on: database.store_Migration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Migration" }
+2016-10-26T21:26:08.564+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.566+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.580+0800 I INDEX    [conn2] build index on: database.store_ReferenceDataValue properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ReferenceDataValue" }
+2016-10-26T21:26:08.580+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.581+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.594+0800 I INDEX    [conn2] build index on: database.store_ListDataValue properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ListDataValue" }
+2016-10-26T21:26:08.594+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.596+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.608+0800 I INDEX    [conn2] build index on: database.store_SimpleDataValue properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_SimpleDataValue" }
+2016-10-26T21:26:08.609+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.610+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.622+0800 I INDEX    [conn2] build index on: database.store_DatabaseInformationItem properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DatabaseInformationItem" }
+2016-10-26T21:26:08.622+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.624+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.637+0800 I INDEX    [conn2] build index on: database.store_DatabaseInformationCategory properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DatabaseInformationCategory" }
+2016-10-26T21:26:08.637+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.639+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.653+0800 I INDEX    [conn2] build index on: database.store_DatabaseInformation properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DatabaseInformation" }
+2016-10-26T21:26:08.653+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.655+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.667+0800 I INDEX    [conn2] build index on: database.store_PluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_PluginDescriptor" }
+2016-10-26T21:26:08.667+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.669+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.684+0800 I INDEX    [conn2] build index on: database.store_SerializerPluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_SerializerPluginDescriptor" }
+2016-10-26T21:26:08.685+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.686+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.703+0800 I INDEX    [conn2] build index on: database.store_DeserializerPluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DeserializerPluginDescriptor" }
+2016-10-26T21:26:08.703+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.704+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.718+0800 I INDEX    [conn2] build index on: database.store_RevisionSummaryType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_RevisionSummaryType" }
+2016-10-26T21:26:08.718+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.720+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.734+0800 I INDEX    [conn2] build index on: database.store_RevisionSummaryContainer properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_RevisionSummaryContainer" }
+2016-10-26T21:26:08.734+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.736+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.749+0800 I INDEX    [conn2] build index on: database.store_RevisionSummary properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_RevisionSummary" }
+2016-10-26T21:26:08.749+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.751+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.763+0800 I INDEX    [conn2] build index on: database.store_LongAction properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_LongAction" }
+2016-10-26T21:26:08.763+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.765+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.777+0800 I INDEX    [conn2] build index on: database.store_ObjectIDMPluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ObjectIDMPluginDescriptor" }
+2016-10-26T21:26:08.777+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.779+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.792+0800 I INDEX    [conn2] build index on: database.store_CompareItem properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_CompareItem" }
+2016-10-26T21:26:08.792+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.794+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.808+0800 I INDEX    [conn2] build index on: database.store_ObjectAdded properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ObjectAdded" }
+2016-10-26T21:26:08.808+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.809+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.822+0800 I INDEX    [conn2] build index on: database.store_ObjectRemoved properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ObjectRemoved" }
+2016-10-26T21:26:08.822+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.824+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.836+0800 I INDEX    [conn2] build index on: database.store_ObjectModified properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ObjectModified" }
+2016-10-26T21:26:08.836+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.837+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.850+0800 I INDEX    [conn2] build index on: database.store_CompareContainer properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_CompareContainer" }
+2016-10-26T21:26:08.850+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.851+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.867+0800 I INDEX    [conn2] build index on: database.store_CompareResult properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_CompareResult" }
+2016-10-26T21:26:08.867+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.869+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.881+0800 I INDEX    [conn2] build index on: database.store_LongActionState properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_LongActionState" }
+2016-10-26T21:26:08.881+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.883+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.895+0800 I INDEX    [conn2] build index on: database.store_ServerInfo properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ServerInfo" }
+2016-10-26T21:26:08.895+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.897+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.910+0800 I INDEX    [conn2] build index on: database.store_Version properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Version" }
+2016-10-26T21:26:08.910+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.912+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.926+0800 I INDEX    [conn2] build index on: database.store_RenderEnginePluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_RenderEnginePluginDescriptor" }
+2016-10-26T21:26:08.926+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.928+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.940+0800 I INDEX    [conn2] build index on: database.store_File properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_File" }
+2016-10-26T21:26:08.940+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.942+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.955+0800 I INDEX    [conn2] build index on: database.store_ExtendedDataSchema properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ExtendedDataSchema" }
+2016-10-26T21:26:08.955+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.957+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.972+0800 I INDEX    [conn2] build index on: database.store_ExtendedData properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ExtendedData" }
+2016-10-26T21:26:08.972+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.974+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:08.987+0800 I INDEX    [conn2] build index on: database.store_QueryEnginePluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_QueryEnginePluginDescriptor" }
+2016-10-26T21:26:08.987+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:08.989+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.001+0800 I INDEX    [conn2] build index on: database.store_QueryEnginePluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_QueryEnginePluginConfiguration" }
+2016-10-26T21:26:09.001+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.003+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.020+0800 I INDEX    [conn2] build index on: database.store_WebModulePluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_WebModulePluginDescriptor" }
+2016-10-26T21:26:09.020+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.021+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.035+0800 I INDEX    [conn2] build index on: database.store_WebModulePluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_WebModulePluginConfiguration" }
+2016-10-26T21:26:09.035+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.036+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.050+0800 I INDEX    [conn2] build index on: database.store_ModelMergerPluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ModelMergerPluginDescriptor" }
+2016-10-26T21:26:09.050+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.052+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.069+0800 I INDEX    [conn2] build index on: database.store_ModelMergerPluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ModelMergerPluginConfiguration" }
+2016-10-26T21:26:09.070+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.071+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.085+0800 I INDEX    [conn2] build index on: database.store_ModelComparePluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ModelComparePluginDescriptor" }
+2016-10-26T21:26:09.085+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.086+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.100+0800 I INDEX    [conn2] build index on: database.store_ModelComparePluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ModelComparePluginConfiguration" }
+2016-10-26T21:26:09.100+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.105+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.131+0800 I INDEX    [conn2] build index on: database.store_Service properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Service" }
+2016-10-26T21:26:09.131+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.133+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.146+0800 I INDEX    [conn2] build index on: database.store_Token properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Token" }
+2016-10-26T21:26:09.146+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.148+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.160+0800 I INDEX    [conn2] build index on: database.store_ServicePluginDescriptor properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ServicePluginDescriptor" }
+2016-10-26T21:26:09.160+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.162+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.175+0800 I INDEX    [conn2] build index on: database.store_InternalServicePluginConfiguration properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_InternalServicePluginConfiguration" }
+2016-10-26T21:26:09.175+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.177+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.192+0800 I INDEX    [conn2] build index on: database.store_ServiceType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ServiceType" }
+2016-10-26T21:26:09.192+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.194+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.207+0800 I INDEX    [conn2] build index on: database.log_ExtendedDataAddedToRevision properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ExtendedDataAddedToRevision" }
+2016-10-26T21:26:09.207+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.209+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.225+0800 I INDEX    [conn2] build index on: database.log_ExtendedDataAddedToProject properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_ExtendedDataAddedToProject" }
+2016-10-26T21:26:09.225+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.226+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.259+0800 I INDEX    [conn2] build index on: database.store_Type properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Type" }
+2016-10-26T21:26:09.259+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.261+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.276+0800 I INDEX    [conn2] build index on: database.store_ObjectType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ObjectType" }
+2016-10-26T21:26:09.276+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.278+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.301+0800 I INDEX    [conn2] build index on: database.store_PrimitiveType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_PrimitiveType" }
+2016-10-26T21:26:09.301+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.303+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.316+0800 I INDEX    [conn2] build index on: database.store_LongType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_LongType" }
+2016-10-26T21:26:09.317+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.318+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.331+0800 I INDEX    [conn2] build index on: database.store_ByteArrayType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ByteArrayType" }
+2016-10-26T21:26:09.331+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.333+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.345+0800 I INDEX    [conn2] build index on: database.store_DoubleType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_DoubleType" }
+2016-10-26T21:26:09.345+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.347+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.359+0800 I INDEX    [conn2] build index on: database.store_StringType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_StringType" }
+2016-10-26T21:26:09.359+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.361+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.374+0800 I INDEX    [conn2] build index on: database.store_BooleanType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_BooleanType" }
+2016-10-26T21:26:09.374+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.376+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.391+0800 I INDEX    [conn2] build index on: database.store_ArrayType properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ArrayType" }
+2016-10-26T21:26:09.391+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.393+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.429+0800 I INDEX    [conn2] build index on: database.store_Parameter properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_Parameter" }
+2016-10-26T21:26:09.429+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.431+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.443+0800 I INDEX    [conn2] build index on: database.store_ImmediateNotificationResult properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ImmediateNotificationResult" }
+2016-10-26T21:26:09.443+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.445+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.457+0800 I INDEX    [conn2] build index on: database.log_RemoteServiceCalled properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.log_RemoteServiceCalled" }
+2016-10-26T21:26:09.457+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.458+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.470+0800 I INDEX    [conn2] build index on: database.store_RemoteServiceUpdate properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_RemoteServiceUpdate" }
+2016-10-26T21:26:09.470+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.472+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.484+0800 I INDEX    [conn2] build index on: database.store_PercentageChange properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_PercentageChange" }
+2016-10-26T21:26:09.484+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.486+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.499+0800 I INDEX    [conn2] build index on: database.store_SystemInfo properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_SystemInfo" }
+2016-10-26T21:26:09.499+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.500+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.514+0800 I INDEX    [conn2] build index on: database.store_JavaInfo properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_JavaInfo" }
+2016-10-26T21:26:09.514+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.516+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.529+0800 I INDEX    [conn2] build index on: database.store_BimServerInfo properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_BimServerInfo" }
+2016-10-26T21:26:09.529+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.530+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.545+0800 I INDEX    [conn2] build index on: database.store_ProjectSmall properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_ProjectSmall" }
+2016-10-26T21:26:09.545+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.547+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.559+0800 I INDEX    [conn2] build index on: database.store_IfcHeader properties: { v: 1, key: { pid: 1, oid: 1, rid: -1 }, name: "pid_1_oid_1_rid_-1", ns: "database.store_IfcHeader" }
+2016-10-26T21:26:09.559+0800 I INDEX    [conn2] 	 building index using bulk method
+2016-10-26T21:26:09.561+0800 I INDEX    [conn2] build index done.  scanned 0 total records. 0 secs
+2016-10-26T21:26:09.989+0800 I NETWORK  [conn2] end connection 127.0.0.1:41098 (1 connection now open)
+2016-10-26T21:26:09.990+0800 I NETWORK  [conn1] end connection 127.0.0.1:41097 (0 connections now open)
+2016-10-26T21:28:17.498+0800 I CONTROL  [thread1] CTRL_CLOSE_EVENT signal
+2016-10-26T21:28:17.499+0800 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
+2016-10-26T21:28:17.499+0800 I FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2016-10-26T21:28:17.502+0800 I CONTROL  [consoleTerminate] now exiting
+2016-10-26T21:28:17.502+0800 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2016-10-26T21:28:17.502+0800 I NETWORK  [consoleTerminate] closing listening socket: 488
+2016-10-26T21:28:17.503+0800 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2016-10-26T21:28:17.503+0800 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2016-10-26T21:28:17.504+0800 I STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2016-10-26T21:28:17.580+0800 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2016-10-26T21:28:17.580+0800 I CONTROL  [consoleTerminate] dbexit:  rc: 12

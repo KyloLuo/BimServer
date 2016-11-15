@@ -1,0 +1,81 @@
+2016-10-19T21:00:08.969+0800 I CONTROL  [main] Hotfix KB2731284 or later update is not installed, will zero-out data files
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] MongoDB starting : pid=8024 port=27017 dbpath=I:\acmood\BIMServer\BimServer\mongohome\data 64-bit host=acmood-PC
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] db version v3.2.9
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1p-fips 9 Jul 2015
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] modules: none
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] build environment:
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten]     distmod: 2008plus-ssl
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2016-10-19T21:00:08.969+0800 I CONTROL  [initandlisten] options: { storage: { dbPath: "I:\acmood\BIMServer\BimServer\mongohome\data" }, systemLog: { destination: "file", path: "I:\acmood\BIMServer\BimServer\mongohome\log\logger.log" } }
+2016-10-19T21:00:08.969+0800 I -        [initandlisten] Detected data files in I:\acmood\BIMServer\BimServer\mongohome\data created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2016-10-19T21:00:08.969+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=4G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
+2016-10-19T21:00:12.801+0800 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
+2016-10-19T21:00:12.801+0800 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'I:/acmood/BIMServer/BimServer/mongohome/data/diagnostic.data'
+2016-10-19T21:00:12.803+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
+2016-10-19T21:00:21.759+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12756 #1 (1 connection now open)
+2016-10-19T21:00:21.791+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12757 #2 (2 connections now open)
+2016-10-19T21:00:23.415+0800 I NETWORK  [conn1] end connection 127.0.0.1:12756 (1 connection now open)
+2016-10-19T21:00:23.415+0800 I NETWORK  [conn2] end connection 127.0.0.1:12757 (1 connection now open)
+2016-10-19T21:15:14.588+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12896 #3 (1 connection now open)
+2016-10-19T21:15:14.625+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12897 #4 (2 connections now open)
+2016-10-19T21:15:16.160+0800 I NETWORK  [conn3] end connection 127.0.0.1:12896 (1 connection now open)
+2016-10-19T21:15:16.161+0800 I NETWORK  [conn4] end connection 127.0.0.1:12897 (0 connections now open)
+2016-10-19T21:16:28.663+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12900 #5 (1 connection now open)
+2016-10-19T21:16:28.699+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12901 #6 (2 connections now open)
+2016-10-19T21:16:30.351+0800 I NETWORK  [conn5] end connection 127.0.0.1:12900 (1 connection now open)
+2016-10-19T21:16:30.351+0800 I NETWORK  [conn6] end connection 127.0.0.1:12901 (1 connection now open)
+2016-10-19T21:17:49.877+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12913 #7 (1 connection now open)
+2016-10-19T21:17:49.916+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12914 #8 (2 connections now open)
+2016-10-19T21:17:51.664+0800 I NETWORK  [conn7] end connection 127.0.0.1:12913 (1 connection now open)
+2016-10-19T21:17:51.664+0800 I NETWORK  [conn8] end connection 127.0.0.1:12914 (1 connection now open)
+2016-10-19T21:18:33.633+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12926 #9 (1 connection now open)
+2016-10-19T21:18:33.670+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12927 #10 (2 connections now open)
+2016-10-19T21:18:35.303+0800 I NETWORK  [conn9] end connection 127.0.0.1:12926 (1 connection now open)
+2016-10-19T21:18:35.304+0800 I NETWORK  [conn10] end connection 127.0.0.1:12927 (1 connection now open)
+2016-10-19T21:23:33.643+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12967 #11 (1 connection now open)
+2016-10-19T21:23:33.690+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12968 #12 (2 connections now open)
+2016-10-19T21:23:35.299+0800 I NETWORK  [conn11] end connection 127.0.0.1:12967 (1 connection now open)
+2016-10-19T21:23:35.299+0800 I NETWORK  [conn12] end connection 127.0.0.1:12968 (0 connections now open)
+2016-10-19T21:24:44.754+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12986 #13 (1 connection now open)
+2016-10-19T21:24:44.800+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12987 #14 (2 connections now open)
+2016-10-19T21:24:46.389+0800 I NETWORK  [conn13] end connection 127.0.0.1:12986 (1 connection now open)
+2016-10-19T21:24:46.389+0800 I NETWORK  [conn14] end connection 127.0.0.1:12987 (1 connection now open)
+2016-10-19T21:25:42.974+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12991 #15 (1 connection now open)
+2016-10-19T21:25:43.012+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:12992 #16 (2 connections now open)
+2016-10-19T21:25:44.435+0800 I NETWORK  [conn15] end connection 127.0.0.1:12991 (1 connection now open)
+2016-10-19T21:25:44.435+0800 I NETWORK  [conn16] end connection 127.0.0.1:12992 (1 connection now open)
+2016-10-19T21:28:16.366+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13009 #17 (1 connection now open)
+2016-10-19T21:28:16.407+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13010 #18 (2 connections now open)
+2016-10-19T21:28:17.805+0800 I NETWORK  [conn17] end connection 127.0.0.1:13009 (1 connection now open)
+2016-10-19T21:28:17.806+0800 I NETWORK  [conn18] end connection 127.0.0.1:13010 (1 connection now open)
+2016-10-19T21:29:24.901+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13029 #19 (1 connection now open)
+2016-10-19T21:29:24.941+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13030 #20 (2 connections now open)
+2016-10-19T21:29:26.346+0800 I NETWORK  [conn19] end connection 127.0.0.1:13029 (1 connection now open)
+2016-10-19T21:29:26.346+0800 I NETWORK  [conn20] end connection 127.0.0.1:13030 (1 connection now open)
+2016-10-19T21:35:56.360+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13076 #21 (1 connection now open)
+2016-10-19T21:35:56.400+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13077 #22 (2 connections now open)
+2016-10-19T22:04:31.062+0800 I NETWORK  [conn21] end connection 127.0.0.1:13076 (1 connection now open)
+2016-10-19T22:04:31.063+0800 I NETWORK  [conn22] end connection 127.0.0.1:13077 (0 connections now open)
+2016-10-19T22:19:17.340+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13351 #23 (1 connection now open)
+2016-10-19T22:19:17.376+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13352 #24 (2 connections now open)
+2016-10-19T22:19:18.085+0800 I NETWORK  [conn23] end connection 127.0.0.1:13351 (1 connection now open)
+2016-10-19T22:19:18.085+0800 I NETWORK  [conn24] end connection 127.0.0.1:13352 (1 connection now open)
+2016-10-19T22:19:26.893+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13355 #25 (1 connection now open)
+2016-10-19T22:19:26.926+0800 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:13356 #26 (2 connections now open)
+2016-10-19T22:19:28.228+0800 I NETWORK  [conn26] end connection 127.0.0.1:13356 (1 connection now open)
+2016-10-19T22:19:28.228+0800 I NETWORK  [conn25] end connection 127.0.0.1:13355 (0 connections now open)
+2016-10-19T22:19:42.571+0800 I CONTROL  [thread1] CTRL_CLOSE_EVENT signal
+2016-10-19T22:19:42.571+0800 I CONTROL  [consoleTerminate] got CTRL_CLOSE_EVENT, will terminate after current cmd ends
+2016-10-19T22:19:42.571+0800 I FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2016-10-19T22:19:42.577+0800 I CONTROL  [consoleTerminate] now exiting
+2016-10-19T22:19:42.577+0800 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2016-10-19T22:19:42.578+0800 I NETWORK  [consoleTerminate] closing listening socket: 488
+2016-10-19T22:19:42.578+0800 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2016-10-19T22:19:42.578+0800 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2016-10-19T22:19:42.584+0800 I STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2016-10-19T22:19:42.949+0800 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2016-10-19T22:19:42.949+0800 I CONTROL  [consoleTerminate] dbexit:  rc: 12

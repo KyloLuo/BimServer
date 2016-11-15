@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+<fullyQualifiedTypeName name="javax.servlet.ServletException"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="org.bimserver.database.BimDatabase"/>
+<fullyQualifiedTypeName name="org.bimserver.client.BimServerClient"/>
+<fullyQualifiedTypeName name="org.bimserver.plugins.services.BimServerClientInterface"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="org.bimserver.servlets.SubServlet"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+<fullyQualifiedTypeName name="org.bimserver.BimServer"/>
+<fullyQualifiedTypeName name="org.bimserver.webservices.impl.Bimsie1ServiceImpl"/>
+<fullyQualifiedTypeName name="sun.print.resources.serviceui"/>
+<fullyQualifiedTypeName name="org.bimserver.webservices.ServiceMap"/>
+<fullyQualifiedTypeName name="org.bimserver.webservices.authorization.Authorization"/>
+<fullyQualifiedTypeName name="org.bimserver.models.log.AccessMethod"/>
+<fullyQualifiedTypeName name="org.bimserver.interfaces.objects.SProject"/>
+<fullyQualifiedTypeName name="org.bimserver.emf.ModelMetaData"/>
+<fullyQualifiedTypeName name="org.bimserver.emf.IfcModelInterface"/>
+</qualifiedTypeNameHistroy>

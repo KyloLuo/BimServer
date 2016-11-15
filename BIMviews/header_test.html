@@ -1,0 +1,44 @@
+<style type="text/css"> 
+body
+{
+     padding:0; margin:0; outline:none;
+}
+
+    .header
+    {
+       width:100%; height:105px; overflow:hidden;
+       background-image:url(img/headerBkg3.png); 
+    }
+    .userinfo
+    {
+        float:right;
+        padding-top:10px; 
+        padding-right:10px; 
+        font-family:"微软雅黑";
+    }
+    #time
+    {
+        float:right;
+        padding-top:10px; 
+        padding-right:10px; 
+    }
+    </style>
+<div  class="header">
+ <div class="userinfo">
+   <label id="user"  text="Label"></label>
+ </div>
+  <div id="time">
+ <script type="text/javascript">
+     today = new Date();
+     function initArray() {
+         this.length = initArray.arguments.length
+         for (var i = 0; i < this.length; i++)
+             this[i + 1] = initArray.arguments[i]
+     }
+     var d = new initArray("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+     document.write("<font color=white> ", 1900 + today.getYear(), "年", today.getMonth() + 1, "月", today.getDate(), "日 ", d[today.getDay() + 1], "</font>");
+</script>
+ </div>
+</div>
+
+

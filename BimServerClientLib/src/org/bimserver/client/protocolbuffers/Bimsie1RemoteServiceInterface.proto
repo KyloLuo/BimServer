@@ -1,0 +1,89 @@
+package org.bimserver.pb;
+
+/******************************************************************************
+ * Copyright (C) 2009-2014  BIMserver.org
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import "ServiceInterface.proto";
+import "AdminInterface.proto";
+import "MetaInterface.proto";
+import "SettingsInterface.proto";
+import "AuthInterface.proto";
+import "PluginInterface.proto";
+import "Bimsie1ServiceInterface.proto";
+import "Bimsie1NotificationInterface.proto";
+option java_generic_services = true;
+
+option java_outer_classname = "Bimsie1RemoteServiceInterfaceImpl";
+
+option optimize_for = SPEED;
+
+service Bimsie1RemoteServiceInterface {
+	rpc getPrivateProfiles (GetPrivateProfilesRequest) returns (GetPrivateProfilesResponse);
+
+	rpc getPublicProfiles (GetPublicProfilesRequest) returns (GetPublicProfilesResponse);
+
+	rpc getService (GetServiceRequest) returns (GetServiceResponse);
+
+	rpc newExtendedDataOnProject (NewExtendedDataOnProjectRequest) returns (VoidResponse);
+
+	rpc newExtendedDataOnRevision (NewExtendedDataOnRevisionRequest) returns (VoidResponse);
+
+	rpc newRevision (NewRevisionRequest) returns (VoidResponse);
+
+}
+
+message GetPrivateProfilesRequest {
+	optional string serviceIdentifier = 1;
+	optional string token = 2;
+}
+
+message GetPrivateProfilesResponse {
+	optional string errorMessage = 1;
+	repeated SProfileDescriptor value = 2;
+}
+
+message GetPublicProfilesRequest {
+	optional string serviceIdentifier = 1;
+}
+
+message GetPublicProfilesResponse {
+	optional string errorMessage = 1;
+	repeated SProfileDescriptor value = 2;
+}
+
+message NewExtendedDataOnProjectRequest {
+	optional int64 poid = 1;
+	optional int64 edid = 2;
+	optional int64 soid = 3;
+	optional string serviceIdentifier = 4;
+	optional string profileIdentifier = 5;
+	optional string userToken = 6;
+	optional string token = 7;
+	optional string apiUrl = 8;
+}
+
+message NewExtendedDataOnRevisionRequest {
+	optional int64 poid = 1;
+	optional int64 roid = 2;
+	optional int64 edid = 3;
+	optional int64 soid = 4;
+	optional string serviceIdentifier = 5;
+	optional string profileIdentifier = 6;
+	optional string userToken = 7;
+	optional string token = 8;
+	optional string apiUrl = 9;
+}
+

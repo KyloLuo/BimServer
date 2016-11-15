@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry combineaccessrules="false" kind="src" path="/BuildingSMARTLibrary"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Shared"/>
+	<classpathentry kind="lib" path="lib/jxl.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BimServerClientLib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/IfcPlugins"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/IfcEngine"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BimServer"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="generated"/>
+	<classpathentry kind="src" path="opencsv"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

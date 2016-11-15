@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jarSettings>
+	<jvm>default</jvm>
+	<homedir>C:\BIMSERVER\home\</homedir>
+	<address>192.168.99.249</address>
+	<port>8080</port>
+	<heapsize>5250m</heapsize>
+	<permsize>256m</permsize>
+	<stacksize>2048k</stacksize>
+	<forceipv4>false</forceipv4>
+</jarSettings>

@@ -1,0 +1,39 @@
+<div class="layers">
+	<div class="spaced modelLoader">
+		No models loaded
+		<button class="btn btn-default btn-xs btnLoad">Load all</button>
+	</div>
+	<table class="table table-no-top">
+		<thead></thead>
+		<tbody>
+		</tbody>
+	</table>
+</div>
+<script>
+function Layers(containerDiv, projectPage, projects, models, main) {
+	var othis = this;
+
+	
+	this.close = function(){};
+	
+
+	this.getSelectedId = function(){
+		return -1;
+	};
+	
+	this.hide = function(){
+		containerDiv.hide();
+	};
+	
+	this.show = function(){
+		containerDiv.show();
+	};
+	
+	
+//	containerDiv.find(".btnLoad").click(projectPage.loadModel);
+//	
+//	projectPage.objectVisibilityListeners.register(othis.objectVisibilityChanged);
+//	projectPage.modelLoadedListeners.register(othis.loadRevision);
+//	projectPage.modelUnloadedListeners.register(othis.unloadRevision);
+};
+</script>
