@@ -1,0 +1,131 @@
+package org.bimserver.database.mongo;
+
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
+import org.bimserver.database.BimserverLockConflictException;
+import org.bimserver.database.Record;
+import org.bimserver.database.SearchingRecordIterator;
+import org.bson.Document;
+import org.bson.types.Binary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
+
+public class MongoSearchingRecordIterator implements SearchingRecordIterator {
+//	private static final Logger LOGGER = LoggerFactory.getLogger(MongoSearchingRecordIterator.class);
+
+	private final FindIterable<Document> cursor;
+	private final byte[] mustStartWith;
+	private byte[] nextStartSearchingAt;
+	private long cursorId;
+	private MongoKeyValueStore mongoKeyValueStore;
+	private String tableName;
+	private boolean flag;
+	private MongoRealIterator mongoRealIterator;
+
+	public MongoSearchingRecordIterator(FindIterable<Document> cursor, MongoKeyValueStore mongoKeyValueStore, long cursorId, byte[] mustStartWith, byte[] startSearchingAt, String tableName) throws BimserverLockConflictException {
+		this.cursor = cursor;//光标
+		this.mongoKeyValueStore = mongoKeyValueStore;
+		this.cursorId = cursorId;
+		this.mustStartWith = mustStartWith;//起始为止
+		this.nextStartSearchingAt = startSearchingAt;//下次查询开始为止
+		this.tableName = tableName;
+		this.flag = false;
+		mongoRealIterator = new MongoRealIterator( getCursor(startSearchingAt), mustStartWith);
+	}
+	
+	public void printCheckKey(String str, byte[] key){
+		ByteBuffer buff = ByteBuffer.wrap(key);
+		int len = key.length;
+		int pid = -2; if(len >= 4) pid = buff.getInt();
+		long oid = -2; if(len >= 12) oid = buff.getLong();
+		int rid = -2; if(len >= 16) rid = -buff.getInt();	
+		LOGGER.info(str + "Searching content is: len = " + len + ", pid = " + pid + ", oid = " + oid + ", rid = " + rid);		
+	}
+	
+	/*
+	public void getCursor(byte[] startSearchingAt){
+		mongoCursor = cursor.iterator();
+		while(mongoCursor.hasNext()){
+			Document document = mongoCursor.next();
+			byte[] keys = document.get("key", Binary.class).getData();
+			byte[] starts = new byte[startSearchingAt.length];
+			System.arraycopy(keys, 0, starts, 0, startSearchingAt.length);
+			if(Arrays.equals(starts, nextStartSearchingAt)) return ;
+		}
+	}
+	*/
+	
+	public MongoCursor<Document> getCursor(byte[] key){
+		Document document = mongoKeyValueStore.getLastDocument(key);
+		if(key.length == 4) return cursor.filter(Filters.gte("pid", document.getInteger("pid"))).iterator();
+		else if(key.length == 12) {
+			return cursor.filter(
+					Filters.or(
+							Filters.and(Filters.gt("pid", document.getInteger("pid"))),
+							Filters.and(Filters.eq("pid", document.getInteger("pid")), Filters.gte("oid", document.getLong("oid")))
+						)
+				).iterator();
+		}
+		else if(key.length == 16) {
+			return cursor.filter(
+					Filters.or(
+							Filters.and(Filters.gt("pid", document.getInteger("pid"))),
+							Filters.and(Filters.eq("pid", document.getInteger("pid")), Filters.gte("oid", document.getLong("oid"))),
+							Filters.and(Filters.eq("pid", document.getInteger("pid")), Filters.eq("oid", document.getLong("oid")), Filters.gte("rid", document.getInteger("rid")))
+						)
+				
+				).iterator();
+		}
+		return null;
+		
+	}
+
+	
+	public MongoRecord getFirstNext(byte[] startSearchingAt) throws BimserverLockConflictException  {
+		nextStartSearchingAt = null;
+		Document document = mongoKeyValueStore.getLastDocument(startSearchingAt);
+		LOGGER.info("FUCK tableName = " + tableName + ", count = " + mongoKeyValueStore.count(tableName) + ", oid = " + document.getLong("oid"));
+		mongoRealIterator = new MongoRealIterator(getCursor(startSearchingAt), mustStartWith);
+		return mongoRealIterator.getFirstNext(startSearchingAt);
+	}
+
+	public void close() {
+		return ;
+		
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public byte[] getKey(Document document){
+		int pid = document.getInteger("pid"), rid = document.getInteger("rid");
+		long oid = document.getLong("oid");
+		ByteBuffer buff = ByteBuffer.allocate(16);
+		buff.putInt(pid);
+		buff.putLong(oid);
+		buff.putInt(rid);		
+		return buff.array();
+	}
+
+	public Record last()  throws BimserverLockConflictException{		
+		if(nextStartSearchingAt != null) return getFirstNext(nextStartSearchingAt);
+		return mongoRealIterator.last();
+
+	}
+
+	@Override
+	public Record next(byte[] startSearchingAt) throws BimserverLockConflictException  {
+		return getFirstNext(startSearchingAt);
+	}
+	
+	@Override
+	public Record next() throws BimserverLockConflictException{
+		if(nextStartSearchingAt != null) return getFirstNext(nextStartSearchingAt);
+		return mongoRealIterator.next();
+	}
+}
+

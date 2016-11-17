@@ -9,10 +9,10 @@ public class ValueStore implements Serializable{
     public ValueStore() { }
 
     /// <summary>
-    /// 值对象
+    /// ֵ����
     /// </summary>
-    /// <param name="oldValue">初始值</param>
-    /// <param name="newValue">修改后值</param>
+    /// <param name="oldValue">��ʼֵ</param>
+    /// <param name="newValue">�޸ĺ�ֵ</param>
     public ValueStore(String oldValue, String newValue) {
         this.OldValue = oldValue;
         this.NewValue = newValue;

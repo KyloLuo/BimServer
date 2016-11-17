@@ -11,8 +11,7 @@ import org.slf4j.LoggerFactory;
 public class MongoRecord implements Record{
 	
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(MongoRecord.class);
+//	private static final Logger LOGGER = LoggerFactory.getLogger(MongoRecord.class);
 
 
 	final byte[] key;
@@ -25,7 +24,7 @@ public class MongoRecord implements Record{
 		buff.putInt(pid);
 		buff.putLong(oid);
 		buff.putInt(rid);		
-		LOGGER.info("showdata pid = " + pid + ", oid = " + oid + ", rid = " + rid);
+//		LOGGER.info("showdata pid = " + pid + ", oid = " + oid + ", rid = " + rid);
 		return buff.array();
 	}
 	

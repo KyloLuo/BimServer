@@ -25,13 +25,13 @@ public class OVersion {
 
     public OVersion() { }
     /// <summary>
-    /// åˆ›å»ºç‰ˆæœ¬å¯¹è±¡
+    /// ´´½¨°æ±¾¶ÔÏó
     /// </summary>
-    /// <param name="operationList">æ“ä½œåºåˆ—</param>
-    /// <param name="time">æ—¶é—´æˆ³</param>
-    /// <param name="description">æè¿°</param>
-    /// <param name="userby">ä½œè€…</param>
-    /// <param name="email">é‚®ç®±</param>
+    /// <param name="operationList">²Ù×÷ĞòÁĞ</param>
+    /// <param name="time">Ê±¼ä´Á</param>
+    /// <param name="description">ÃèÊö</param>
+    /// <param name="userby">×÷Õß</param>
+    /// <param name="email">ÓÊÏä</param>
     public OVersion(List<OperationFather> operationList, long time, String description, String userby, String email, priorityType priority) {
         this.OperationList = operationList;
         this.Time = time;
@@ -42,61 +42,61 @@ public class OVersion {
         this.Priority = priority;
     }
     /// <summary>
-    /// è¿”å›æ“ä½œåºåˆ—
+    /// ·µ»Ø²Ù×÷ĞòÁĞ
     /// </summary>
-    /// <returns>æ“ä½œåºåˆ—</returns>
+    /// <returns>²Ù×÷ĞòÁĞ</returns>
     public List<OperationFather> getOperationList() {
         return this.OperationList;
     }
     /// <summary>
-    /// è¿”å›æ—¶é—´æˆ³
+    /// ·µ»ØÊ±¼ä´Á
     /// </summary>
     /// <returns></returns>
     public long getTime() {
         return this.Time;
     }
     /// <summary>
-    /// è·å–ç‰ˆæœ¬æè¿°
+    /// »ñÈ¡°æ±¾ÃèÊö
     /// </summary>
-    /// <returns>æè¿°</returns>
+    /// <returns>ÃèÊö</returns>
     public String getDescription() {
         return this.Description;
     }
     /// <summary>
-    /// è·å–ä½œè€…
+    /// »ñÈ¡×÷Õß
     /// </summary>
-    /// <returns>ä½œè€…</returns>
+    /// <returns>×÷Õß</returns>
     public String getUserBy() {
         return this.UserBy;
     }
     /// <summary>
-    /// è·å–é‚®ç®±
+    /// »ñÈ¡ÓÊÏä
     /// </summary>
-    /// <returns>é‚®ç®±</returns>
+    /// <returns>ÓÊÏä</returns>
     public String getEmail() {
         return this.Email;
     }
     /// <summary>
-    /// è·å–ç‰ˆæœ¬çš„GUID
+    /// »ñÈ¡°æ±¾µÄGUID
     /// </summary>
     /// <returns>GUID</returns>
     public UUID getGUID() {
         return this.Guid;
     }
     /// <summary>
-    /// è·å–ç‰ˆæœ¬æ“ä½œä¼˜å…ˆçº§
+    /// »ñÈ¡°æ±¾²Ù×÷ÓÅÏÈ¼¶
     /// </summary>
-    /// <returns>ä¼˜å…ˆçº§</returns>
+    /// <returns>ÓÅÏÈ¼¶</returns>
     public priorityType getPriority() {
         return this.Priority;
     }
 
     /// <summary>
-    /// æäº¤åˆ°æœåŠ¡å™¨
+    /// Ìá½»µ½·şÎñÆ÷
     /// </summary>
-    /// <returns>æ‰§è¡Œç»“æœ</returns>
+    /// <returns>Ö´ĞĞ½á¹û</returns>
 //     public boolean submit() {
-//         //æ ¹æ®projectByæäº¤ç‰ˆæœ¬
+//         //¸ù¾İprojectByÌá½»°æ±¾
 //
 //         return false;
 //     }

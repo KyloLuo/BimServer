@@ -10,37 +10,36 @@ public class VersionManageInterfaceTest {
 		String url = "D:\\3n307_experiments\\modelManage2016-10-24_Wang\\modelManage\\modelManage\\data";
 
 		//VersionMangeInterfaceImpl vm = new VersionMangeInterfaceImpl();
-		//vm.setConfig(url, "ljn", "é¡¹ç›®3");
+		//vm.setConfig(url, "ljn", "ÏîÄ¿3");
+		VersionMangeInterfaceImpl vm = new VersionMangeInterfaceImpl(url, "ch", "ÏîÄ¿3");
 
-		VersionMangeInterfaceImpl vm = new VersionMangeInterfaceImpl(url, "ch", "é¡¹ç›®3");
-
-		// æ›´æ”¹æ¨¡å¼
+		// ¸ü¸ÄÄ£Ê½
 //		    vm.change2Global();
 
-		// æ·»åŠ 
-//		     OperationFather operation = vm.createAddOperation("3", new ValueStore("æˆ‘æ˜¯åˆ", "æˆ‘æ˜¯æœ«"));
-		// ä¿®æ”¹
-//		     OperationFather operation = vm.createModifyOperation("1", "attr2", "åˆå€¼1", "æœ«å€¼5");
-		// åˆ é™¤
-//		     OperationFather operation = vm.createDeleteOperation("1", new ValueStore("æˆ‘è¢«åˆ äº†", "555"));
-		// æ·»åŠ åˆ°æ“ä½œåº“
+		// Ìí¼Ó
+//		     OperationFather operation = vm.createAddOperation("3", new ValueStore("ÎÒÊÇ³õ", "ÎÒÊÇÄ©"));
+		// ĞŞ¸Ä
+//		     OperationFather operation = vm.createModifyOperation("1", "attr2", "³õÖµ1", "Ä©Öµ5");
+		// É¾³ı
+//		     OperationFather operation = vm.createDeleteOperation("1", new ValueStore("ÎÒ±»É¾ÁË", "555"));
+		// Ìí¼Óµ½²Ù×÷¿â
 //		     vm.addOperation(operation);
-		// æäº¤ç‰ˆæœ¬
-//		     vm.submitVersion("æˆ‘æ˜¯chç‰ˆæœ¬2", "ch", "chwangchuhan@163.com", priorityType.highest);
-		// è·å–operationè¡¨
+		// Ìá½»°æ±¾
+//		     vm.submitVersion("ÎÒÊÇch°æ±¾2", "ch", "chwangchuhan@163.com", priorityType.highest);
+		// »ñÈ¡operation±í
 //		     List<OperationFather> ls =  vm.getOperationList();
-		// è·å–versionè¡¨
+		// »ñÈ¡version±í
 //		     List<OVersion> ls = vm.getVersionList(1,2);
-		// è·å–photoè¡¨
+		// »ñÈ¡photo±í
 //		     List<PhotoFather> ls = vm.getPhotoList();
-		// é‡ç½®å¿«ç…§
+		// ÖØÖÃ¿ìÕÕ
 		// vm.resetPhoto();
-		// å…‹éš†
+		// ¿ËÂ¡
 //		      vm.cloneByUrl(vm.getUserPath("ch2"));
-		// æ¨é€
+		// ÍÆËÍ
 //		     vm.pushAuto();
 
-		// åˆ‡æ¢useræ‹‰å–é¡¹ç›®
+		// ÇĞ»»userÀ­È¡ÏîÄ¿
 //		     vm.setUser("ch");
 //		     vm.pullAuto();
 
