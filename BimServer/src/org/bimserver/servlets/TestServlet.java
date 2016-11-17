@@ -88,15 +88,15 @@ public class TestServlet extends HttpServlet {
 //			bimServerClientInterface.getBimsie1AuthInterface().getAccessMethod();
 			
 			//SProjectSmall small = createSmallProject(authorization, bimServer, project, user);
-			if (!project.getName().equalsIgnoreCase("demo1")) {
+	/*		if (!project.getName().equalsIgnoreCase("demo1")) {
 				continue;
-			}
+			}*/
 			EList<Revision> eRevisions = project.getRevisions();
 			for(Revision revision : eRevisions)
 			{	
-				if (! (revision.getId() == 2)) {
-					continue;
-				}
+//				if (! (revision.getId() == 2)) {
+//					continue;
+//				}
 				System.out.println(project.getOid()+" ProjectName:"+project.getName()+" RevisionId:"+revision.getId());
 		/*		revision.getOid();
 				revision.getId();
@@ -115,14 +115,13 @@ public class TestServlet extends HttpServlet {
 //				bimServerClientInterface.getBimsie1ServiceInterface().getProjectSmallByPoid((long)131073);
 				List<SDataObject> list = bimServerClientInterface.getBimsie1LowLevelInterface().getDataObjects(revision.getOid());
 					for(SDataObject listItem : list){
-						List<SDataValue> values = listItem.getValues();
-							for(SDataValue value : values){
-								if (!(value == null) || !value.toString().trim().isEmpty()) {
-									System.out.println("value"+ value.getFieldName());
-								}
+						/*List<SDataValue> values = listItem.getValues();
+						for(SDataValue value : values){
+							if (!(value == null) || !value.toString().trim().isEmpty()) {
+								System.out.println("value:"+ value.getFieldName());
 							}
-					System.out.println("Name:"+listItem.getName()+""+" \t Oid:"+listItem.getOid()+" \t Name:"+listItem.getType()+"\t GUID:"+listItem.getGuid());
-					
+						}*/
+					System.out.println("Name:"+listItem.getName()+""+" \t Oid:"+listItem.getOid()+" \t Type:"+listItem.getType()+"\t GUID:"+listItem.getGuid());
 				}
 			}
 		}

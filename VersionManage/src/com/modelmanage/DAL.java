@@ -76,7 +76,7 @@ public class DAL {
     }
 
     /// <summary>
-    /// è·å–é¡¹ç›®åº“è·¯å¾„
+    /// »ñÈ¡ÏîÄ¿¿âÂ·¾¶
     /// </summary>
     /// <returns>url</returns>
     public void initPath()
@@ -92,12 +92,12 @@ public class DAL {
         return this.getBaseUrl() + "\\" + this.ProjectId;
     }
     /// <summary>
-    /// å®ä¾‹åŒ–DALç±»
+    /// ÊµÀı»¯DALÀà
     /// </summary>
-    /// <param name="url">æ•°æ®åº“ç›®å½•</param>
-    /// <param name="userBy">ä½œè€…</param>
-    /// <param name="projectId">é¡¹ç›®id</param>
-    /// <param name="pType">è·¯å¾„ç±»å‹ï¼ˆä¸­å¤®åº“æˆ–æœ¬åœ°åº“ï¼‰</param>
+    /// <param name="url">Êı¾İ¿âÄ¿Â¼</param>
+    /// <param name="userBy">×÷Õß</param>
+    /// <param name="projectId">ÏîÄ¿id</param>
+    /// <param name="pType">Â·¾¶ÀàĞÍ£¨ÖĞÑë¿â»ò±¾µØ¿â£©</param>
     public DAL(){}
     public DAL(String url, String userBy, String projectId, pathType pType) throws Exception{
         this.BaseUrl = url;
@@ -109,23 +109,23 @@ public class DAL {
         this.ProjectId = projectId;
         this.PType = pType;
 
-        // æ“ä½œæœ¬åœ°åº“æ—¶æ‰åˆå§‹åŒ–æœ¬åœ°è·¯å¾„
+        // ²Ù×÷±¾µØ¿âÊ±²Å³õÊ¼»¯±¾µØÂ·¾¶
         if (Integer.parseInt(pType.toString()) == 0)
         {
             this.initLocalPath();
         }
         else
         {
-            // æ“ä½œä¸­å¤®åº“æ—¶æ‰åˆå§‹åŒ–ä¸­å¤®åº“
+            // ²Ù×÷ÖĞÑë¿âÊ±²Å³õÊ¼»¯ÖĞÑë¿â
             this.initGlobalPath();
         }
     }
     // <summary>
-    // å®ä¾‹åŒ–DALç±»(æ— userBy,åªç”¨äºåˆå§‹åŒ–ç‰ˆæœ¬åº“æˆ–å…‹éš†åº“æ—¶ä½¿ç”¨)
+    // ÊµÀı»¯DALÀà(ÎŞuserBy,Ö»ÓÃÓÚ³õÊ¼»¯°æ±¾¿â»ò¿ËÂ¡¿âÊ±Ê¹ÓÃ)
     // </summary>
-    // <param name="url">æ•°æ®åº“ç›®å½•</param>
-    // <param name="projectId">é¡¹ç›®id</param>
-    // <param name="ptype">æ“ä½œè·¯å¾„ç±»å‹</param>
+    // <param name="url">Êı¾İ¿âÄ¿Â¼</param>
+    // <param name="projectId">ÏîÄ¿id</param>
+    // <param name="ptype">²Ù×÷Â·¾¶ÀàĞÍ</param>
     public DAL(String url, String projectId, pathType ptype)
     {
         this.BaseUrl = url;
@@ -135,7 +135,7 @@ public class DAL {
     }
 
     // <summary>
-    // åˆå§‹åŒ–æœ¬åœ°ç‰ˆæœ¬åº“è·¯å¾„
+    // ³õÊ¼»¯±¾µØ°æ±¾¿âÂ·¾¶
     // </summary>
     public void initLocalPath() {
         String url = this.getProjectUrl() + "\\"+this.UserBy+"\\";
@@ -145,7 +145,7 @@ public class DAL {
         }
     }
     // <summary>
-    // åˆå§‹åŒ–ä¸­å¤®ç‰ˆæœ¬åº“è·¯å¾„
+    // ³õÊ¼»¯ÖĞÑë°æ±¾¿âÂ·¾¶
     // </summary>
     public void initGlobalPath()
     {
@@ -157,7 +157,7 @@ public class DAL {
         }
     }
     // <summary>
-    // è·å–ç‰ˆæœ¬åº“è·¯å¾„ï¼ˆæ ¹æ®é¡¹ç›®idï¼Œuserbyï¼‰
+    // »ñÈ¡°æ±¾¿âÂ·¾¶£¨¸ù¾İÏîÄ¿id£¬userby£©
     // </summary>
     // <returns>url</returns>
     public String getLocalPath()
@@ -165,7 +165,7 @@ public class DAL {
         return getProjectUrl() + "\\" + this.UserBy + "\\";
     }
     // <summary>
-    // è·å–ä¸­å¤®ç‰ˆæœ¬åº“è·¯å¾„ï¼ˆæ ¹æ®é¡¹ç›®idï¼Œuserbyï¼‰
+    // »ñÈ¡ÖĞÑë°æ±¾¿âÂ·¾¶£¨¸ù¾İÏîÄ¿id£¬userby£©
     // </summary>
     // <returns>url</returns>
     public String getGlobalPath()
@@ -174,30 +174,30 @@ public class DAL {
     }
 
     // <summary>
-    // æ ¹æ®è¾“å…¥è·å–å®Œæ•´çš„xmlè·¯å¾„ï¼ˆæœ¬åœ°ç‰ˆæœ¬åº“ï¼‰
+    // ¸ù¾İÊäÈë»ñÈ¡ÍêÕûµÄxmlÂ·¾¶£¨±¾µØ°æ±¾¿â£©
     // </summary>
-    // <param name="type">æ“ä½œç±»å‹</param>
-    // <returns>å®Œæ•´çš„xmlè·¯å¾„ï¼ˆæœ¬åœ°ç‰ˆæœ¬åº“ï¼‰</returns>
+    // <param name="type">²Ù×÷ÀàĞÍ</param>
+    // <returns>ÍêÕûµÄxmlÂ·¾¶£¨±¾µØ°æ±¾¿â£©</returns>
     public String getLocalPath(xmlType type) {
         return getProjectUrl() + "\\" + this.UserBy + "\\" + type.toString() + ".xml";
     }
     // <summary>
-    // æ ¹æ®è¾“å…¥è·å–å®Œæ•´çš„xmlè·¯å¾„ï¼ˆä¸­å¤®ç‰ˆæœ¬åº“ï¼‰
+    // ¸ù¾İÊäÈë»ñÈ¡ÍêÕûµÄxmlÂ·¾¶£¨ÖĞÑë°æ±¾¿â£©
     // </summary>
-    // <param name="type">æ“ä½œç±»å‹</param>
+    // <param name="type">²Ù×÷ÀàĞÍ</param>
     // <returns></returns>
     public String getGlobalPath(xmlType type) {
         return getProjectUrl() + "\\Glabal\\"+type.toString()+".xml";
     }
     // <summary>
-    // æ ¹æ®è·¯å¾„ç±»å‹è·å–è·¯å¾„
+    // ¸ù¾İÂ·¾¶ÀàĞÍ»ñÈ¡Â·¾¶
     // </summary>
-    // <param name="type">åº“ç±»å‹</param>
+    // <param name="type">¿âÀàĞÍ</param>
     // <returns></returns>
     public String getRelPathByPathType(xmlType type) {
         return Integer.parseInt(this.PType.toString()) == 0 ? this.getLocalPath(type) : this.getGlobalPath(type);
     }
-    //æµ‹è¯•é€šè¿‡ by ljn
+    //²âÊÔÍ¨¹ı by ljn
     public void Save (Document document,String url)
     {
         try {
@@ -211,26 +211,26 @@ public class DAL {
     }
 
     /// <summary>
-    /// æ‰“å¼€xmlè¿æ¥
+    /// ´ò¿ªxmlÁ¬½Ó
     /// </summary>
-    /// <param name="type">æ‰“å¼€æ–‡ä»¶çš„ç±»å‹</param>
-    /// <returns>XmlDocumentå¯¹è±¡</returns>
-    // æµ‹è¯•é€šè¿‡ by ljn
+    /// <param name="type">´ò¿ªÎÄ¼şµÄÀàĞÍ</param>
+    /// <returns>XmlDocument¶ÔÏó</returns>
+    // ²âÊÔÍ¨¹ı by ljn
     public Document open(xmlType type) {
         String url = getRelPathByPathType(type);
         return this.getXmlDc(type, url);
     }
     /// <summary>
-    /// æ‰“å¼€xmlè¿æ¥
+    /// ´ò¿ªxmlÁ¬½Ó
     /// </summary>
-    /// <param name="type">xmlç±»å‹</param>
-    /// <param name="url">å®Œæ•´è·¯å¾„</param>
-    /// <returns>XmlDocumentå¯¹è±¡</returns>
+    /// <param name="type">xmlÀàĞÍ</param>
+    /// <param name="url">ÍêÕûÂ·¾¶</param>
+    /// <returns>XmlDocument¶ÔÏó</returns>
     public Document open(xmlType type, String url) {
         return this.getXmlDc(type, url);
     }
     /// <summary>
-    /// ç”¨äºopenæ–¹æ³•ï¼Œæ ¹æ®xmlTypeå’Œurlç¡®å®šè·¯å¾„
+    /// ÓÃÓÚopen·½·¨£¬¸ù¾İxmlTypeºÍurlÈ·¶¨Â·¾¶
     /// </summary>
     /// <param name="type"></param>
     /// <param name="url"></param>
@@ -255,13 +255,13 @@ public class DAL {
                 //data.addElement("number").setText("0");
             }
             if (type.toString().equalsIgnoreCase("setting")) {
-                // è¡¨å…‹éš†åº“çš„è¿œç¨‹è·¯å¾„
+                // ±í¿ËÂ¡¿âµÄÔ¶³ÌÂ·¾¶
                 this.createElement(data, "origin", "");
                 //data.addElement("origin").setText("");
-                // è¡¨å…‹éš†ç¬æ—¶è¿œç¨‹åº“çš„ç‰ˆæœ¬
+                // ±í¿ËÂ¡Ë²Ê±Ô¶³Ì¿âµÄ°æ±¾
                 this.createElement(data, "slastVersion", "0");
                 //data.addElement("slastVersion").setText("0");
-                // å…‹éš†ç¬æ—¶è¿œç¨‹åº“çš„ç‰ˆæœ¬æ€»æ•°
+                // ¿ËÂ¡Ë²Ê±Ô¶³Ì¿âµÄ°æ±¾×ÜÊı
                 this.createElement(data, "snumber", "0");
                 //data.addElement("snumber").setText("0");
             }
@@ -281,40 +281,40 @@ public class DAL {
     }
 
     /// <summary>
-    /// xmlåˆ›å»ºå…ƒç´ 
+    /// xml´´½¨ÔªËØ
     /// </summary>
-    /// <param name="xml">xmlå¯¹è±¡</param>
-    /// <param name="parent">çˆ¶èŠ‚ç‚¹</param>
-    /// <param name="childType">å­èŠ‚ç‚¹ç±»å‹</param>
-    /// <param name="txt">å­èŠ‚ç‚¹å†…å®¹</param>
-    //	æµ‹è¯•é€šè¿‡ by ljn
+    /// <param name="xml">xml¶ÔÏó</param>
+    /// <param name="parent">¸¸½Úµã</param>
+    /// <param name="childType">×Ó½ÚµãÀàĞÍ</param>
+    /// <param name="txt">×Ó½ÚµãÄÚÈİ</param>
+    //	²âÊÔÍ¨¹ı by ljn
     public void createElement(Element element, String childType, String txt)
     {
         element.addElement(childType).setText(txt);
     }
 
     /// <summary>
-    /// xmlåˆ›å»ºå…ƒç´ 
+    /// xml´´½¨ÔªËØ
     /// </summary>
-    /// <param name="xml">xmlå¯¹è±¡</param>
-    /// <param name="parent">çˆ¶èŠ‚ç‚¹</param>
-    /// <param name="childType">å­èŠ‚ç‚¹</param>
-    /// <returns>åˆ›å»ºçš„å¯¹è±¡</returns>
-    //	æµ‹è¯•é€šè¿‡ by ljn
+    /// <param name="xml">xml¶ÔÏó</param>
+    /// <param name="parent">¸¸½Úµã</param>
+    /// <param name="childType">×Ó½Úµã</param>
+    /// <returns>´´½¨µÄ¶ÔÏó</returns>
+    //	²âÊÔÍ¨¹ı by ljn
     public Element createElementNode(Element parent, String childType)
     {
         Element element = parent.addElement(childType);
         return element;
     }
     /// <summary>
-    /// xmlåˆ›å»ºå…ƒç´ 
+    /// xml´´½¨ÔªËØ
     /// </summary>
-    /// <param name="xml">xmlå¯¹è±¡</param>
-    /// <param name="parent">çˆ¶èŠ‚ç‚¹</param>
-    /// <param name="childType">å­èŠ‚ç‚¹</param>
-    /// <param name="innerText">å€¼</param>
-    /// <returns>åˆ›å»ºçš„å¯¹è±¡</returns>
-    //	æµ‹è¯•é€šè¿‡ by ljn
+    /// <param name="xml">xml¶ÔÏó</param>
+    /// <param name="parent">¸¸½Úµã</param>
+    /// <param name="childType">×Ó½Úµã</param>
+    /// <param name="innerText">Öµ</param>
+    /// <returns>´´½¨µÄ¶ÔÏó</returns>
+    //	²âÊÔÍ¨¹ı by ljn
     public Element createElementNode(Element parent, String childType, String innerText)
     {
         Element element = this.createElementNode(parent, childType);
@@ -322,63 +322,63 @@ public class DAL {
         return element;
     }
     /// <summary>
-    /// è®¾ç½®nodeå€¼
+    /// ÉèÖÃnodeÖµ
     /// </summary>
-    /// <param name="node">nodeèŠ‚ç‚¹</param>
-    /// <param name="value">å€¼</param>
-    //	æµ‹è¯•é€šè¿‡ by ljn
+    /// <param name="node">node½Úµã</param>
+    /// <param name="value">Öµ</param>
+    //	²âÊÔÍ¨¹ı by ljn
     public void setValue(Element element, String value) {
         element.setText(value);
     }
 
     /// <summary>
-    /// å°†objectå­˜å…¥xml
+    /// ½«object´æÈëxml
     /// </summary>
-    /// <param name="type">objectç±»å‹</param>
+    /// <param name="type">objectÀàĞÍ</param>
     /// <param name="obj">object</param>
-    /// <returns>å¤„ç†ç»“æœ</returns>
+    /// <returns>´¦Àí½á¹û</returns>
     public boolean setObject2xml(xmlType xmlType,Object obj) {
         String url = getRelPathByPathType(xmlType);
         Document xml = this.open(xmlType);
-        //è·å–æ ¹èŠ‚ç‚¹
+        //»ñÈ¡¸ù½Úµã
         Element root = xml.getRootElement();
-        //å¢åŠ countå€¼
+        //Ôö¼ÓcountÖµ
         Element countNode = (Element) xml.selectNodes("//count").get(0);
         int count = Integer.parseInt(countNode.getText());
 
-        //æ·»åŠ èŠ‚ç‚¹
-        if (obj instanceof OperationFather /*|| ((ArrayList)obj).get(0) instanceof OperationFather*/) // å¦‚æœä¼ å…¥æ˜¯æ“ä½œå¯¹è±¡
+        //Ìí¼Ó½Úµã
+        if (obj instanceof OperationFather /*|| ((ArrayList)obj).get(0) instanceof OperationFather*/) // Èç¹û´«ÈëÊÇ²Ù×÷¶ÔÏó
         {
-            boolean flag = true; // æ˜¯å¦å­˜å‚¨å½“å‰å­˜å…¥çš„Operation
+            boolean flag = true; // ÊÇ·ñ´æ´¢µ±Ç°´æÈëµÄOperation
             OperationFather operation = (OperationFather)obj;
 
-            //List<XmlElement> removeList = new List<XmlElement>();//å­˜æ”¾ç§»é™¤åºåˆ—
-            List<Element> removeList = new ArrayList<Element>(); // å¾…ç§»é™¤çš„åºåˆ—
+            //List<XmlElement> removeList = new List<XmlElement>();//´æ·ÅÒÆ³ıĞòÁĞ
+            List<Element> removeList = new ArrayList<Element>(); // ´ıÒÆ³ıµÄĞòÁĞ
 
-            //æ¶ˆé™¤å¯¹åŒä¸€å®ä½“çš„æ“ä½œï¼Œåªä¿ç•™æœ€æ–°æ“ä½œ
-            //ç›®å‰åªå¯¹æ“ä½œå±æ€§çš„æ“ä½œè‡ªåŠ¨åˆå¹¶ï¼ˆå­˜å…¥æ“ä½œåº“ä¸­æ—¶ï¼‰
+            //Ïû³ı¶ÔÍ¬Ò»ÊµÌåµÄ²Ù×÷£¬Ö»±£Áô×îĞÂ²Ù×÷
+            //Ä¿Ç°Ö»¶Ô²Ù×÷ÊôĞÔµÄ²Ù×÷×Ô¶¯ºÏ²¢£¨´æÈë²Ù×÷¿âÖĞÊ±£©
             if (operation.getOperatorType().toString().equalsIgnoreCase("Modify")) {
                 for(Object item : xml.selectNodes("//"+xmlType.toString()))
                 {
                     Element node = (Element)item;
                     if (node.attributeValue("OperateOid") == operation.getOperateOid() && Long.parseLong(node.attributeValue("Time")) <= operation.getTime() && node.attributeValue("Type").equalsIgnoreCase("Modify"))
                     {
-                        // nodeæ˜¯xmlé‡Œé¢çš„
-                        // operationæ˜¯ä¼ å…¥çš„
+                        // nodeÊÇxmlÀïÃæµÄ
+                        // operationÊÇ´«ÈëµÄ
                         // removeList.Add(node);
 
 
-                        // åŸå§‹ï¼š
+                        // Ô­Ê¼£º
                         //removeNode = node;
                         //count -= 1;
                         //this.setValue(countNode, count + "");
 
-                        //æ”¹
+                        //¸Ä
                         if(node.attributeValue("OldValue")!= operation.getValue().getNewValue()
                                 && node.attributeValue("NewValue")==operation.getValue().getOldValue())
                         {
-                            // æ—§æ–°æ“ä½œåˆæœ«å€¼ä¸ä¸€æ ·, ä¸”æœ«åˆå€¼ç›¸åŒ
-                            // å³ 1->2, 2->3 //  åä¾‹ï¼š1->2, 3->5
+                            // ¾ÉĞÂ²Ù×÷³õÄ©Öµ²»Ò»Ñù, ÇÒÄ©³õÖµÏàÍ¬
+                            // ¼´ 1->2, 2->3 //  ·´Àı£º1->2, 3->5
                             operation.setValue(new ValueStore(node.attributeValue("OldValue"), operation.getValue().getNewValue()));
                             removeList.add(node);
                             count --;
@@ -406,7 +406,7 @@ public class DAL {
                 for (Object o : xml.selectNodes("//"+xmlType.toString()))
                 {
                     Element node = (Element) o;
-                    // å®ä½“æ“ä½œä¸ºdelete ä¸”åŒä¸€ç‰ˆæœ¬æœªæäº¤å‰æœ‰æ·»åŠ æ“ä½œ
+                    // ÊµÌå²Ù×÷Îªdelete ÇÒÍ¬Ò»°æ±¾Î´Ìá½»Ç°ÓĞÌí¼Ó²Ù×÷
                     if ((node.attributeValue("OperateOid") == operation.getOperateOid() && Long.parseLong(node.attributeValue("Time")) <= operation.getTime() && node.attributeValue("Type") == "Add")
                             || (node.attributeValue("OperateOid").contains(operation.getOperateOid()+":") && Long.parseLong(node.attributeValue("Time")) <= operation.getTime() && node.attributeValue("Type") == "Modify"))
                     {
@@ -415,14 +415,14 @@ public class DAL {
                         this.setValue(countNode, count + "");
                         if (node.attributeValue("Type") == "Add")
                         {
-                            flag = false;// ä¸å­˜å…¥è¯¥operation
+                            flag = false;// ²»´æÈë¸Ãoperation
                         }
                     }
 
                 }
             }
 
-            // ç§»é™¤éœ€ç§»é™¤çš„èŠ‚ç‚¹
+            // ÒÆ³ıĞèÒÆ³ıµÄ½Úµã
             if (removeList.size()>0) {
                 for (Element item : removeList)
                 {
@@ -430,17 +430,17 @@ public class DAL {
                 }
             }
 
-            // å­˜å‚¨node
+            // ´æ´¢node
             if (flag) {
                 this.setValue(countNode, (count + 1) + "");
                 setAttributeByObject(this.createElementNode(root, xmlType.toString()), operation);
             }
         /*    OperationFather operation = (OperationFather)obj;
 
-            //List<XmlElement> removeList = new List<XmlElement>();//å­˜æ”¾ç§»é™¤åºåˆ—
-            Element removeNode = null;// å­˜æ”¾ç§»é™¤å¯¹è±¡
+            //List<XmlElement> removeList = new List<XmlElement>();//´æ·ÅÒÆ³ıĞòÁĞ
+            Element removeNode = null;// ´æ·ÅÒÆ³ı¶ÔÏó
 
-            //æ¶ˆé™¤å¯¹åŒä¸€å®ä½“çš„æ“ä½œï¼Œåªä¿ç•™æœ€æ–°æ“ä½œ
+            //Ïû³ı¶ÔÍ¬Ò»ÊµÌåµÄ²Ù×÷£¬Ö»±£Áô×îĞÂ²Ù×÷
             for (Object item : xml.selectNodes("//"+xmlType.toString()))
             {
                 Element node = (Element)item;
@@ -453,7 +453,7 @@ public class DAL {
                         String removeNodeOldValue = removeNode.attributeValue("OldValue");
 						root.remove(removeNode);
 						operation.getValue().setOldValue(removeNodeOldValue);
-						//æ·»åŠ æ£€æµ‹oldValueä¸newValueç›¸ç­‰æƒ…å†µ  ä»¥åŠå¢åŠ åˆ é™¤åŒä¸€å®ä½“
+						//Ìí¼Ó¼ì²âoldValueÓënewValueÏàµÈÇé¿ö  ÒÔ¼°Ôö¼ÓÉ¾³ıÍ¬Ò»ÊµÌå
 
                         count -= 1;
                         this.setValue(countNode, count + "");
@@ -474,9 +474,9 @@ public class DAL {
 
 
         }
-        else if (obj instanceof OVersion) // å¦‚æœä¼ å…¥æ˜¯ç‰ˆæœ¬å¯¹è±¡
+        else if (obj instanceof OVersion) // Èç¹û´«ÈëÊÇ°æ±¾¶ÔÏó
         {
-            Element numNode = (Element) xml.selectNodes("//number").get(0); // è·å–æ€»çš„ç‰ˆæœ¬æ•°ç›®
+            Element numNode = (Element) xml.selectNodes("//number").get(0); // »ñÈ¡×ÜµÄ°æ±¾ÊıÄ¿
             int num = Integer.parseInt(numNode.getText())+1;
 
             Element lastVersion = (Element) xml.selectNodes("//lastVersion").get(0);
@@ -487,12 +487,12 @@ public class DAL {
             this.setAttributeByObject(node, vs, xml, num+"");
             this.setValue(numNode,  num+ "");
         }
-        else if (obj instanceof PhotoFather || ((ArrayList)obj).get(0) instanceof PhotoFather) {  // å¦‚æœä¼ å…¥æ˜¯å¿«ç…§é›†åˆ
+        else if (obj instanceof PhotoFather || ((ArrayList)obj).get(0) instanceof PhotoFather) {  // Èç¹û´«ÈëÊÇ¿ìÕÕ¼¯ºÏ
             for (PhotoFather item : (List<PhotoFather>)obj)
             {
                 count += 1;
                 Element node = this.createElementNode(root, "photo");
-                this.setAttributeByObject(node, item); // è®¾ç½®ä¼ å…¥çš„å¯¹è±¡å±æ€§
+                this.setAttributeByObject(node, item); // ÉèÖÃ´«ÈëµÄ¶ÔÏóÊôĞÔ
             }
             this.setValue(countNode, count+"");
         }
@@ -502,10 +502,10 @@ public class DAL {
     }
 
     /// <summary>
-    /// æ ¹æ®Operationè®¾ç½®å±æ€§
+    /// ¸ù¾İOperationÉèÖÃÊôĞÔ
     /// </summary>
-    /// <param name="node">çˆ¶èŠ‚ç‚¹</param>
-    /// <param name="operation">æ“ä½œ</param>
+    /// <param name="node">¸¸½Úµã</param>
+    /// <param name="operation">²Ù×÷</param>
     public void setAttributeByObject(Element node, OperationFather operation) {
 
         node.addAttribute("Oid", operation.getOid());
@@ -516,11 +516,11 @@ public class DAL {
         node.addAttribute("NewValue", operation.getValue().getNewValue());
     }
     /// <summary>
-    /// æ ¹æ®Versionè®¾ç½®å±æ€§
+    /// ¸ù¾İVersionÉèÖÃÊôĞÔ
     /// </summary>
-    /// <param name="node">çˆ¶èŠ‚ç‚¹</param>
+    /// <param name="node">¸¸½Úµã</param>
     /// <param name="vs">OVersion</param>
-    /// <param name="num">versionçš„è®¡æ•°</param>
+    /// <param name="num">versionµÄ¼ÆÊı</param>
     public void setAttributeByObject(Element node, OVersion vs, Document xml, String num)
     {
         node.addAttribute("num", num);
@@ -547,10 +547,10 @@ public class DAL {
     }
 
     /// <summary>
-    /// æ ¹æ®å¿«ç…§è®¾ç½®å±æ€§
+    /// ¸ù¾İ¿ìÕÕÉèÖÃÊôĞÔ
     /// </summary>
-    /// <param name="node">çˆ¶èŠ‚ç‚¹</param>
-    /// <param name="photo">å¿«ç…§å¯¹è±¡</param>
+    /// <param name="node">¸¸½Úµã</param>
+    /// <param name="photo">¿ìÕÕ¶ÔÏó</param>
     public void setAttributeByObject(Element node, PhotoFather photo) {
        /* node.addAttribute("OperateOid", photo.getOperateOid());
         node.addAttribute("Type", photo.getOperatorType().toString());
@@ -587,49 +587,49 @@ public class DAL {
     }
 
     /// <summary>
-    /// æ¸…ç©ºOperation
+    /// Çå¿ÕOperation
     /// </summary>
-    /// <returns>ç»“æœ</returns>
+    /// <returns>½á¹û</returns>
     public boolean clearOperation() {
-        File file = new File(getRelPathByPathType(xmlType.operation));//ç›´æ¥åˆ é™¤æ–‡ä»¶ï¼Œå†é‡æ–°åˆ›å»ºä¸€ä¸ª
+        File file = new File(getRelPathByPathType(xmlType.operation));//Ö±½ÓÉ¾³ıÎÄ¼ş£¬ÔÙÖØĞÂ´´½¨Ò»¸ö
         file.delete();
         Document xml = this.open(xmlType.operation);
         return true;
     }
 
     /// <summary>
-    /// å†…éƒ¨è°ƒç”¨ç”¨ï¼ˆé‡ç½®å¿«ç…§ï¼‰
+    /// ÄÚ²¿µ÷ÓÃÓÃ£¨ÖØÖÃ¿ìÕÕ£©
     /// </summary>
     /// <returns></returns>
     private boolean setPhoto() {
-        Document xml = this.open(xmlType.version); // æ‰“å¼€Versionçš„è¿æ¥
-        //è·å–å½“å‰æœ€ç»ˆç‰ˆæœ¬
+        Document xml = this.open(xmlType.version); // ´ò¿ªVersionµÄÁ¬½Ó
+        //»ñÈ¡µ±Ç°×îÖÕ°æ±¾
         int lastVersion =Integer.parseInt(
                 ((Element) xml.selectNodes("//lastVersion").get(0)).getText()
         );
 
-        Map<String, Element> dc = new HashMap<String, Element>();// ç”¨äºè®°å½•è¢«æ“ä½œå¯¹è±¡çš„ä»¥åŠxmlNodeçš„å¼•ç”¨
+        Map<String, Element> dc = new HashMap<String, Element>();// ÓÃÓÚ¼ÇÂ¼±»²Ù×÷¶ÔÏóµÄÒÔ¼°xmlNodeµÄÒıÓÃ
         List<String> nodeIDForRemove = new ArrayList<String>();
 
         for (int i = 0; i < lastVersion; i++)
         {
             Element item = (Element)xml.selectNodes("//version").get(i);
-            // éå†operationNodeé‡Œçš„æ“ä½œèŠ‚ç‚¹
+            // ±éÀúoperationNodeÀïµÄ²Ù×÷½Úµã
             for (Element operationNode : (List<Element>)item.selectNodes("./operation"))
             {
                 String id = operationNode.valueOf("@OperateOid");
                 if (dc.containsKey(id))
                 {
-                    // å¦‚å­—å…¸å­˜åœ¨è¯¥keyåŒæ—¶æ»¡è¶³å­—å…¸ä¸­çš„timeå°äºæ–°èŠ‚ç‚¹çš„timeåˆ™è¦†ç›–(å³åˆæœ«å€¼åˆå¹¶)
-                    // æƒé™é«˜ä¸”çš„è¦†ç›–å­—å…¸ä¸­æƒé™ä½çš„
+                    // Èç×Öµä´æÔÚ¸ÃkeyÍ¬Ê±Âú×ã×ÖµäÖĞµÄtimeĞ¡ÓÚĞÂ½ÚµãµÄtimeÔò¸²¸Ç(¼´³õÄ©ÖµºÏ²¢)
+                    // È¨ÏŞ¸ßÇÒµÄ¸²¸Ç×ÖµäÖĞÈ¨ÏŞµÍµÄ
                     if ( Integer.parseInt(dc.get(id).valueOf("@Priority")) <=  Integer.parseInt(operationNode.valueOf("@Priority")))
                     {
                         if (Long.parseLong(dc.get(id).valueOf("@Time")) <= Long.parseLong(operationNode.valueOf("@Time").trim()))
                         {
-                            // åŸå§‹
+                            // Ô­Ê¼
                             // dc[id] = operationNode;
 
-                            // ä¿®æ”¹å
+                            // ĞŞ¸Äºó
                             if (operationNode.valueOf("@Type").equalsIgnoreCase("Modify"))
                             {
                                 dc.put(id, operationNode);
@@ -638,7 +638,7 @@ public class DAL {
                             {
                                 /** nodeIDForRemove.add(id);
                                  var nodeForRemove = from d in dc where d.Key.StartsWith(id + ":") select d;
-                                 // æ¨¡ç³ŠåŒ¹é…åˆ°æ‰€æœ‰éœ€è¦ç§»é™¤çš„å±æ€§åŠæ·»åŠ ç­‰èŠ‚ç‚¹
+                                 // Ä£ºıÆ¥Åäµ½ËùÓĞĞèÒªÒÆ³ıµÄÊôĞÔ¼°Ìí¼ÓµÈ½Úµã
                                  for(Map<String, Element> k : nodeForRemove)
                                  {
                                  nodeIDForRemove.add(k.Key);
@@ -651,24 +651,24 @@ public class DAL {
                     }
                 }
                 else {
-                    // ä¸å­˜åœ¨keyåˆ™å­˜å…¥
-                    dc.put(id, operationNode);// å­˜å…¥å­—å…¸
+                    // ²»´æÔÚkeyÔò´æÈë
+                    dc.put(id, operationNode);// ´æÈë×Öµä
                 }
             }
         }
-        // éå†ç»“æŸ
+        // ±éÀú½áÊø
         for (String nodeId : nodeIDForRemove)
         {
             dc.remove(nodeId);
         }
         File file = new File(this.getRelPathByPathType(xmlType.photo));
-        file.delete();//ç›´æ¥åˆ é™¤æ–‡ä»¶ï¼Œå†é‡æ–°åˆ›å»ºä¸€ä¸ª
-        Document xmlPhoto = this.open(xmlType.photo); // æ‰“å¼€photoçš„è¿æ¥
+        file.delete();//Ö±½ÓÉ¾³ıÎÄ¼ş£¬ÔÙÖØĞÂ´´½¨Ò»¸ö
+        Document xmlPhoto = this.open(xmlType.photo); // ´ò¿ªphotoµÄÁ¬½Ó
         int count = Integer.parseInt(((Element)xmlPhoto.selectNodes("//count").get(0)).getText());
         ((Element)xmlPhoto.selectNodes("//lastVersion").get(0)).setText(lastVersion+"");
         Save(xmlPhoto,this.getLocalPath(xmlType.photo));
         List<PhotoFather> ls = new ArrayList<PhotoFather>();
-        for (Map.Entry<String, Element> item : dc.entrySet())// éå†å­—å…¸ æå–photoå¯¹è±¡
+        for (Map.Entry<String, Element> item : dc.entrySet())// ±éÀú×Öµä ÌáÈ¡photo¶ÔÏó
         {
             if (item.getValue().valueOf("@Type").equalsIgnoreCase("Add") || item.getValue().valueOf("@Type").equalsIgnoreCase("Modify"))
             {
@@ -689,37 +689,37 @@ public class DAL {
         }
 
 
-        this.setObject2xml(xmlType.photo, ls);// å°†photoåºåˆ—å­˜å…¥xml
+        this.setObject2xml(xmlType.photo, ls);// ½«photoĞòÁĞ´æÈëxml
         return true;
     }
     /// <summary>
-    /// å†…éƒ¨è°ƒç”¨ç”¨ï¼ˆè¿½åŠ å¿«ç…§ï¼‰
+    /// ÄÚ²¿µ÷ÓÃÓÃ£¨×·¼Ó¿ìÕÕ£©
     /// </summary>
     /// <returns></returns>
     private boolean appendPhoto()
     {
-        Document xmlVersion = this.open(xmlType.version); // æ‰“å¼€Versionçš„è¿æ¥
-        Document xmlPhoto = this.open(xmlType.photo); // æ‰“å¼€photoçš„è¿æ¥
-        //è·å–å½“å‰æœ€ç»ˆç‰ˆæœ¬
+        Document xmlVersion = this.open(xmlType.version); // ´ò¿ªVersionµÄÁ¬½Ó
+        Document xmlPhoto = this.open(xmlType.photo); // ´ò¿ªphotoµÄÁ¬½Ó
+        //»ñÈ¡µ±Ç°×îÖÕ°æ±¾
         int lastVersion = Integer.parseInt(((Element)xmlVersion.selectNodes("//lastVersion").get(0)).getText());
-        //è·å–photoä¸­ç‰ˆæœ¬
+        //»ñÈ¡photoÖĞ°æ±¾
         int photoVersion = Integer.parseInt(((Element)xmlPhoto.selectNodes("//lastVersion").get(0)).getText());
 
-        if (lastVersion == photoVersion)// å¦‚æœå½“å‰æ˜¯æœ€æ–°ç‰ˆæœ¬ç›´æ¥è¿”å›
+        if (lastVersion == photoVersion)// Èç¹ûµ±Ç°ÊÇ×îĞÂ°æ±¾Ö±½Ó·µ»Ø
         {
             return true;
         }
 
 
-        Map<String, Element> dc = new HashMap<String, Element>();// ç”¨äºè®°å½•è¢«æ“ä½œå¯¹è±¡çš„ä»¥åŠxmlNodeçš„å¼•ç”¨
-        List<String> nodeIDForRemove = new ArrayList<String>();// å¾…ç§»é™¤èŠ‚ç‚¹
+        Map<String, Element> dc = new HashMap<String, Element>();// ÓÃÓÚ¼ÇÂ¼±»²Ù×÷¶ÔÏóµÄÒÔ¼°xmlNodeµÄÒıÓÃ
+        List<String> nodeIDForRemove = new ArrayList<String>();// ´ıÒÆ³ı½Úµã
         for (Element item : (List<Element>)xmlPhoto.selectNodes("//photo"))
         {
             dc.put(item.attributeValue("OperateOid"), item);
         }
 
 
-        // ç§»é™¤åŸæœ‰photoä¸­çš„èŠ‚ç‚¹
+        // ÒÆ³ıÔ­ÓĞphotoÖĞµÄ½Úµã
         for (Map.Entry<String, Element> item : dc.entrySet())
         {
             ((Element)xmlPhoto.selectSingleNode("data")).remove(item.getValue());
@@ -732,24 +732,24 @@ public class DAL {
         for (int i = photoVersion; i < lastVersion; i++)
         {
             Element item = (Element)xmlVersion.selectNodes("version").get(i);
-            // éå†operationNodeé‡Œçš„æ“ä½œèŠ‚ç‚¹
+            // ±éÀúoperationNodeÀïµÄ²Ù×÷½Úµã
             for (Element operationNode : (List<Element>)item.selectNodes("operation"))
             {
                 String id = operationNode.valueOf("@OperateOid");
                 if (dc.containsKey(id))
                 {
-                    // å¦‚å­—å…¸å­˜åœ¨è¯¥keyåŒæ—¶æ»¡è¶³å­—å…¸ä¸­çš„timeå°äºæ–°èŠ‚ç‚¹çš„timeåˆ™è¦†ç›–
-                    // æƒé™é«˜ä¸”çš„è¦†ç›–å­—å…¸ä¸­æƒé™ä½çš„
+                    // Èç×Öµä´æÔÚ¸ÃkeyÍ¬Ê±Âú×ã×ÖµäÖĞµÄtimeĞ¡ÓÚĞÂ½ÚµãµÄtimeÔò¸²¸Ç
+                    // È¨ÏŞ¸ßÇÒµÄ¸²¸Ç×ÖµäÖĞÈ¨ÏŞµÍµÄ
                     //if (Convert.ToInt32(dc[id].GetAttribute("Priority")) <= Convert.ToInt32(operationNode.GetAttribute("Priority"))) {
                     //   if (Convert.ToInt32(dc[id].GetAttribute("Time")) <= Convert.ToInt32(operationNode.GetAttribute("Time")))
                     if (true)
                     {
                         if (true)
                         {
-                            // åŸå§‹
+                            // Ô­Ê¼
                             // dc[id] = operationNode;
 
-                            // ä¿®æ”¹å
+                            // ĞŞ¸Äºó
                             if (operationNode.valueOf("@Type").equalsIgnoreCase("Modify"))
                             {
                                 dc.put(id, operationNode);
@@ -765,7 +765,7 @@ public class DAL {
                                         nodeForRemove.put(d.getKey(), d.getValue());
                                     }
                                 }
-                                // æ¨¡ç³ŠåŒ¹é…åˆ°æ‰€æœ‰éœ€è¦ç§»é™¤çš„å±æ€§åŠæ·»åŠ ç­‰èŠ‚ç‚¹
+                                // Ä£ºıÆ¥Åäµ½ËùÓĞĞèÒªÒÆ³ıµÄÊôĞÔ¼°Ìí¼ÓµÈ½Úµã
                                 for (Map.Entry<String, Element> k : nodeForRemove.entrySet())
                                 {
                                     nodeIDForRemove.add(k.getKey());
@@ -778,21 +778,21 @@ public class DAL {
                     //}
                 }
                 else {
-                    dc.put(id, operationNode);// å­˜å…¥å­—å…¸
+                    dc.put(id, operationNode);// ´æÈë×Öµä
                 }
             }
 
         }
 
-        // ç§»é™¤dcä¸­è¢«åˆ é™¤çš„elementåŠå…¶å±æ€§
+        // ÒÆ³ıdcÖĞ±»É¾³ıµÄelement¼°ÆäÊôĞÔ
         for (String nodeId : nodeIDForRemove)
         {
             dc.remove(nodeId);
         }
 
         ((Element)xmlPhoto.selectNodes("//lastVersion").get(0)).setText(lastVersion+"");
-        List<PhotoFather> ls = new ArrayList<PhotoFather>(); // dcçš„valueè½¬æˆphotoåºåˆ—
-        for (Map.Entry<String, Element> item : dc.entrySet())// éå†å­—å…¸ æå–photoå¯¹è±¡
+        List<PhotoFather> ls = new ArrayList<PhotoFather>(); // dcµÄvalue×ª³ÉphotoĞòÁĞ
+        for (Map.Entry<String, Element> item : dc.entrySet())// ±éÀú×Öµä ÌáÈ¡photo¶ÔÏó
         {
             if (item.getValue().valueOf("@Type").equalsIgnoreCase("Add") || item.getValue().valueOf("@Type").equalsIgnoreCase("Modify"))
             {
@@ -813,33 +813,33 @@ public class DAL {
         }
 
         Save(xmlPhoto, this.getRelPathByPathType(xmlType.photo));
-        this.setObject2xml(xmlType.photo, ls);// å°†photoåºåˆ—å­˜å…¥xml
+        this.setObject2xml(xmlType.photo, ls);// ½«photoĞòÁĞ´æÈëxml
         return true;
     }
     /*	/// <summary>
-        /// æ ¹æ®Versionè¡¨ä¸­çš„LastVersionåˆ›å»ºPhotoè¡¨
+        /// ¸ù¾İVersion±íÖĞµÄLastVersion´´½¨Photo±í
         /// </summary>
-        /// <returns>ç»“æœ</returns>
+        /// <returns>½á¹û</returns>
          public boolean setPhotoByLastVersion() {
-            Document xml = this.open(xmlType.version); // æ‰“å¼€Versionçš„è¿æ¥
-            //è·å–å½“å‰æœ€ç»ˆç‰ˆæœ¬
+            Document xml = this.open(xmlType.version); // ´ò¿ªVersionµÄÁ¬½Ó
+            //»ñÈ¡µ±Ç°×îÖÕ°æ±¾
             int lastVersion = Integer.parseInt(
                ((Element) xml.selectNodes("//lastVersion").get(0)).getText()
                );
 
-            Map<String,Element> dc = new HashMap<String,Element>();// ç”¨äºè®°å½•è¢«æ“ä½œå¯¹è±¡çš„ä»¥åŠxmlNodeçš„å¼•ç”¨
+            Map<String,Element> dc = new HashMap<String,Element>();// ÓÃÓÚ¼ÇÂ¼±»²Ù×÷¶ÔÏóµÄÒÔ¼°xmlNodeµÄÒıÓÃ
             //foreach (XmlElement item in xml.GetElementsByTagName("version"))
             //{
                 for (int i = 0; i < lastVersion; i++)
                 {
                     Element item = (Element)xml.selectNodes("//version").get(i);
-                    // éå†operationNodeé‡Œçš„æ“ä½œèŠ‚ç‚¹
+                    // ±éÀúoperationNodeÀïµÄ²Ù×÷½Úµã
                     for (Element operationNode : (List<Element>)item.selectNodes("./operation"))
                     {
                         String id = operationNode.valueOf("@OperateOid");
                         if (dc.containsKey(id)) {
-                        // å¦‚å­—å…¸å­˜åœ¨è¯¥keyåŒæ—¶æ»¡è¶³å­—å…¸ä¸­çš„timeå°äºæ–°èŠ‚ç‚¹çš„timeåˆ™è¦†ç›–
-                        // æƒé™é«˜ä¸”çš„è¦†ç›–å­—å…¸ä¸­æƒé™ä½çš„
+                        // Èç×Öµä´æÔÚ¸ÃkeyÍ¬Ê±Âú×ã×ÖµäÖĞµÄtimeĞ¡ÓÚĞÂ½ÚµãµÄtimeÔò¸²¸Ç
+                        // È¨ÏŞ¸ßÇÒµÄ¸²¸Ç×ÖµäÖĞÈ¨ÏŞµÍµÄ
                         if (Integer.parseInt(dc.get(id).valueOf("@Priority")) <= Integer.parseInt(operationNode.valueOf("@Priority")))
                         {
                             if (Long.parseLong(dc.get(id).valueOf("@Time")) <= Long.parseLong(operationNode.valueOf("@Time").trim()))
@@ -851,17 +851,17 @@ public class DAL {
                                 continue;
                             }
                         }
-                        dc.put(id, operationNode);// å­˜å…¥å­—å…¸
+                        dc.put(id, operationNode);// ´æÈë×Öµä
                     }
 
                 }
             File file =new File(this.getRelPathByPathType(xmlType.photo));
-            file.delete();//ç›´æ¥åˆ é™¤æ–‡ä»¶ï¼Œå†é‡æ–°åˆ›å»ºä¸€ä¸ª
-            Document xmlPhoto = this.open(xmlType.photo); // æ‰“å¼€photoçš„è¿æ¥
+            file.delete();//Ö±½ÓÉ¾³ıÎÄ¼ş£¬ÔÙÖØĞÂ´´½¨Ò»¸ö
+            Document xmlPhoto = this.open(xmlType.photo); // ´ò¿ªphotoµÄÁ¬½Ó
             ((Element)xmlPhoto.selectNodes("//lastVersion").get(0)).setText(String.valueOf(lastVersion));
             Save(xmlPhoto,this.getLocalPath(xmlType.photo));
             List<PhotoFather> ls = new ArrayList<PhotoFather>();
-            for (Map.Entry<String,Element> item : dc.entrySet())// éå†å­—å…¸ æå–photoå¯¹è±¡
+            for (Map.Entry<String,Element> item : dc.entrySet())// ±éÀú×Öµä ÌáÈ¡photo¶ÔÏó
             {
                 ls.add(new PhotoFather(
                     item.getValue().valueOf("@OperateOid"),
@@ -872,7 +872,7 @@ public class DAL {
             }
 
             ls.size();
-            this.setObject2xml(xmlType.photo, ls);// å°†photoåºåˆ—å­˜å…¥xml
+            this.setObject2xml(xmlType.photo, ls);// ½«photoĞòÁĞ´æÈëxml
             return true;
 
         }*/
@@ -881,10 +881,10 @@ public class DAL {
     }
 
     /// <summary>
-    /// æ ¹æ®Versionè¡¨ä¸­çš„LastVersionåˆ›å»ºPhotoè¡¨
+    /// ¸ù¾İVersion±íÖĞµÄLastVersion´´½¨Photo±í
     /// </summary>
-    /// <param name="pType">æ“ä½œphotoçš„ç±»å‹</param>
-    /// <returns>ç»“æœ</returns>
+    /// <param name="pType">²Ù×÷photoµÄÀàĞÍ</param>
+    /// <returns>½á¹û</returns>
     public boolean setPhotoByLastVersion(pathType pType)
      {
         pathType temp = this.PType;
@@ -896,37 +896,37 @@ public class DAL {
 
     /*
      /// <summary>
-     /// æ ¹æ®versionçš„æ‰€å¤„ç‰ˆæœ¬å’Œå¿«ç…§çš„ç‰ˆæœ¬åšå·®ï¼Œè¿½åŠ æ–°çš„å¿«ç…§
+     /// ¸ù¾İversionµÄËù´¦°æ±¾ºÍ¿ìÕÕµÄ°æ±¾×ö²î£¬×·¼ÓĞÂµÄ¿ìÕÕ
      /// </summary>
-     /// <returns>ç»“æœ</returns>
+     /// <returns>½á¹û</returns>
      public boolean appendPhotoByLastVersion()
      {
-         Document xmlVersion = this.open(xmlType.version); // æ‰“å¼€Versionçš„è¿æ¥
-         Document xmlPhoto = this.open( xmlType.photo); // æ‰“å¼€photoçš„è¿æ¥
-         //è·å–å½“å‰æœ€ç»ˆç‰ˆæœ¬
+         Document xmlVersion = this.open(xmlType.version); // ´ò¿ªVersionµÄÁ¬½Ó
+         Document xmlPhoto = this.open( xmlType.photo); // ´ò¿ªphotoµÄÁ¬½Ó
+         //»ñÈ¡µ±Ç°×îÖÕ°æ±¾
          int lastVersion = Integer.parseInt(((Element)xmlVersion.selectNodes("//lastVersion").get(0)).getText());
-         //è·å–photoä¸­ç‰ˆæœ¬
+         //»ñÈ¡photoÖĞ°æ±¾
          int photoVersion = Integer.parseInt(((Element)xmlPhoto.selectNodes("//lastVersion").get(0)).getText());
 
-         if (lastVersion == photoVersion)// å¦‚æœå½“å‰æ˜¯æœ€æ–°ç‰ˆæœ¬ç›´æ¥è¿”å›
+         if (lastVersion == photoVersion)// Èç¹ûµ±Ç°ÊÇ×îĞÂ°æ±¾Ö±½Ó·µ»Ø
          {
              return true;
          }
 
 
-         Map<String, Element> dc = new HashMap<String, Element>();// ç”¨äºè®°å½•è¢«æ“ä½œå¯¹è±¡çš„ä»¥åŠxmlNodeçš„å¼•ç”¨
+         Map<String, Element> dc = new HashMap<String, Element>();// ÓÃÓÚ¼ÇÂ¼±»²Ù×÷¶ÔÏóµÄÒÔ¼°xmlNodeµÄÒıÓÃ
 
          for (int i = photoVersion; i < lastVersion; i++)
          {
         	 Element item = (Element)xmlVersion.selectNodes("//version").get(i);
-             // éå†operationNodeé‡Œçš„æ“ä½œèŠ‚ç‚¹
+             // ±éÀúoperationNodeÀïµÄ²Ù×÷½Úµã
              for (Element operationNode : (List<Element>)item.selectNodes("//operation"))
              {
                  String id = operationNode.valueOf("@OperateOid");
                  if (dc.containsKey(id))
                  {
-                     // å¦‚å­—å…¸å­˜åœ¨è¯¥keyåŒæ—¶æ»¡è¶³å­—å…¸ä¸­çš„timeå°äºæ–°èŠ‚ç‚¹çš„timeåˆ™è¦†ç›–
-                     // æƒé™é«˜ä¸”çš„è¦†ç›–å­—å…¸ä¸­æƒé™ä½çš„
+                     // Èç×Öµä´æÔÚ¸ÃkeyÍ¬Ê±Âú×ã×ÖµäÖĞµÄtimeĞ¡ÓÚĞÂ½ÚµãµÄtimeÔò¸²¸Ç
+                     // È¨ÏŞ¸ßÇÒµÄ¸²¸Ç×ÖµäÖĞÈ¨ÏŞµÍµÄ
                      if (Integer.parseInt(dc.get(id).valueOf("@Priority")) <= Integer.parseInt(operationNode.valueOf("@Priority"))) {
                          if (Long.parseLong(dc.get(id).valueOf("@Time")) <= Long.parseLong(operationNode.valueOf("@Time")))
                          {
@@ -937,7 +937,7 @@ public class DAL {
                          continue;
                      }
                  }
-                 dc.put(id, operationNode);// å­˜å…¥å­—å…¸
+                 dc.put(id, operationNode);// ´æÈë×Öµä
              }
 
          }
@@ -945,7 +945,7 @@ public class DAL {
 
          ((Element)xmlPhoto.selectNodes("//lastVersion").get(0)).setText(String.valueOf(lastVersion));
          List<PhotoFather> ls = new ArrayList<PhotoFather>();
-         for (Map.Entry<String,Element> item : dc.entrySet())// éå†å­—å…¸ æå–photoå¯¹è±¡
+         for (Map.Entry<String,Element> item : dc.entrySet())// ±éÀú×Öµä ÌáÈ¡photo¶ÔÏó
          {
 
              ls.add(new PhotoFather(
@@ -957,46 +957,46 @@ public class DAL {
          }
 
          List<Element> removeList = new ArrayList<Element>();
-         // è¿™é‡Œè·å–äº†å·®å¼‚çš„photoåºåˆ—éœ€è¦éªŒè¯photoè¡¨ä¸­ä¸å­˜åœ¨å¯¹åŒä¸€å®ä½“çš„é‡å¤æ“ä½œ
-         // éå†ç¡®å®šremoveList
+         // ÕâÀï»ñÈ¡ÁË²îÒìµÄphotoĞòÁĞĞèÒªÑéÖ¤photo±íÖĞ²»´æÔÚ¶ÔÍ¬Ò»ÊµÌåµÄÖØ¸´²Ù×÷
+         // ±éÀúÈ·¶¨removeList
          for (Element item : (List<Element>)xmlPhoto.selectNodes("//photo"))
          {
-             if (dc.containsKey(item.valueOf("@OperateOid"))) {// å¦‚æœå­˜åœ¨
+             if (dc.containsKey(item.valueOf("@OperateOid"))) {// Èç¹û´æÔÚ
                  removeList.add(item);
              }
 
          }
          for (Element item : removeList)
          {
-             // ç§»é™¤è¯¥èŠ‚ç‚¹
+             // ÒÆ³ı¸Ã½Úµã
         	 //  xmlPhoto.GetElementsByTagName("data")[0].RemoveChild(item);
-        	 //ï¼Ÿè¿™ä¸ªèŠ‚ç‚¹ä¸ºitemçš„å­èŠ‚ç‚¹ è¿˜æ˜¯ä¸itemå¹³è¡Œ
+        	 //£¿Õâ¸ö½ÚµãÎªitemµÄ×Ó½Úµã »¹ÊÇÓëitemÆ½ĞĞ
              ((Element)xmlPhoto.selectNodes("//data").get(0)).remove(item);
-             // åŒæ—¶countè¦-1
+             // Í¬Ê±countÒª-1
              ((Element)xmlPhoto.selectNodes("//count").get(0)).setText(
             		 String.valueOf(Integer.parseInt((((Element)xmlPhoto.selectNodes("//count").get(0)).getText())) - 1));
          }
 
 
          Save(xmlPhoto,this.getRelPathByPathType(xmlType.photo));
-         this.setObject2xml(xmlType.photo, ls);// å°†photoåºåˆ—å­˜å…¥xml
+         this.setObject2xml(xmlType.photo, ls);// ½«photoĞòÁĞ´æÈëxml
          return true;
 
      }*/
     /// <summary>
-    /// æ ¹æ®versionçš„æ‰€å¤„ç‰ˆæœ¬å’Œå¿«ç…§çš„ç‰ˆæœ¬åšå·®ï¼Œè¿½åŠ æ–°çš„å¿«ç…§
+    /// ¸ù¾İversionµÄËù´¦°æ±¾ºÍ¿ìÕÕµÄ°æ±¾×ö²î£¬×·¼ÓĞÂµÄ¿ìÕÕ
     /// </summary>
-    /// <returns>ç»“æœ</returns>
+    /// <returns>½á¹û</returns>
     public boolean appendPhotoByLastVersion()
     {
         return this.appendPhoto();
     }
 
     /// <summary>
-    /// æ ¹æ®versionçš„æ‰€å¤„ç‰ˆæœ¬å’Œå¿«ç…§çš„ç‰ˆæœ¬åšå·®ï¼Œè¿½åŠ æ–°çš„å¿«ç…§
+    /// ¸ù¾İversionµÄËù´¦°æ±¾ºÍ¿ìÕÕµÄ°æ±¾×ö²î£¬×·¼ÓĞÂµÄ¿ìÕÕ
     /// </summary>
-    /// <param name="pType">æ“ä½œphotoçš„ç±»å‹</param>
-    /// <returns>ç»“æœ</returns>
+    /// <param name="pType">²Ù×÷photoµÄÀàĞÍ</param>
+    /// <returns>½á¹û</returns>
     public boolean appendPhotoByLastVersion(pathType pType)
     {
         pathType temp = this.PType;
@@ -1007,10 +1007,10 @@ public class DAL {
     }
 
     /// <summary>
-    /// ç‰ˆæœ¬å›æº¯
+    /// °æ±¾»ØËİ
     /// </summary>
-    /// <param name="lastVersion">å›åˆ°çš„ç‰ˆæœ¬ä¸ºæ­¢</param>
-    /// <returns>ç»“æœ</returns>
+    /// <param name="lastVersion">»Øµ½µÄ°æ±¾ÎªÖ¹</param>
+    /// <returns>½á¹û</returns>
     public boolean back2Version(int lastVersion) {
         Document xml = this.open(xmlType.version);
         Element node = (Element) (xml.selectNodes("//lastVersion").get(0));
@@ -1031,11 +1031,11 @@ public class DAL {
         node.setText(lastVersion+" ");
         Save(xml, this.getLocalPath(xmlType.version));
         try{
-            // å¦‚æœæ˜¯ç‰ˆæœ¬å‰è¿›
+            // Èç¹ûÊÇ°æ±¾Ç°½ø
             if (Integer.parseInt(nodePhoto.getText()) <= Integer.parseInt(node.getText().trim())) {
-                this.appendPhotoByLastVersion(); // è°ƒç”¨photoè¿½åŠ ç®—æ³•
+                this.appendPhotoByLastVersion(); // µ÷ÓÃphoto×·¼ÓËã·¨
             }else{
-                // è°ƒç”¨é‡æ–°ç”Ÿæˆphotoçš„ç®—æ³•
+                // µ÷ÓÃÖØĞÂÉú³ÉphotoµÄËã·¨
                 this.setPhotoByLastVersion();
             }
         }catch (Exception e) {
@@ -1069,9 +1069,9 @@ public class DAL {
 
 
     /// <summary>
-    /// åˆ›å»ºç¼“å†²åŒº
+    /// ´´½¨»º³åÇø
     /// </summary>
-    /// <returns>ç»“æœ</returns>
+    /// <returns>½á¹û</returns>
     public boolean setRemoveVersion2Buffer() {
         Document xml = this.open(xmlType.version);
         Element dataNode = (Element) xml.selectNodes("//data").get(0);
@@ -1080,36 +1080,36 @@ public class DAL {
         int lastVersion = Integer.parseInt(lastVersionNode.getText());
         int count = Integer.parseInt(countNode.getText());
 
-        if (lastVersion == count) return true; // å¦‚æœæ¡ä»¶æœ‰è¯¯åˆ™è¿”å›
+        if (lastVersion == count) return true; // Èç¹ûÌõ¼şÓĞÎóÔò·µ»Ø
 
         List<Element> list = xml.selectNodes("//version");
         List<Element> removeList = new ArrayList<Element>();
         for (int i = lastVersion; i < count; i++)
         {
-            // éå†éœ€è¦ç§»é™¤çš„listå¹¶æ·»åŠ åˆ°listä¸­
+            // ±éÀúĞèÒªÒÆ³ıµÄlist²¢Ìí¼Óµ½listÖĞ
             removeList.add(list.get(i));
         }
 
-        Document xmlBuffer =this.open(xmlType.buffer); // æ‰“å¼€buffer
+        Document xmlBuffer =this.open(xmlType.buffer); // ´ò¿ªbuffer
         Element parent = (Element) xmlBuffer.selectNodes("//data").get(0);
         parent.element("count").setText(removeList.size()+"");
-        Element deleteNode =  this.createElementNode( parent, "delete"); // åˆ›å»ºdeleteèŠ‚ç‚¹
+        Element deleteNode =  this.createElementNode( parent, "delete"); // ´´½¨delete½Úµã
          /*java.util.Date now = new java.util.Date();
  		 DateFormat format=new SimpleDateFormat("yyyyMMddHHmmss");
  		 String time=format.format(now);*/
         String time = String.valueOf(System.currentTimeMillis());
         deleteNode.addAttribute("Time", time);
-        //ä¿ç•™
+        //±£Áô
         deleteNode.addAttribute("UserBy", this.UserBy);
         deleteNode.addAttribute("GUID", UUID.randomUUID() + "");
         for (Element item : removeList)
         {
 
 
-            // è¿™é‡Œç”±äºå¼•å…¥çš„nodeæ˜¯å…¶ä»–xmlçš„ å¿…é¡»ç”¨importNode
-            //xmlBuffer.ImportNode(item, true);// å¼•å…¥node ï¼Œ trueæ ‡è¯†æ˜¯å¦deep
-            // å…‹éš†èŠ‚ç‚¹
-//        	 deleteNode.AppendChild(xmlBuffer.ImportNode(item, true)); // æ·»åŠ åˆ°deleteèŠ‚ç‚¹ä¸‹
+            // ÕâÀïÓÉÓÚÒıÈëµÄnodeÊÇÆäËûxmlµÄ ±ØĞëÓÃimportNode
+            //xmlBuffer.ImportNode(item, true);// ÒıÈënode £¬ true±êÊ¶ÊÇ·ñdeep
+            // ¿ËÂ¡½Úµã
+//        	 deleteNode.AppendChild(xmlBuffer.ImportNode(item, true)); // Ìí¼Óµ½delete½ÚµãÏÂ
 
             deleteNode.add(item.createCopy());
         	 /*
@@ -1122,7 +1122,7 @@ public class DAL {
         	  *
         	  * */
 
-            dataNode.remove(item); // åˆ é™¤Versionä¸­çš„è®°å½•
+            dataNode.remove(item); // É¾³ıVersionÖĞµÄ¼ÇÂ¼
         }
         Save(xmlBuffer,this.getRelPathByPathType(xmlType.buffer));
 
@@ -1130,16 +1130,16 @@ public class DAL {
         Save(xml,this.getRelPathByPathType(xmlType.version));
 
 
-        // åœ¨versionä¸­ç§»é™¤removeListä¸­çš„nodeå¹¶æ·»åŠ åˆ°bufferä¸­
+        // ÔÚversionÖĞÒÆ³ıremoveListÖĞµÄnode²¢Ìí¼Óµ½bufferÖĞ
         return true;
     }
 
     /// <summary>
-    /// å…‹éš†ç‰ˆæœ¬åº“ï¼ˆæ‹‰å–åˆ°æœ¬åœ°ï¼‰
+    /// ¿ËÂ¡°æ±¾¿â£¨À­È¡µ½±¾µØ£©
     /// </summary>
-    /// <param name="sourceUrl">è¿œç¨‹åº“è·¯å¾„</param>
-    /// <param name="aimUrl">ç›®æ ‡åº“è·¯å¾„</param>
-    /// <returns>ç»“æœ</returns>
+    /// <param name="sourceUrl">Ô¶³Ì¿âÂ·¾¶</param>
+    /// <param name="aimUrl">Ä¿±ê¿âÂ·¾¶</param>
+    /// <returns>½á¹û</returns>
     public boolean cloneByUrl(String sourceUrl, String aimUrl) throws Exception {
         //this.open(xmlType.version, aimUrl);
         //this.open(xmlType.photo, aimUrl);
@@ -1162,12 +1162,12 @@ public class DAL {
             return true;
         }
         else {
-            throw new Exception("ç›®æ ‡åº“å·²å­˜åœ¨ï¼Œè¯·é‡æ–°é€‰æ‹©è·¯å¾„");
+            throw new Exception("Ä¿±ê¿âÒÑ´æÔÚ£¬ÇëÖØĞÂÑ¡ÔñÂ·¾¶");
 
         }
     }
-    //æ–‡ä»¶ç®¡é“å¤åˆ¶æ–¹æ³•
-    //éœ€è¦ä¼ è¾“äº†ä¸¤ä¸ªå­—ç¬¦ä¸²ï¼ˆæºæ–‡ä»¶è·¯å¾„+åå­—ï¼Œç›®æ ‡è·¯å¾„+åå­—ï¼‰
+    //ÎÄ¼ş¹ÜµÀ¸´ÖÆ·½·¨
+    //ĞèÒª´«ÊäÁËÁ½¸ö×Ö·û´®£¨Ô´ÎÄ¼şÂ·¾¶+Ãû×Ö£¬Ä¿±êÂ·¾¶+Ãû×Ö£©
     public void fileCopy(String source, String target) {
         File s = new File(source);
         File t = new File(target);
@@ -1178,9 +1178,9 @@ public class DAL {
         try {
             fi = new FileInputStream(s);
             fo = new FileOutputStream(t);
-            in = fi.getChannel();//å¾—åˆ°å¯¹åº”çš„æ–‡ä»¶é€šé“
-            out = fo.getChannel();//å¾—åˆ°å¯¹åº”çš„æ–‡ä»¶é€šé“
-            in.transferTo(0, in.size(), out);//è¿æ¥ä¸¤ä¸ªé€šé“ï¼Œå¹¶ä¸”ä»iné€šé“è¯»å–ï¼Œç„¶åå†™å…¥outé€šé“
+            in = fi.getChannel();//µÃµ½¶ÔÓ¦µÄÎÄ¼şÍ¨µÀ
+            out = fo.getChannel();//µÃµ½¶ÔÓ¦µÄÎÄ¼şÍ¨µÀ
+            in.transferTo(0, in.size(), out);//Á¬½ÓÁ½¸öÍ¨µÀ£¬²¢ÇÒ´ÓinÍ¨µÀ¶ÁÈ¡£¬È»ºóĞ´ÈëoutÍ¨µÀ
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -1196,19 +1196,19 @@ public class DAL {
     }
 
     /// <summary>
-    /// æ¨é€ç‰ˆæœ¬åº“è‡³æºä¸­å¤®åº“ï¼ˆæ ¹æ®æ‹‰å–æ—¶çš„settingï¼‰
+    /// ÍÆËÍ°æ±¾¿âÖÁÔ´ÖĞÑë¿â£¨¸ù¾İÀ­È¡Ê±µÄsetting£©
     /// </summary>
     /// <returns></returns>
     public boolean pushBySetting() throws Exception {
-        // æ‰“å¼€æœ¬åœ°åº“setting
+        // ´ò¿ª±¾µØ¿âsetting
         Document settingXml = this.open(xmlType.setting);
         Element element = ((Element)settingXml.selectNodes("//origin").get(0));
         System.out.println(element.getName() +"   url:"+element.getText());
-        String sourceUrl =  ((Element)settingXml.selectNodes("//origin").get(0)).getText();   // è¿œç¨‹åº“è·¯å¾„
-        int slastVersion = Integer.parseInt(((Element)settingXml.selectNodes("//slastVersion").get(0)).getText());  // è¿œç¨‹åº“æ‹‰å–æ—¶ç‰ˆæœ¬
+        String sourceUrl =  ((Element)settingXml.selectNodes("//origin").get(0)).getText();   // Ô¶³Ì¿âÂ·¾¶
+        int slastVersion = Integer.parseInt(((Element)settingXml.selectNodes("//slastVersion").get(0)).getText());  // Ô¶³Ì¿âÀ­È¡Ê±°æ±¾
         int snumber = Integer.parseInt(((Element)settingXml.selectNodes("//snumber").get(0)).getText());
 
-        // æ‰“å¼€æœ¬åœ°åº“version
+        // ´ò¿ª±¾µØ¿âversion
         Document localVersionXml = this.open(xmlType.version);
         Node localDataNode = localVersionXml.selectSingleNode("data");
         int localNum = Integer.parseInt(localDataNode.selectSingleNode("number").getText());
@@ -1216,41 +1216,41 @@ public class DAL {
 
         if (localNum < snumber)
         {
-            throw new Exception("é”™è¯¯çš„æäº¤ï¼Œç‰ˆæœ¬ä¸åŒ¹é…");
+            throw new Exception("´íÎóµÄÌá½»£¬°æ±¾²»Æ¥Åä");
         }
         else if (localNum == snumber)
         {
-            // å¦‚ä½•ç‰ˆæœ¬ç›¸åŒåˆ™æ— éœ€æäº¤
+            // ÈçºÎ°æ±¾ÏàÍ¬ÔòÎŞĞèÌá½»
             return true;
         }
 
-        // å¦‚æœç‰ˆæœ¬å‘ç”Ÿæ›´æ–°
-        // è®¡ç®—æ›´æ–°çš„å·®å€¼
+        // Èç¹û°æ±¾·¢Éú¸üĞÂ
+        // ¼ÆËã¸üĞÂµÄ²îÖµ
         List<Element> list =  localDataNode.selectNodes("//version");
-        List<Element> localUpdateList = new ArrayList<Element>(); // æœ¬åœ°æ›´æ–°çš„åºåˆ—
-        for (int i = snumber; i < list.size(); i++) // æ­£åºçš„
+        List<Element> localUpdateList = new ArrayList<Element>(); // ±¾µØ¸üĞÂµÄĞòÁĞ
+        for (int i = snumber; i < list.size(); i++) // ÕıĞòµÄ
         {
             localUpdateList.add(list.get(i));
         }
 
-        // æ‰“å¼€è¿œç¨‹åº“
+        // ´ò¿ªÔ¶³Ì¿â
         Document globalVersionXml = this.open(xmlType.version, sourceUrl+"version.xml");
         Element globalDataNode =  (Element) globalVersionXml.selectSingleNode("data");
         int globalNum = Integer.parseInt(globalDataNode.selectSingleNode("number").getText());
         int globalVersion = Integer.parseInt(globalDataNode.selectSingleNode("lastVersion").getText());
 
         List<Element> list2 = globalDataNode.selectNodes("//version");
-        List<Element> globalUpdateList = new ArrayList<Element>(); // ä¸­å¤®åº“æ›´æ–°çš„åºåˆ—
+        List<Element> globalUpdateList = new ArrayList<Element>(); // ÖĞÑë¿â¸üĞÂµÄĞòÁĞ
         for (int i = snumber; i < list2.size(); i++)
         {
             globalUpdateList.add(list2.get(i));
         }
-        // å¦‚æœæœåŠ¡å™¨åœ¨æ¨é€æ—¶æ²¡æœ‰å…¶ä»–ç‰ˆæœ¬æ›´æ–°
+        // Èç¹û·şÎñÆ÷ÔÚÍÆËÍÊ±Ã»ÓĞÆäËû°æ±¾¸üĞÂ
         if (globalUpdateList.size() == 0) {
-            // ç›´æ¥å°†æ–°çš„ç‰ˆæœ¬ç´¯åŠ åˆ°ç‰ˆæœ¬åº“ä¸­
+            // Ö±½Ó½«ĞÂµÄ°æ±¾ÀÛ¼Óµ½°æ±¾¿âÖĞ
             for (Element item : localUpdateList)
             {
-                //globalDataNode.AppendChild(globalVersionXml.ImportNode(item,true)); // å°†èŠ‚ç‚¹å¤åˆ¶
+                //globalDataNode.AppendChild(globalVersionXml.ImportNode(item,true)); // ½«½Úµã¸´ÖÆ
                 globalDataNode.add(item.createCopy());
                 /**
                  *
@@ -1264,24 +1264,24 @@ public class DAL {
                  * */
             }
             int increment = localUpdateList.size();
-            // å­˜å‚¨è¿œç¨‹versionåº“
+            // ´æ´¢Ô¶³Ìversion¿â
             globalDataNode.selectSingleNode("number").setText(String.valueOf(globalNum + increment));
             globalDataNode.selectSingleNode("lastVersion").setText(String.valueOf(globalVersion + increment));
             globalDataNode.selectSingleNode("count").setText(String.valueOf((Integer.parseInt(globalDataNode.selectSingleNode("count").getText())+increment)));
             Save(globalVersionXml, sourceUrl + "version.xml");
-            // æ›´æ–°è¿œç¨‹å¿«ç…§
-            // éœ€åœ¨ä¸šåŠ¡é€»è¾‘å±‚å®Œ
+            // ¸üĞÂÔ¶³Ì¿ìÕÕ
+            // ĞèÔÚÒµÎñÂß¼­²ãÍê
 
-            // å­˜å‚¨æœ¬åœ°setting
+            // ´æ´¢±¾µØsetting
             ((Element)settingXml.selectNodes("//slastVersion").get(0)).setText(String.valueOf(slastVersion + increment));
             ((Element)settingXml.selectNodes("//snumber").get(0)).setText(String.valueOf(snumber + increment));
             Save(settingXml,getRelPathByPathType(xmlType.setting));
         }
-        else // ***å¦‚æœæœåŠ¡å™¨åœ¨æ¨é€æ—¶æœ‰å…¶ä»–ç‰ˆæœ¬æ›´æ–°ï¼ˆå­˜åœ¨ç‰ˆæœ¬å†²çªçš„æƒ…å†µï¼‰
+        else // ***Èç¹û·şÎñÆ÷ÔÚÍÆËÍÊ±ÓĞÆäËû°æ±¾¸üĞÂ£¨´æÔÚ°æ±¾³åÍ»µÄÇé¿ö£©
         {
             //foreach (XmlNode item in localUpdateList)
             //{
-            //    globalVersionXml.ImportNode(item, true); // å°†èŠ‚ç‚¹å¤åˆ¶
+            //    globalVersionXml.ImportNode(item, true); // ½«½Úµã¸´ÖÆ
             //}
             Map<String, List<Element>> localDc = new HashMap<String, List<Element>>();
             Map<String, List<Element>> globalDc = new HashMap<String, List<Element>>();
@@ -1290,11 +1290,11 @@ public class DAL {
                 for (Element operation : (List<Element>)item.selectNodes("//operation"))
                 {
                     String oid = operation.valueOf("@OperateOid");
-                    if (localDc.containsKey(oid))// å¦‚åŒ…å«
+                    if (localDc.containsKey(oid))// Èç°üº¬
                     {
                         localDc.get(oid).add(operation);
                     }
-                    else// å¦‚ä¸åŒ…å«keyåˆ™åˆå§‹åŒ–
+                    else// Èç²»°üº¬keyÔò³õÊ¼»¯
                     {
                         localDc.put(oid, new ArrayList<Element>());
                         localDc.get(oid).add(operation);
@@ -1306,42 +1306,42 @@ public class DAL {
                 for (Element operation : (List<Element>)item.selectNodes("//operation"))
                 {
                     String oid = operation.valueOf("@OperateOid");
-                    if (globalDc.containsKey(oid))// å¦‚åŒ…å«
+                    if (globalDc.containsKey(oid))// Èç°üº¬
                     {
                         globalDc.get(oid).add(operation);
                     }
-                    else// å¦‚ä¸åŒ…å«keyåˆ™åˆå§‹åŒ–
+                    else// Èç²»°üº¬keyÔò³õÊ¼»¯
                     {
                         globalDc.put(oid, new ArrayList<Element>());
                         globalDc.get(oid).add(operation);
                     }
                 }
             }
-            // å­˜å‚¨å†²çªçš„æ“ä½œid
+            // ´æ´¢³åÍ»µÄ²Ù×÷id
             List<String> conflictList = new ArrayList<String>();
             for (Map.Entry<String,List<Element>> value : localDc.entrySet())
             {
-                if (globalDc.containsKey(value.getKey())) {// å¦‚å­˜åœ¨å†²çª
-                    // å­˜å…¥å†²çªåºåˆ—
+                if (globalDc.containsKey(value.getKey())) {// Èç´æÔÚ³åÍ»
+                    // ´æÈë³åÍ»ĞòÁĞ
                     conflictList.add(value.getKey());
                 }
             }
 
-            // ***å­˜å‚¨åˆ é™¤çš„å†²çªèŠ‚ç‚¹
+            // ***´æ´¢É¾³ıµÄ³åÍ»½Úµã
             List<Element> removeNodeList = new ArrayList<Element>();
 
             for (String item : conflictList)
             {
-                // å¦‚æœlocalå­—å…¸ä¸­å­˜åœ¨itemåˆ™ç§»é™¤
+                // Èç¹ûlocal×ÖµäÖĞ´æÔÚitemÔòÒÆ³ı
                 if (localDc.containsKey(item)) {
-                    // è¿™é‡Œéå†çš„æ˜¯List<XmlNode>
+                    // ÕâÀï±éÀúµÄÊÇList<XmlNode>
                     for (Element node : localDc.get(item))
                     {
                         removeNodeList.add(node.createCopy());
 
                         //foreach (XmlNode version in localUpdateList)
                         //{
-                        //    // ç§»é™¤èŠ‚ç‚¹
+                        //    // ÒÆ³ı½Úµã
                         //    try
                         //    {
                         //        removeNodeList.Add(version.RemoveChild(node));
@@ -1354,15 +1354,15 @@ public class DAL {
                     }
                 }
 
-                // å¦‚æœglobalå­—å…¸ä¸­å­˜åœ¨itemåˆ™ç§»é™¤
+                // Èç¹ûglobal×ÖµäÖĞ´æÔÚitemÔòÒÆ³ı
                 if (globalDc.containsKey(item)) {
-                    // è¿™é‡Œéå†çš„æ˜¯List<XmlNode>
+                    // ÕâÀï±éÀúµÄÊÇList<XmlNode>
                     for (Element node : globalDc.get(item))
                     {
                         removeNodeList.add(node.createCopy());
                         //foreach (XmlNode version in globalUpdateList)
                         //{
-                        //    // ç§»é™¤èŠ‚ç‚¹
+                        //    // ÒÆ³ı½Úµã
                         //    try
                         //    {
                         //        removeNodeList.Add(version.RemoveChild(node));
@@ -1374,11 +1374,11 @@ public class DAL {
                         //}
                     }
                 }
-            }// ç§»é™¤èŠ‚ç‚¹ç»“æŸ
+            }// ÒÆ³ı½Úµã½áÊø
 
-            // æ­¤æ—¶è¯¥removeNodeListè®°å½•äº†æ‰€æœ‰çš„å†²çªï¼Œå¹¶ä¸”ä¿©ä¸ªupdateListä¸­çš„å†²çªèŠ‚ç‚¹å·²ç§»é™¤
-            List<Element> conflictResList = new ArrayList<Element>(); // ç”¨äºå†²çªå¤„ç†çš„åºåˆ—
-            // è§£å†³å®Œå†²çªè·å¾—çš„operationå¯¹è±¡åºåˆ—
+            // ´ËÊ±¸ÃremoveNodeList¼ÇÂ¼ÁËËùÓĞµÄ³åÍ»£¬²¢ÇÒÁ©¸öupdateListÖĞµÄ³åÍ»½ÚµãÒÑÒÆ³ı
+            List<Element> conflictResList = new ArrayList<Element>(); // ÓÃÓÚ³åÍ»´¦ÀíµÄĞòÁĞ
+            // ½â¾öÍê³åÍ»»ñµÃµÄoperation¶ÔÏóĞòÁĞ
             List<Element> updateOperationList = new ArrayList<Element>();
             String last="";
             for (Element item : removeNodeList)
@@ -1388,9 +1388,9 @@ public class DAL {
                 if (last == oid) {
                     conflictResList.add(item);
                 }
-                else // å¦‚ä¸ç­‰åŒè¡¨ç¤ºåŒä¸€idçš„å†²çªå·²å¡«å……å®Œæˆ
+                else // Èç²»µÈÍ¬±íÊ¾Í¬Ò»idµÄ³åÍ»ÒÑÌî³äÍê³É
                 {
-                    // å†²çªå¤„ç†ï¼Œå­˜å…¥åˆå¹¶åçš„æ“ä½œåºåˆ—
+                    // ³åÍ»´¦Àí£¬´æÈëºÏ²¢ºóµÄ²Ù×÷ĞòÁĞ
                     updateOperationList.add(conflicRes(conflictResList));
                     conflictResList = new ArrayList<Element>();
                     conflictResList.add(item);
@@ -1398,13 +1398,13 @@ public class DAL {
                 }
             }
 
-            // updateOperationListä¸ºXmlNodeé›†åˆï¼Œæ­¤æ—¶å†²çªå¤„ç†å®Œæˆ
-            // å°†æœ¬åœ°åº“ç‰ˆæœ¬æ¨åˆ°è¿œç¨‹ç‰ˆæœ¬åº“
-            // ç›´æ¥å°†æ–°çš„ç‰ˆæœ¬ç´¯åŠ åˆ°ç‰ˆæœ¬åº“ä¸­
+            // updateOperationListÎªXmlNode¼¯ºÏ£¬´ËÊ±³åÍ»´¦ÀíÍê³É
+            // ½«±¾µØ¿â°æ±¾ÍÆµ½Ô¶³Ì°æ±¾¿â
+            // Ö±½Ó½«ĞÂµÄ°æ±¾ÀÛ¼Óµ½°æ±¾¿âÖĞ
             for (Element item : localUpdateList)
             {
                 ((Element)item).addAttribute("num", (++globalNum) + "");
-                //globalDataNode.AppendChild(globalVersionXml.ImportNode(item, true)); // å°†èŠ‚ç‚¹å¤åˆ¶
+                //globalDataNode.AppendChild(globalVersionXml.ImportNode(item, true)); // ½«½Úµã¸´ÖÆ
                 globalDataNode.add(item.createCopy());
                  /*
                   *
@@ -1419,7 +1419,7 @@ public class DAL {
                   * */
             }
             int increment = localUpdateList.size();
-            // å­˜å‚¨è¿œç¨‹versionåº“
+            // ´æ´¢Ô¶³Ìversion¿â
             globalDataNode.selectSingleNode("number").setText(String.valueOf(globalNum));
             globalDataNode.selectSingleNode("lastVersion").setText(String.valueOf(globalVersion + increment));
             globalDataNode.selectSingleNode("count").setText(String.valueOf(Integer.parseInt(globalDataNode.selectSingleNode("count").getText()) + increment)) ;
@@ -1435,10 +1435,10 @@ public class DAL {
             firstchild.setText(String.valueOf(Integer.parseInt(firstchild.getText())+updateOperationList.size()));
             Save(globalVersionXml, sourceUrl + "version.xml");
 
-            // ç§»é™¤åŸå…ˆçš„ç‰ˆæœ¬èŠ‚ç‚¹ï¼ŒåŒæ­¥è‡³ä¸­å¤®åº“çš„ç‰ˆæœ¬
-            // ç§»é™¤åŸå…ˆçš„dataèŠ‚ç‚¹
+            // ÒÆ³ıÔ­ÏÈµÄ°æ±¾½Úµã£¬Í¬²½ÖÁÖĞÑë¿âµÄ°æ±¾
+            // ÒÆ³ıÔ­ÏÈµÄdata½Úµã
             localVersionXml.remove(localDataNode);
-            // ç§»æ¤ä¸­å¤®åº“çš„dataèŠ‚ç‚¹
+            // ÒÆÖ²ÖĞÑë¿âµÄdata½Úµã
             //localVersionXml.AppendChild(localVersionXml.ImportNode(globalDataNode, true));
             localVersionXml.add(globalDataNode.createCopy());
              /*
@@ -1461,7 +1461,7 @@ public class DAL {
     }
 
     /// <summary>
-    /// å†²çªå¤„ç†
+    /// ³åÍ»´¦Àí
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
@@ -1473,8 +1473,8 @@ public class DAL {
             String p = ((Element)item.getParent()).valueOf("@Priority");
             if (priority.contains(p))
             {
-                // è¡¨ç¤ºå­˜åœ¨æƒé™å†²çªï¼ˆè‡³å°‘ä¸€å¯¹æ“ä½œæœ‰å†²çªï¼‰
-                // å¦‚æœè‡ªåŠ¨åˆå¹¶æ— æ•ˆåˆ™æ‰‹åŠ¨åˆå¹¶
+                // ±íÊ¾´æÔÚÈ¨ÏŞ³åÍ»£¨ÖÁÉÙÒ»¶Ô²Ù×÷ÓĞ³åÍ»£©
+                // Èç¹û×Ô¶¯ºÏ²¢ÎŞĞ§ÔòÊÖ¶¯ºÏ²¢
                 return conflictResByAdmin(list);
             }
             else {
@@ -1484,7 +1484,7 @@ public class DAL {
         return conflicResAuto(list);
     }
     /// <summary>
-    /// å†²çªè‡ªåŠ¨å¤„ç†
+    /// ³åÍ»×Ô¶¯´¦Àí
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
@@ -1492,20 +1492,20 @@ public class DAL {
         return list.get(0);
     }
     /// <summary>
-    /// å†²çªé€šè¿‡adminå¤„ç†
+    /// ³åÍ»Í¨¹ıadmin´¦Àí
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
     public Element conflictResByAdmin(List<Element> list) {
-        System.out.println("å­˜åœ¨å†²çªæ•°ç›®å…±ï¼š"+list.size());
+        System.out.println("´æÔÚ³åÍ»ÊıÄ¿¹²£º"+list.size());
         int count = 1;
         int flag;
         for (Element item : list)
         {
-            System.out.println(count+ "ã€å†²çª"+count++ + "æ˜¯ï¼š" + item.valueOf("@Oid")+":"+item.valueOf("@Type")+","+item.valueOf("@OldValue")+","+item.valueOf("@NewValue"));
+            System.out.println(count+ "¡¢³åÍ»"+count++ + "ÊÇ£º" + item.valueOf("@Oid")+":"+item.valueOf("@Type")+","+item.valueOf("@OldValue")+","+item.valueOf("@NewValue"));
         }
         while (true) {
-            System.out.println("è¯·è¾“å…¥é‡‡çº³çš„æ“ä½œï¼š");
+            System.out.println("ÇëÊäÈë²ÉÄÉµÄ²Ù×÷£º");
             Scanner scanner = new Scanner(System.in);
             flag = scanner.nextInt();
             if(flag<=list.size()) break;
@@ -1516,26 +1516,26 @@ public class DAL {
 
 
     /// <summary>
-    /// æ ¹æ®settingä¸­çš„originæ‹‰å–æœ€æ–°ç‰ˆæœ¬
+    /// ¸ù¾İsettingÖĞµÄoriginÀ­È¡×îĞÂ°æ±¾
     /// </summary>
     public boolean pullFromOrigin() {
         try{
-            // æ‰“å¼€æœ¬åœ°åº“setting
+            // ´ò¿ª±¾µØ¿âsetting
             Document settingXml = this.open(xmlType.setting);
-            String sourceUrl = ((Element)settingXml.selectNodes("//origin").get(0)).getText();   // è¿œç¨‹åº“è·¯å¾„
+            String sourceUrl = ((Element)settingXml.selectNodes("//origin").get(0)).getText();   // Ô¶³Ì¿âÂ·¾¶
             String snumber = ((Element)settingXml.selectNodes("//snumber").get(0)).getText();
-            // æ‰“å¼€è¿œç¨‹åº“
+            // ´ò¿ªÔ¶³Ì¿â
             Document globalVersionXml = this.open(xmlType.version, sourceUrl + "version.xml");
             Element globalDataNode = (Element) globalVersionXml.selectSingleNode("data");
             String globalNum =globalDataNode.selectSingleNode("number").getText();
             String globalVersion = globalDataNode.selectSingleNode("lastVersion").getText();
-            // å¦‚æœä¸éœ€è¦pullåˆ™
+            // Èç¹û²»ĞèÒªpullÔò
             if (snumber == globalNum) return true;
-            // æ‰“å¼€æœ¬åœ°åº“version
+            // ´ò¿ª±¾µØ¿âversion
             Document localVersionXml = this.open(xmlType.version);
             Element localDataNode = (Element) localVersionXml.selectSingleNode("data");
 
-            // æ›´æ–°æœ¬åœ°ç‰ˆæœ¬åº“
+            // ¸üĞÂ±¾µØ°æ±¾¿â
             localVersionXml.remove(localDataNode);
             //  localVersionXml.AppendChild(localVersionXml.ImportNode(globalDataNode,true));
             localVersionXml.add(globalDataNode.createCopy());
@@ -1547,11 +1547,11 @@ public class DAL {
           *
           * */
             Save(localVersionXml,this.getRelPathByPathType(xmlType.version));
-            // æ›´æ–°setting
+            // ¸üĞÂsetting
             ((Element)settingXml.selectNodes("//slastVersion").get(0)).setText(globalVersion);
             ((Element)settingXml.selectNodes("//snumber").get(0)).setText(globalNum);
             Save(settingXml,this.getRelPathByPathType(xmlType.setting));
-            // é‡ç½®å¿«ç…§
+            // ÖØÖÃ¿ìÕÕ
             this.appendPhotoByLastVersion();
             return true;
         }
@@ -1560,9 +1560,9 @@ public class DAL {
         }
     }
     /// <summary>
-    /// æ ¹æ®é…ç½®çš„è·¯å¾„è·å–Photoåˆ—è¡¨
+    /// ¸ù¾İÅäÖÃµÄÂ·¾¶»ñÈ¡PhotoÁĞ±í
     /// </summary>
-    /// <returns>photoå¯¹è±¡çš„åºåˆ—</returns>
+    /// <returns>photo¶ÔÏóµÄĞòÁĞ</returns>
     public List<PhotoFather> getPhotoList() throws Exception
     {
         List<PhotoFather> list = new ArrayList<PhotoFather>();
@@ -1597,9 +1597,9 @@ public class DAL {
     }
 
     /// <summary>
-    /// è·å–Versionè¡¨ä¸­å…¨éƒ¨çš„versionlist
+    /// »ñÈ¡Version±íÖĞÈ«²¿µÄversionlist
     /// </summary>
-    /// <returns>versionlistçš„åˆ—è¡¨</returns>
+    /// <returns>versionlistµÄÁĞ±í</returns>
     public List<OVersion> getVersionList() throws Exception
     {
         List<OVersion> list = new ArrayList<OVersion>();
@@ -1608,7 +1608,7 @@ public class DAL {
         for (Element item : (List<Element>)dataNode.selectNodes("version"))
         {
             List<OperationFather> subList = new ArrayList<OperationFather>();
-            // éå†è·å–versionä¸­çš„operation
+            // ±éÀú»ñÈ¡versionÖĞµÄoperation
             for (Element operationNode : (List<Element>)item.selectNodes("operation"))
             {
                 OperationFather operation = new OperationFather(
@@ -1629,7 +1629,7 @@ public class DAL {
                 }
                 subList.add(operation);
             }
-            // è¿™é‡Œéå†è·å–çš„æ˜¯version
+            // ÕâÀï±éÀú»ñÈ¡µÄÊÇversion
             list.add(new OVersion(
                             subList,
                             Long.parseLong(item.valueOf("@Time")),
@@ -1655,7 +1655,7 @@ public class DAL {
         {
             Element item = (Element)versionList.get(i);
             List<OperationFather> subList = new ArrayList<OperationFather>();
-            // éå†è·å–versionä¸­çš„operation
+            // ±éÀú»ñÈ¡versionÖĞµÄoperation
             for (Element operationNode : (List<Element>)item.selectNodes("operation"))
             {
                 OperationFather operation = new OperationFather(
@@ -1676,7 +1676,7 @@ public class DAL {
                 }
                 subList.add(operation);
             }
-            // è¿™é‡Œéå†è·å–çš„æ˜¯version
+            // ÕâÀï±éÀú»ñÈ¡µÄÊÇversion
             list.add(new OVersion(
                     subList,
                     Long.parseLong(item.valueOf("@Time")),
@@ -1690,9 +1690,9 @@ public class DAL {
     }
 
     /// <summary>
-    /// è·å–Operationè¡¨ä¸­çš„operationlist
+    /// »ñÈ¡Operation±íÖĞµÄoperationlist
     /// </summary>
-    /// <returns>å½“å‰æ“ä½œåºåˆ—ï¼ˆæœªæäº¤ï¼‰</returns>
+    /// <returns>µ±Ç°²Ù×÷ĞòÁĞ£¨Î´Ìá½»£©</returns>
     public List<OperationFather> getOperationList() throws Exception
     {
         List<OperationFather> list = new ArrayList<OperationFather>();
@@ -1722,10 +1722,10 @@ public class DAL {
     }
 
     /// <summary>
-    /// è·å–å½“å‰ç‰ˆæœ¬ä½ç½®
+    /// »ñÈ¡µ±Ç°°æ±¾Î»ÖÃ
     /// </summary>
-    /// <param name="xType">æ–‡æ¡£ç±»å‹</param>
-    /// <returns>ç‰ˆæœ¬ä½ç½®</returns>
+    /// <param name="xType">ÎÄµµÀàĞÍ</param>
+    /// <returns>°æ±¾Î»ÖÃ</returns>
     public int getLastVersion(xmlType xType) throws Exception
     {
         if (xType == xmlType.operation || xType == xmlType.buffer || xType == xmlType.setting)
@@ -1738,27 +1738,27 @@ public class DAL {
     }
 
     /// <summary>
-    /// åºåˆ—åŒ–å¯¹è±¡æˆå­—ç¬¦ä¸²
+    /// ĞòÁĞ»¯¶ÔÏó³É×Ö·û´®
     /// </summary>
-    /// <param name="obj">éœ€è¦åºåˆ—åŒ–çš„å¯¹è±¡</param>
-    /// <returns>åºåˆ—åŒ–åçš„å­—ç¬¦ä¸²</returns>
+    /// <param name="obj">ĞèÒªĞòÁĞ»¯µÄ¶ÔÏó</param>
+    /// <returns>ĞòÁĞ»¯ºóµÄ×Ö·û´®</returns>
     public String serialize(Object obj) throws Exception
     {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
         objectOutputStream.writeObject(obj);
-        String serStr = byteArrayOutputStream.toString("ISO-8859-1");//å¿…é¡»æ˜¯ISO-8859-1
-        serStr = java.net.URLEncoder.encode(serStr, "UTF-8");//ç¼–ç åå­—ç¬¦ä¸²ä¸æ˜¯ä¹±ç ï¼ˆä¸ç¼–ä¹Ÿä¸å½±å“åŠŸèƒ½ï¼‰
+        String serStr = byteArrayOutputStream.toString("ISO-8859-1");//±ØĞëÊÇISO-8859-1
+        serStr = java.net.URLEncoder.encode(serStr, "UTF-8");//±àÂëºó×Ö·û´®²»ÊÇÂÒÂë£¨²»±àÒ²²»Ó°Ïì¹¦ÄÜ£©
         objectOutputStream.close();
         byteArrayOutputStream.close();
         return serStr;
     }
 
     /// <summary>
-    /// ååºåˆ—åŒ–å¯¹è±¡
+    /// ·´ĞòÁĞ»¯¶ÔÏó
     /// </summary>
-    /// <param name="objStr">è¢«åºåˆ—åŒ–çš„å¯¹è±¡ï¼ˆstringç±»å‹ï¼‰</param>
-    /// <returns>å¯¹è±¡</returns>
+    /// <param name="objStr">±»ĞòÁĞ»¯µÄ¶ÔÏó£¨stringÀàĞÍ£©</param>
+    /// <returns>¶ÔÏó</returns>
     public Object deSerialize(String serStr) throws Exception
     {
         String redStr = java.net.URLDecoder.decode(serStr, "UTF-8");

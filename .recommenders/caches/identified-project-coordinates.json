@@ -1,1 +1,1 @@
-{}
+[[{"location":"D:\\BIMServer\\Shared","type":"PROJECT","hints":{"PROJECT_NAME":"Shared"}},"BimServer:BimServer:1.0.0"],[{"location":"D:\\BIMServer\\Shared\\lib\\other\\servlet-api-3.1.jar","type":"JAR","hints":{}},"javax.servlet:javax.servlet-api:3.1.0"],[{"location":"C:\\Program Files\\Java\\jdk1.8.0_66","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"],[{"location":"C:\\Program Files\\Java\\jdk1.8.0_66","type":"JRE","hints":{}},"jre:jre:1.8.0"]]

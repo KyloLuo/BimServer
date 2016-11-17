@@ -35,12 +35,12 @@ public class PhotoFather {
     }
 
     /// <summary>
-    /// åˆ›å»ºå¿«ç…§å¯¹è±¡
+    /// ´´½¨¿ìÕÕ¶ÔÏó
     /// </summary>
-    /// <param name="operateOid">æ“ä½œçš„å¯¹è±¡id</param>
-    /// <param name="type">æ“ä½œç¬¦ç±»å‹</param>
-    /// <param name="oldValue">åŸå§‹å€¼</param>
-    /// <param name="newValue">ä¿®æ”¹å€¼</param>
+    /// <param name="operateOid">²Ù×÷µÄ¶ÔÏóid</param>
+    /// <param name="type">²Ù×÷·ûÀàĞÍ</param>
+    /// <param name="oldValue">Ô­Ê¼Öµ</param>
+    /// <param name="newValue">ĞŞ¸ÄÖµ</param>
 //    public PhotoFather(String operateOid, operatorType type, String oldValue, String newValue){
 //        this.OperateOid = operateOid;
 //        this.OperatorType = type;
@@ -65,23 +65,23 @@ public class PhotoFather {
     public PhotoFather() { }
 
     /// <summary>
-    /// è·å–æ“ä½œçš„å¯¹è±¡id
+    /// »ñÈ¡²Ù×÷µÄ¶ÔÏóid
     /// </summary>
     /// <returns></returns>
     public String getOperateOid() {
         return this.OperateOid;
     }
     /// <summary>
-    /// è·å–æ“ä½œç¬¦
+    /// »ñÈ¡²Ù×÷·û
     /// </summary>
     /// <returns></returns>
     public operatorType getOperatorType() {
         return this.OperatorType;
     }
     /// <summary>
-    /// è·å–æ“ä½œå€¼
+    /// »ñÈ¡²Ù×÷Öµ
     /// </summary>
-    /// <returns>ValueStoreå¯¹è±¡ï¼Œå…¶ä¸­å­˜å…¥æ“ä½œçš„å€¼</returns>
+    /// <returns>ValueStore¶ÔÏó£¬ÆäÖĞ´æÈë²Ù×÷µÄÖµ</returns>
 /*    public ValueStore getValue() {
         return this.Value;
     }*/

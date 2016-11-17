@@ -1,13 +1,13 @@
 package com.modelmanage.enumtype;
 
 public enum pathType {
-    // åˆ©ç”¨æ„é€ å‡½æ•°ä¼ å‚
+    // ÀûÓÃ¹¹Ôìº¯Êı´«²Î
     local (0), global (1);
 
-    // å®šä¹‰ç§æœ‰å˜é‡
+    // ¶¨ÒåË½ÓĞ±äÁ¿
     private int nCode ;
 
-    // æ„é€ å‡½æ•°ï¼Œæšä¸¾ç±»å‹åªèƒ½ä¸ºç§æœ‰
+    // ¹¹Ôìº¯Êı£¬Ã¶¾ÙÀàĞÍÖ»ÄÜÎªË½ÓĞ
     private pathType( int _nCode) {
         this . nCode = _nCode;
     }

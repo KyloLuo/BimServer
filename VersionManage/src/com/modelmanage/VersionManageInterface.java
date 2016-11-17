@@ -10,7 +10,7 @@ import com.modelmanage.po.OperationFather;
 import com.modelmanage.po.PhotoFather;
 
 public interface VersionManageInterface {
-    // ------ ÈÖçÁΩÆÈ°π
+    // ------ ≈‰÷√œÓ
     void setConfig(String baseUrl, String userBy, String projectId) throws Exception;
     void setConfig(String baseUrl, String projectId) throws Exception;
     void setUser(String userBy);
