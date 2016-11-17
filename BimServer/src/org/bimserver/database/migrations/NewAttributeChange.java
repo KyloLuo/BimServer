@@ -63,7 +63,6 @@ public class NewAttributeChange implements Change {
 							int nrStartBytesAfter = (int) Math.ceil((nrFeaturesBefore + 1) / 8.0);
 							
 							byte x = buffer.get();
-							LOGGER.info(subClass.getEPackage().getName() + "_" + subClass.getName());
 							
 							if (x != nrStartBytesBefore) {
 								throw new BimserverDatabaseException("Size does not match");

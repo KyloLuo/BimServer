@@ -91,8 +91,7 @@ import com.google.common.base.Charsets;
 public class DatabaseSession implements LazyLoader, OidProvider<Long> {
 	public static final int DEFAULT_CONFLICT_RETRIES = 10;
 	private static final boolean DEVELOPER_DEBUG = false;
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(DatabaseSession.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseSession.class);
 	private static final EcorePackage ECORE_PACKAGE = EcorePackage.eINSTANCE;
 	private final Database database;
 	private final Set<PostCommitAction> postCommitActions = new LinkedHashSet<PostCommitAction>();
@@ -282,8 +281,6 @@ public class DatabaseSession implements LazyLoader, OidProvider<Long> {
 								+ "pid=" + object.getPid() + " oid="
 								+ object.getOid() + " rid=" + object.getRid());
 					}
-					LOGGER.info(object.eClass().getEPackage().getName() + "_"
-										+ object.eClass().getName());
 					ByteBuffer valueBuffer = convertObjectToByteArray(object,
 							reusableBuffer);// convert object to
 											// bytebuffer，这里生成了valuebuffer，引用什么的全都拼接完成
@@ -637,7 +634,6 @@ public class DatabaseSession implements LazyLoader, OidProvider<Long> {
 			fieldCounter++;
 		}
 		buffer.put((byte) unsetted.length);
-		LOGGER.info("first num is: " + unsetted.length);
 		buffer.put(unsetted);
 
 		for (EStructuralFeature feature : object.eClass()
@@ -1312,7 +1308,7 @@ public class DatabaseSession implements LazyLoader, OidProvider<Long> {
 				int keyPid = keyBuffer.getInt();
 				long keyOid = keyBuffer.getLong();
 				int keyRid = -keyBuffer.getInt();
-			LOGGER.info("TT = " + eClass.getEPackage().getName() + "_" + eClass.getName() + "pid = " + keyPid + ", Oid = " + keyOid + ", Rid = " + keyRid);
+			LOGGER.debug("Acmood = " + eClass.getEPackage().getName() + "_" + eClass.getName() + "pid = " + keyPid + ", Oid = " + keyOid + ", Rid = " + keyRid);
 				ByteBuffer valueBuffer = ByteBuffer.wrap(record.getValue());
 				GetResult map = getMap(eClass, eClass, ifcModel, valueBuffer,
 						keyPid, keyOid, keyRid, query, todoList);
@@ -1960,7 +1956,7 @@ public class DatabaseSession implements LazyLoader, OidProvider<Long> {
 				}
 				object.load();
 				((IdEObjectImpl) object).setPid(pid);
-				LOGGER.info("rid = "+ object.getRid() + ", oid = " + object.getOid() + ", rid = " + rid);
+				LOGGER.debug("Acmood rid = "+ object.getRid() + ", oid = " + object.getOid() + ", rid = " + rid);
 				if (rid == Integer.MAX_VALUE) {
 					((IdEObjectImpl) object).setRid(object.getRid() + 1);
 				} else {
@@ -2057,7 +2053,6 @@ public class DatabaseSession implements LazyLoader, OidProvider<Long> {
 			ByteBuffer buffer, EStructuralFeature feature)
 			throws BimserverDatabaseException {
 		Short cid = database.getCidOfEClass(((EObject) value).eClass());
-		System.out.println("cid = " + cid);
 		buffer.putShort(cid);
 		IdEObject idEObject = (IdEObject) value;
 		if (idEObject.getOid() < 0) {

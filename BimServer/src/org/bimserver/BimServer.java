@@ -414,10 +414,10 @@ public class BimServer {
 
 			serverSettingsCache = new ServerSettingsCache(bimDatabase);//5
 
-LOGGER.info("-0 --");
+LOGGER.debug("-0 --");
 			serverInfoManager.update();
 
-			LOGGER.info("0 --");
+			LOGGER.debug("0 --");
 			if (serverInfoManager.getServerState() == ServerState.MIGRATION_REQUIRED) {
 				serverInfoManager.registerStateChangeListener(new StateChangeListener() {
 					@Override
@@ -425,7 +425,7 @@ LOGGER.info("-0 --");
 						if (oldState == ServerState.MIGRATION_REQUIRED && newState == ServerState.RUNNING) {
 							try {
 
-								LOGGER.info("0_1 --");
+								LOGGER.debug("0_1 --");
 								initDatabaseDependantItems();
 							} catch (BimserverDatabaseException e) {
 								LOGGER.error("", e);
@@ -434,33 +434,33 @@ LOGGER.info("-0 --");
 					}
 				});
 			} else {
-				LOGGER.info("0_2 --");
+				LOGGER.debug("0_2 --");
 				initDatabaseDependantItems();
 			}
-			LOGGER.info("1 --");
+			LOGGER.debug("1 --");
 			mailSystem = new MailSystem(this);
 
 			diskCacheManager = new DiskCacheManager(this, new File(config.getHomeDir(), "cache"));//
 
 			mergerFactory = new MergerFactory(this);
-			LOGGER.info("2 --");
+			LOGGER.debug("2 --");
 
 			FileBasedReflectorFactoryBuilder factoryBuilder = new FileBasedReflectorFactoryBuilder();
 			reflectorFactory = factoryBuilder.newReflectorFactory();
 			if (reflectorFactory == null) {
 				throw new RuntimeException("No reflector factory!");
 			}
-			LOGGER.info("3 --");
+			LOGGER.debug("3 --");
 			servicesMap.setReflectorFactory(reflectorFactory);
 			bimScheduler = new JobScheduler(this);
-			LOGGER.info("4 --");
+			LOGGER.debug("4 --");
 			bimScheduler.start();
 
-			LOGGER.info("5 --");
+			LOGGER.debug("5 --");
 			if (config.isStartEmbeddedWebServer()) {
 				embeddedWebServer.start();
 			}
-			LOGGER.info("6 --");
+			LOGGER.debug("6 --");
 			
 			if (config.isStartCommandLine()) {
 				commandLine = new CommandLine(this);
@@ -739,9 +739,9 @@ LOGGER.info("-0 --");
 					}
 				}
 			}
-			LOGGER.info("Fuck Setting Route1");
+			LOGGER.debug("Acmood Setting Route1");
 			session.store(serverSettings);
-			LOGGER.info("Fuck Setting Route2");
+			LOGGER.debug("Acmood Setting Route2");
 			
 			Condition condition = new AttributeCondition(StorePackage.eINSTANCE.getUser_Username(), new StringLiteral("system"));
 			User systemUser = session.querySingle(condition, User.class, Query.getDefault());
@@ -750,7 +750,7 @@ LOGGER.info("-0 --");
 			serverStarted.setDate(new Date());
 			serverStarted.setAccessMethod(AccessMethod.INTERNAL);
 			serverStarted.setExecutor(systemUser);
-			LOGGER.info("Fuck Setting Route3");
+			LOGGER.debug("Acmood Setting Route3");
 			try {
 				session.store(serverStarted);
 				session.commit();
@@ -761,7 +761,7 @@ LOGGER.info("-0 --");
 			} finally {
 				session.close();
 			}
-			LOGGER.info("Fuck Setting Route4");
+			LOGGER.debug("Acmood Setting Route4");
 			
 			webModules = new HashMap<String, WebModulePlugin>();
 			DatabaseSession ses = bimDatabase.createSession();
@@ -783,7 +783,7 @@ LOGGER.info("-0 --");
 				ses.close();
 			}
 
-			LOGGER.info("Fuck Setting Route5");
+			LOGGER.debug("Acmood Setting Route5");
 			Integer protocolBuffersPort = getServerSettingsCache().getServerSettings().getProtocolBuffersPort();
 			if (protocolBuffersPort >= 1 && protocolBuffersPort <= 65535) {
 				try {
@@ -796,7 +796,7 @@ LOGGER.info("-0 --");
 			
 			bimServerClientFactory = new DirectBimServerClientFactory<ServiceInterface>(serverSettingsCache.getServerSettings().getSiteAddress(), serviceFactory, servicesMap, pluginManager, metaDataManager);
 			pluginManager.setBimServerClientFactory(bimServerClientFactory);
-			LOGGER.info("Fuck Setting Route6");
+			LOGGER.debug("Acmood Setting Route6");
 		} catch (BimserverLockConflictException e) {
 			throw new BimserverDatabaseException(e);
 		} catch (PluginException e) {

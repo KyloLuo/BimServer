@@ -16,8 +16,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 
 public class MongoSearchingRecordIterator implements SearchingRecordIterator {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(MongoSearchingRecordIterator.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MongoSearchingRecordIterator.class);
 
 
 	private final FindIterable<Document> cursor;
@@ -46,7 +45,7 @@ public class MongoSearchingRecordIterator implements SearchingRecordIterator {
 		int pid = -2; if(len >= 4) pid = buff.getInt();
 		long oid = -2; if(len >= 12) oid = buff.getLong();
 		int rid = -2; if(len >= 16) rid = -buff.getInt();	
-		LOGGER.info(str + "Searching content is: len = " + len + ", pid = " + pid + ", oid = " + oid + ", rid = " + rid);		
+		LOGGER.debug(str + "Searching content is: len = " + len + ", pid = " + pid + ", oid = " + oid + ", rid = " + rid);		
 	}
 	
 	/*
@@ -91,7 +90,7 @@ public class MongoSearchingRecordIterator implements SearchingRecordIterator {
 	public MongoRecord getFirstNext(byte[] startSearchingAt) throws BimserverLockConflictException  {
 		nextStartSearchingAt = null;
 		Document document = mongoKeyValueStore.getLastDocument(startSearchingAt);
-		LOGGER.info("FUCK tableName = " + tableName + ", count = " + mongoKeyValueStore.count(tableName) + ", oid = " + document.getLong("oid"));
+		LOGGER.debug("Acmood tableName = " + tableName + ", count = " + mongoKeyValueStore.count(tableName) + ", oid = " + document.getLong("oid"));
 		mongoRealIterator = new MongoRealIterator(getCursor(startSearchingAt), mustStartWith);
 		return mongoRealIterator.getFirstNext(startSearchingAt);
 	}

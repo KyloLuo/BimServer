@@ -31,6 +31,5 @@ public class NewPackageChange implements Change {
 
 	@Override
 	public void change(Database database, DatabaseSession databaseSession) {
-		LOGGER.info("whereareyou ......... PackageChange");
 	}
 }

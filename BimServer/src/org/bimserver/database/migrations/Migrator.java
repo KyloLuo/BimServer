@@ -109,7 +109,6 @@ public class Migrator {
 
 	private Schema upgrade(DatabaseSession databaseSession, int applicationSchemaVersion, int databaseSchemaVersion) throws MigrationException, InconsistentModelsException {
 		Schema schema = new Schema();
-		LOGGER.info("applicationSchemaVersion = " + applicationSchemaVersion + ", databaseSchemaVersion = " + databaseSchemaVersion);
 		for (int i = 0; i <= applicationSchemaVersion; i++) {
 			Migration migration = getMigration(i);
 			if (migration != null) {
@@ -166,7 +165,6 @@ public class Migrator {
 	}
 
 	public boolean migrationRequired() {
-		LOGGER.info("TorF = " + database.getApplicationSchemaVersion() + " and " + database.getDatabaseSchemaVersion());
 		return database.getApplicationSchemaVersion() > database.getDatabaseSchemaVersion();
 	}
 

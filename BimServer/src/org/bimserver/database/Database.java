@@ -276,7 +276,6 @@ public class Database implements BimDatabase {
 			Record record = recordIterator.next();
 			while (record != null) {
 				String packageAndClassName = BinUtils.byteArrayToString(record.getValue());
-				System.out.println(packageAndClassName);
 				String packageName = packageAndClassName.substring(0, packageAndClassName.indexOf("_"));
 				String className = packageAndClassName.substring(packageAndClassName.indexOf("_") + 1);
 				EClass eClass = (EClass) getEClassifier(packageName, className);

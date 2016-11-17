@@ -118,7 +118,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 
 	@Override
 	public	RecordIterator getRecordIterator(String tableName, DatabaseSession databaseSession) throws BimserverLockConflictException, BimserverDatabaseException{
-		LOGGER.info("Fuck Record :" + tableName);
+		LOGGER.debug("Acmood Record :" + tableName);
 		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(tableName);
 		FindIterable<Document> iterables = mongoCollection.find(); 
 		MongoRecordIterator mongoRecordIterator = new MongoRecordIterator(iterables, this, cursorCounter.incrementAndGet(), tableName);
@@ -129,7 +129,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 	public	SearchingRecordIterator getRecordIterator(String tableName, byte[] mustStartWith, byte[] startSearchingAt, DatabaseSession databaseSession) throws BimserverLockConflictException,
 			BimserverDatabaseException{
 
-		LOGGER.info("Fuck SearchingRecord :" + tableName);
+		LOGGER.debug("Acmood SearchingRecord :" + tableName);
 		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(tableName);
 		FindIterable<Document> iterables = mongoCollection.find();
 		MongoSearchingRecordIterator mongoSearchingRecordIterator = new MongoSearchingRecordIterator(iterables, this, cursorCounter.incrementAndGet(), mustStartWith, startSearchingAt, tableName);
@@ -168,7 +168,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 	@Override
 	public	void storeNoOverwrite(String tableName, byte[] key, byte[] value, int offset, int length, DatabaseSession databaseSession) throws BimserverDatabaseException, BimserverLockConflictException{
 
-		LOGGER.info("Fuck StoreNoWrite :" + tableName);
+		LOGGER.debug("Acmood StoreNoWrite :" + tableName);
 
 		Document document = getDocument(key, value);
 
@@ -204,7 +204,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 
 	@Override
 	public	void store(String tableName, byte[] key, byte[] value, int offset, int length, DatabaseSession databaseSession) throws BimserverDatabaseException, BimserverLockConflictException{
-		LOGGER.info("Fuck StoreOffLen :" + tableName);
+		LOGGER.debug("Acmood StoreOffLen :" + tableName);
 		
 		Document document = getDocument(key, value);
 		Document lastDocument = getLastDocument(key);
@@ -223,7 +223,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 
 	@Override
 	public	byte[] getFirstStartingWith(String tableName, byte[] key, DatabaseSession databaseSession) throws BimserverLockConflictException, BimserverDatabaseException{
-		LOGGER.info("Fuck Firstget :" + tableName);
+		LOGGER.debug("Acmood Firstget :" + tableName);
 		Document lastDocument = getLastDocument(key);
 		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(tableName);
 		MongoCursor<Document> mongoCursor = mongoCollection.find(FindKeyeq(lastDocument)).iterator();
@@ -237,7 +237,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 	@Override
 	public	byte[] get(String tableName, byte[] key, DatabaseSession databaseSession) throws BimserverLockConflictException, BimserverDatabaseException{
 		if(tableName == ban1 || tableName == ban2) return MongoBothByte.get(tableName, key, mongoDatabase);
-		LOGGER.info("Fuck JustGet :" + tableName + ", keylength = " + key.length);
+		LOGGER.debug("Acmood JustGet :" + tableName + ", keylength = " + key.length);
 		Document lastDocument = getLastDocument(key);
 		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(tableName);
 		MongoCursor<Document> mongoCursor = mongoCollection.find(FindKeyeq(lastDocument)).iterator();
@@ -276,7 +276,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 
 	@Override
 	public	void store(String tableName, byte[] key, byte[] value, DatabaseSession databaseSession) throws BimserverLockConflictException, BimserverDatabaseException{
-		LOGGER.info("Fuck OnlyStore :" + tableName);
+		LOGGER.debug("Acmood OnlyStore :" + tableName);
 		if(tableName == ban1 || tableName == ban2) {
 			MongoBothByte.store(tableName, key, value, mongoDatabase);
 			return ;
@@ -297,7 +297,7 @@ public class MongoKeyValueStore implements KeyValueStore{
 
 	@Override
 	public	void delete(String tableName, byte[] key, DatabaseSession databaseSession) throws BimserverLockConflictException{
-		LOGGER.info("Fuck delete :" + tableName);
+		LOGGER.debug("Acmood delete :" + tableName);
 		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(tableName);
 		Document document = getLastDocument(key);
 		mongoCollection.deleteMany(FindKeyeq(document));
