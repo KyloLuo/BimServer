@@ -49,7 +49,7 @@
 		<appender-ref ref="OutConsole" />
 	</logger>
 	<logger name="org.bimserver.ifcengine">
-		<level value="info" />
+		<level value="error" />
 		<appender-ref ref="ErrorConsole" />
 		<appender-ref ref="OutConsole" />
 	</logger>
@@ -63,7 +63,7 @@
 		<appender-ref ref="ErrorConsole" />
 	</logger>
 	<root>
-		<priority value="info" />
+		<priority value="error" />
 		<appender-ref ref="ErrorConsole" />
 		<appender-ref ref="OutConsole" />
 	</root>
